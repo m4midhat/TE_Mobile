@@ -1,4 +1,4 @@
-package org.te.app.android.tests.appTests;
+package org.te.app.android.tests.appTests.prospectUser;
 
 import com.github.javafaker.Faker;
 import org.te.app.android.assertionConstants.signUpScreenConstants;
@@ -10,12 +10,14 @@ public class SignUpTest extends BaseTest {
 
     @Test(description = "Verify screen header")
     public void verifyScreenHeader(){
-        Assert.assertEquals(signUpScreen.getHeader(), signUpScreenConstants.HEADER);
+        String header = signUpScreen.getHeader();
+        Assert.assertEquals(header, signUpScreenConstants.HEADER, "Incorrect text for screen header, expected value: "+ signUpScreenConstants.HEADER+" Received value: "+ header);
     }
 
     @Test(description = "Verify screen title")
     public void verifyScreenTitle(){
-        Assert.assertEquals(signUpScreen.getTitle(), signUpScreenConstants.TITLE);
+        String title = signUpScreen.getTitle();
+        Assert.assertEquals(title, signUpScreenConstants.TITLE, "Incorrect screen title, expected value: "+ signUpScreenConstants.TITLE+" Received value: "+ title);
     }
 
     @Test(priority = 1, description = "Sign up to Application")

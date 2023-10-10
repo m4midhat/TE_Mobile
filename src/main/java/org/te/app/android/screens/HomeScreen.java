@@ -3,6 +3,10 @@ package org.te.app.android.screens;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomeScreen {
 
@@ -66,7 +70,9 @@ public class HomeScreen {
         return welcomeScreenCross().isDisplayed();
     }
 
-    public void clickCrossBtnForPopUp(){
+    public void clickCrossBtnForPopUp() {
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofMillis(1500));
+        wait.until(ExpectedConditions.visibilityOf(welcomeScreenCross()));
         welcomeScreenCross().click();
     }
 

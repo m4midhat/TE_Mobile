@@ -1,4 +1,4 @@
-package org.te.app.android.tests.appTests;
+package org.te.app.android.tests.appTests.prospectUser;
 
 import org.te.app.android.assertionConstants.showOffersScreenConstants;
 import org.te.app.android.tests.baseTest.BaseTest;
@@ -9,17 +9,19 @@ public class ShowOffersTest extends BaseTest {
 
     @Test(description = "Description Box Is Being Displayed")
     public void descriptionBoxIsBeingDisplayed(){
-        Assert.assertTrue(showOffersScreen.descriptionBoxIsBeingDisplayed());
+        Assert.assertTrue(showOffersScreen.descriptionBoxIsBeingDisplayed(), "Description box is not displayed");
     }
 
     @Test(description = "verify Description Title")
     public void verifyDescriptionTitle(){
-        Assert.assertEquals(showOffersScreen.getDescriptionTitle(), showOffersScreenConstants.PreviewHeader);
+        String title = showOffersScreen.getDescriptionTitle();
+        Assert.assertEquals(title, showOffersScreenConstants.PreviewHeader,"Incorrect title, expected value: "+showOffersScreenConstants.PreviewHeader+" Received value: "+title);
     }
 
     @Test(description = "verify Description sub-title")
     public void verifyDescriptionSubTitle(){
-        Assert.assertEquals(showOffersScreen.getDescriptionText(), showOffersScreenConstants.PreviewSubText);
+        String subtitle=showOffersScreen.getDescriptionText();
+        Assert.assertEquals(subtitle, showOffersScreenConstants.PreviewSubText, "Incorrect sub-title text, expected value: "+showOffersScreenConstants.PreviewSubText+" Received value: "+subtitle);
     }
 
     @Test(description = "verify notify me button")
