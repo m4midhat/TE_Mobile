@@ -1,9 +1,12 @@
 package org.te.app.android.tests.appTests.prospectUser;
 
 import org.te.app.android.assertionConstants.homeScreenConstants;
+import org.te.app.android.screens.HomeScreen;
 import org.te.app.android.tests.baseTest.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class HomeTest extends BaseTest {
 
@@ -56,10 +59,42 @@ public class HomeTest extends BaseTest {
     @Test(priority = 2, description = "Verify pop-up get disappear upon clicking cross button")
     public void verifyPopUpDisappearanceOnClickingCross() {
         homeScreen.clickCrossBtnForPopUp();
-        Assert.assertTrue(homeScreen.mainRootIsDisplayed(), "Main Root panel is not displayed");
-        Assert.assertTrue(homeScreen.cardIsDisplayed(), "Card is not displayed");
-        Assert.assertTrue(homeScreen.bannerImageIsDisplayed(), "Banner is not displayed");
-        Assert.assertTrue(homeScreen.toolBarIsDisplayed(), "Toolbar is not displayed");
+        Assert.assertTrue(homeScreen.homeScreenElementIsDisplayed(), "Home screen is being displayed");
+        Assert.assertTrue(homeScreen.savingBannerIsDisplayed(), "Saving banner is not getting displayed");
+        Assert.assertTrue(homeScreen.heroBannerImageIsDisplayed(), "Banner is not getting displayed");
+        Assert.assertTrue(homeScreen.toolBarIsDisplayed(), "Toolbar is not getting displayed");
+        Assert.assertTrue(homeScreen.categoriesAreBeingDisplayed(), "Categories are not being displayed");
+    }
+
+    @Test(priority = 3, description = "Verify total categories are being displayed")
+    public void verifyCategories(){
+        int categories = homeScreen.totalCategoriesIcons();
+        System.out.println("Total categories found : "+ categories);
+        Assert.assertEquals(categories, 6, "Total categories should be 6, instead received: "+ categories);
+    }
+
+
+
+    @Test(priority = 4, description = "Verify the count of hero banners")
+    public void verifyHeroBannerCount(){
+        int heroBanners = homeScreen.heroBannerCount();
+        Assert.assertEquals(heroBanners, 5, "There should be 5 hero banners but "+heroBanners+" were received");
+    }
+
+    @Test(priority = 5, description = "Hero banner title verification")
+    public void verifyHeroBannerTitles(){
+        System.out.println(homeScreen.getHeroBannerTitle());
+    }
+
+    @Test(priority = 5, description = "Hero banner sub title verification")
+    public void verifyHeroBannerSubTitles(){
+        System.out.println(homeScreen.getHeroBannerSubTitle());
+    }
+
+    @Test(priority = 6, description = "Verify categories text")
+    public void verifyCategoriesText(){
+        List<String> categories = homeScreen.getCategoriesText();
+        System.out.println(categories);
     }
 
 }

@@ -59,7 +59,7 @@ public class BaseTest {
         userCredentials = new Properties();
         configProperties.load(new FileInputStream("./src/main/resources/androidDevice.properties"));
         userCredentials.load(new FileInputStream("./src/main/resources/userCredentials.properties"));
-        settingCapabilities = new DesiredCapabilities();
+        //settingCapabilities = new DesiredCapabilities();
         appCapabilities = new DesiredCapabilities();
         /*
         settingCapabilities.setCapability("platformName", configProperties.getProperty("platformName"));
@@ -89,7 +89,7 @@ public class BaseTest {
         appCapabilities.setCapability("appium:automationName", configProperties.getProperty("automationName"));
         appCapabilities.setCapability("appium:platformVersion", configProperties.getProperty("platformVersion"));
         appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
-        appCapabilities.setCapability("appium:app", System.getProperty("user.dir")+"/apps/theEntertainer_v2858_UAT.apk");
+        appCapabilities.setCapability("appium:app", System.getProperty("user.dir")+"/apps/Entertainer_8.19.08_2909_UAT.apk");
         appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
 
