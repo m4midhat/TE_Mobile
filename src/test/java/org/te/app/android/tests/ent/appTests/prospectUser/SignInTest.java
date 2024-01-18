@@ -1,12 +1,11 @@
-package org.te.app.android.tests.appTests.prospectUser;
+package org.te.app.android.tests.ent.appTests.prospectUser;
 
-import org.te.app.android.assertionConstants.signInScreenConstants;
-import org.te.app.android.tests.baseTest.BaseTest;
+import org.te.app.android.assertionConstants.ent.signInScreenConstants;
+import org.te.app.android.tests.baseTest.ent.EntertainerBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SignInTest extends BaseTest {
-
+public class SignInTest extends EntertainerBaseTest {
 
     @Test(description = "Verify if pop up is displayed")
     public void popUpDisplayed(){
@@ -130,7 +129,7 @@ public class SignInTest extends BaseTest {
         enableLocationScreen = signInScreen.clickLoginBtn();
         Assert.assertTrue(signInScreen.loaderIconIsVisible());
         boolean signedOutPopUp = signInScreen.popUpDisplayedForYouWillBeSignedOutElseWhere();
-        System.out.println(signedOutPopUp);
+        logger.info(signedOutPopUp);
         if(signedOutPopUp){
             Assert.assertEquals(signInScreen.getTextYouWillBeLoggedOutElseWhere(), signInScreenConstants.YouWillBeSignOutElseWhere);
             enableLocationScreen = signInScreen.pressLoginBtnForSecondLoginAttempt();

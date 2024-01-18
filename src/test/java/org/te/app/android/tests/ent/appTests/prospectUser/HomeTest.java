@@ -1,14 +1,16 @@
-package org.te.app.android.tests.appTests.prospectUser;
+package org.te.app.android.tests.ent.appTests.prospectUser;
 
-import org.te.app.android.assertionConstants.homeScreenConstants;
-import org.te.app.android.screens.HomeScreen;
-import org.te.app.android.tests.baseTest.BaseTest;
+import org.apache.log4j.Logger;
+import org.te.app.android.assertionConstants.ent.homeScreenConstants;
+import org.te.app.android.tests.baseTest.ent.EntertainerBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class HomeTest extends BaseTest {
+public class HomeTest extends EntertainerBaseTest {
+
+    private static final Logger logger = Logger.getLogger(HomeTest.class);
 
     @Test(description = "Verify if home screen popup is being displayed")
     public void verifyPopUpIsBeingDisplayed(){
@@ -69,7 +71,7 @@ public class HomeTest extends BaseTest {
     @Test(priority = 3, description = "Verify total categories are being displayed")
     public void verifyCategories(){
         int categories = homeScreen.totalCategoriesIcons();
-        System.out.println("Total categories found : "+ categories);
+        logger.info("Total categories found : "+ categories);
         Assert.assertEquals(categories, 6, "Total categories should be 6, instead received: "+ categories);
     }
 
@@ -78,23 +80,29 @@ public class HomeTest extends BaseTest {
     @Test(priority = 4, description = "Verify the count of hero banners")
     public void verifyHeroBannerCount(){
         int heroBanners = homeScreen.heroBannerCount();
-        Assert.assertEquals(heroBanners, 5, "There should be 5 hero banners but "+heroBanners+" were received");
+        logger.info("Total hero banners : "+heroBanners);
+        Assert.assertEquals(heroBanners, 6, "There should be 6 hero banners but "+heroBanners+" were received");
     }
 
     @Test(priority = 5, description = "Hero banner title verification")
     public void verifyHeroBannerTitles(){
-        System.out.println(homeScreen.getHeroBannerTitle());
+        logger.info(homeScreen.getHeroBannerTitle());
     }
 
     @Test(priority = 5, description = "Hero banner sub title verification")
     public void verifyHeroBannerSubTitles(){
-        System.out.println(homeScreen.getHeroBannerSubTitle());
+        logger.info(homeScreen.getHeroBannerSubTitle());
     }
 
     @Test(priority = 6, description = "Verify categories text")
     public void verifyCategoriesText(){
         List<String> categories = homeScreen.getCategoriesText();
-        System.out.println(categories);
+        logger.info(categories);
+    }
+
+    @Test(priority = 7, description = "Verify categories text")
+    public void locations() throws InterruptedException {
+        homeScreen.locations();
     }
 
 }

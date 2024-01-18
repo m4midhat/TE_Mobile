@@ -1,4 +1,4 @@
-package org.te.app.android.assertionConstants;
+package org.te.app.android.assertionConstants.ent;
 
 public class onboardingScreenConstants {
     public static String[] languages = {"English", "عربي", "Cyrillic"};

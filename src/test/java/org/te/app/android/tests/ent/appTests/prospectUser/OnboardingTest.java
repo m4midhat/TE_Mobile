@@ -1,15 +1,17 @@
-package org.te.app.android.tests.appTests.prospectUser;
+package org.te.app.android.tests.ent.appTests.prospectUser;
 
-import org.te.app.android.tests.baseTest.BaseTest;
-import org.te.app.android.assertionConstants.onboardingScreenConstants;
+import org.apache.log4j.Logger;
+import org.te.app.android.tests.baseTest.ent.EntertainerBaseTest;
+import org.te.app.android.assertionConstants.ent.onboardingScreenConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 
-public class OnboardingTest extends BaseTest {
+public class OnboardingTest extends EntertainerBaseTest {
 
+    private static final Logger logger = Logger.getLogger(OnboardingTest.class);
 
     @Test(description = "Pop-up message is being displayed upon fresh installation")
     public void languagePopUpDisplayed(){
@@ -20,7 +22,7 @@ public class OnboardingTest extends BaseTest {
     public void verifySupportedLanguages(){
         List<String> supportedLanguages = onboardingScreen.languagesText();
         for(int i=0;i<supportedLanguages.size();i++) {
-            System.out.println(supportedLanguages.get(i));
+            logger.info(supportedLanguages.get(i));
             Assert.assertEquals(supportedLanguages.get(i), onboardingScreenConstants.languages[i], "Incorrect language text, expected value : "+onboardingScreenConstants.languages[i]+" Received value: "+supportedLanguages.get(i));
         }
     }
@@ -95,7 +97,7 @@ public class OnboardingTest extends BaseTest {
     @Test(priority = 13, description = "Total sliders count")
     public void sliders(){
         int sliders = onboardingScreen.totalSliders();
-        System.out.println("Total sliders : "+sliders);
+        logger.info("Total sliders : "+sliders);
         Assert.assertEquals(sliders, onboardingScreenConstants.onBoardingSlidersCount, "Incorrect sliders count, expected value: "+onboardingScreenConstants.onBoardingSlidersCount+" Received value: "+sliders);
     }
 
@@ -103,7 +105,7 @@ public class OnboardingTest extends BaseTest {
     public void getSliderText() throws InterruptedException {
         int totalSliders =  onboardingScreen.totalSliders();
         for(int i=0;i<totalSliders;i++){
-            System.out.println(onboardingScreen.tvCardTitleText() + " : " + onboardingScreen.tvCardDescriptionText());
+            logger.info(onboardingScreen.tvCardTitleText() + " : " + onboardingScreen.tvCardDescriptionText());
             String title = onboardingScreen.tvCardTitleText();
             String description = onboardingScreen.tvCardDescriptionText();
             Assert.assertEquals(title, onboardingScreenConstants.onBoardingTVCardEnglishTitle[i], "Incorrect title for TV Card, expected value: "+ title+" Received value: "+onboardingScreenConstants.onBoardingTVCardEnglishTitle[i]);

@@ -1,13 +1,15 @@
-package org.te.app.android.tests.appTests.prospectUser;
+package org.te.app.android.tests.ent.appTests.prospectUser;
 
-import org.te.app.android.assertionConstants.enableLocationScreenConstants;
-import org.te.app.android.tests.baseTest.BaseTest;
+import org.apache.log4j.Logger;
+import org.te.app.android.assertionConstants.ent.enableLocationScreenConstants;
+import org.te.app.android.tests.baseTest.ent.EntertainerBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class EnableLocationTest extends BaseTest {
+public class EnableLocationTest extends EntertainerBaseTest {
 
     private int buttons;
+    private static final Logger logger = Logger.getLogger(EnableLocationTest.class);
 
     @Test(description = "Verify the title of the screen")
     public void verifyTitle(){
@@ -65,7 +67,7 @@ public class EnableLocationTest extends BaseTest {
     @Test(priority = 9, description = "Verify the options text")
     public void verifyOptionButtonsText(){
         for(int i = 0; i< buttons; i++){
-            System.out.println(enableLocationScreenConstants.LocationsButtonOptionsText[i]);
+            logger.info(enableLocationScreenConstants.LocationsButtonOptionsText[i]);
             Assert.assertEquals(enableLocationScreen.permissionButtonsText(i), enableLocationScreenConstants.LocationsButtonOptionsText[i], "Allowing the location popup has incorrect button text, expected value : "+ enableLocationScreenConstants.LocationsButtonOptionsText[i]+" Received value: "+enableLocationScreen.permissionButtonsText(i));
         }
     }

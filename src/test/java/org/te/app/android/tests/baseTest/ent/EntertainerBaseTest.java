@@ -1,27 +1,22 @@
-package org.te.app.android.tests.baseTest;
+package org.te.app.android.tests.baseTest.ent;
 
-import com.github.javafaker.Faker;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.te.app.android.screens.*;
+import org.te.app.android.screens.ent.*;
+import org.te.app.android.utils.utils;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public class EntertainerBaseTest {
 
     DesiredCapabilities appCapabilities;
     DesiredCapabilities settingCapabilities;
@@ -34,31 +29,12 @@ public class BaseTest {
     public static HomeScreen homeScreen;
     protected static Properties configProperties, userCredentials;
 
-    public void scrollToDirection(String direction)
-    {
-        boolean canScrollMore;
-        do
-        {
-            canScrollMore = (Boolean) ((JavascriptExecutor) androidDriver).executeScript("mobile: scrollGesture", ImmutableMap.of(
-                    "left", 100, "top", 100, "width", 200, "height", 200,
-                    "direction", direction,
-                    "percent", 3.0
-
-            ));
-        }while(canScrollMore);
-    }
-
-    public void scrollToText(String text)
-    {
-        androidDriver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\""+text+"\"));"));
-    }
-
     @BeforeSuite
     public void setUp() throws IOException, InterruptedException {
         configProperties = new Properties();
         userCredentials = new Properties();
-        configProperties.load(new FileInputStream("./src/main/resources/androidDevice.properties"));
-        userCredentials.load(new FileInputStream("./src/main/resources/userCredentials.properties"));
+        configProperties = utils.initProperties("androidDevice");
+        userCredentials = utils.initProperties("userCredentials");
         //settingCapabilities = new DesiredCapabilities();
         appCapabilities = new DesiredCapabilities();
         /*
@@ -94,7 +70,9 @@ public class BaseTest {
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
 
         androidDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), appCapabilities);
-        androidDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS );
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3000));
+        //androidDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(3000));
+        //androidDriver.manage().timeouts().scriptTimeout(Duration.ofSeconds(3000));
         onboardingScreen = new OnboardingScreen(androidDriver);
     }
 

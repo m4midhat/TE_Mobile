@@ -1,4 +1,4 @@
-package org.te.app.android.screens;
+package org.te.app.android.screens.ent;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
@@ -298,7 +298,7 @@ public class SignUpScreen {
         setDOB(mm,dd,yyyy);
         selectNationality(country);
         btnCreateAccount().click();
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         return new EnableLocationScreen(androidDriver);
     }
 

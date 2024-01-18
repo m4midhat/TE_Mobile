@@ -1,4 +1,4 @@
-package org.te.app.android.assertionConstants;
+package org.te.app.android.assertionConstants.ent;
 
 public class showOffersScreenConstants {
     public static String PreviewHeader = "Don't miss out on amazing offers!";

@@ -1,4 +1,4 @@
-package org.te.app.android.screens;
+package org.te.app.android.screens.ent;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;

@@ -1,10 +1,15 @@
-package org.te.app.android.screens;
+package org.te.app.android.screens.ent;
 
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidSelectorException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.te.app.android.utils.utils;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -193,6 +198,63 @@ public class HomeScreen {
             categoriesText.add(categories.get(i).getText().replace("\n"," ").trim());
         }
         return categoriesText;
+    }
+
+
+    public void scrollToEndAction()
+    {
+        boolean canScrollMore;
+        do
+        {
+            canScrollMore = (Boolean) ((JavascriptExecutor) androidDriver).executeScript("mobile: scrollGesture", ImmutableMap.of(
+                    "left", 100, "top", 100, "width", 200, "height", 200,
+                    "direction", "down",
+                    "percent", 3.0
+
+            ));
+        }while(canScrollMore);
+    }
+
+
+
+    public void locations() throws InterruptedException {
+        androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/ivArrowDown")).click();
+        List<WebElement> countries = androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\"]"));
+        List<String> appCountries = new ArrayList<>();
+        List<String> countriesBeforeScroll = new ArrayList<>();
+        List<String> countriesAfterScroll = new ArrayList<>();
+        for (WebElement country : countries) {
+            String countryText = country.getText();
+            System.out.println(countryText);
+            countriesBeforeScroll.add(countryText);
+        }
+        try {
+            androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(10)"));
+        } catch (InvalidSelectorException e) {
+            // ignore
+        }
+        countries = androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\"]"));
+        for (WebElement country : countries) {
+            String countryText = country.getText();
+            System.out.println(countryText);
+            countriesAfterScroll.add(countryText);
+        }
+        appCountries = utils.combineLists(countriesBeforeScroll, countriesAfterScroll);
+        System.out.println("Final List after combining both list");
+        for(String country:appCountries){
+            System.out.println(country);
+        }
+        List<String> distinctCountries = utils.removeDuplicatesFromList(appCountries);
+
+        System.out.println("Final List after removing duplicates");
+        for(String country:distinctCountries){
+            System.out.println(country);
+        }
+        Thread.sleep(5000);
+        //WebElement locationPopup = androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/design_bottom_sheet"));
+        //List<WebElement> countries = locationPopup.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\""));
+        //return androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\""));
     }
 
 }

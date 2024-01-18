@@ -1,11 +1,11 @@
-package org.te.app.android.tests.appTests.prospectUser;
+package org.te.app.android.tests.ent.appTests.prospectUser;
 
-import org.te.app.android.assertionConstants.showOffersScreenConstants;
-import org.te.app.android.tests.baseTest.BaseTest;
+import org.te.app.android.assertionConstants.ent.showOffersScreenConstants;
+import org.te.app.android.tests.baseTest.ent.EntertainerBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ShowOffersTest extends BaseTest {
+public class ShowOffersTest extends EntertainerBaseTest {
 
     @Test(description = "Description Box Is Being Displayed")
     public void descriptionBoxIsBeingDisplayed(){
