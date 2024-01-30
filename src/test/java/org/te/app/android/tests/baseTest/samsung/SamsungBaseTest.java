@@ -2,8 +2,10 @@ package org.te.app.android.tests.baseTest.samsung;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.te.app.android.screens.samsung.createAccountScreen;
 import org.te.app.android.screens.samsung.introWizardScreen;
 import org.te.app.android.screens.samsung.loginScreen;
+import org.te.app.android.screens.samsung.selectLocationScreen;
 import org.te.app.android.utils.utils;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -20,6 +22,8 @@ public class SamsungBaseTest {
     protected static Properties configProperties, userCredentials;
     protected static introWizardScreen introWizardScreen;
     protected static loginScreen loginScreen;
+    protected static createAccountScreen createAccount;
+    protected static selectLocationScreen selectLocationScreen;
 
     @BeforeSuite
     public void setUp() throws IOException {

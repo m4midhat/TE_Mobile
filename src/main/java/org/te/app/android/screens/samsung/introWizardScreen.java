@@ -3,12 +3,14 @@ package org.te.app.android.screens.samsung;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.te.app.android.androidActions.AndroidActions;
 
-public class introWizardScreen {
+public class introWizardScreen extends AndroidActions {
 
     public AndroidDriver androidDriver;
-    public introWizardScreen(AndroidDriver driver){
-        this.androidDriver = driver;
+    public introWizardScreen(AndroidDriver androidDriver){
+        super(androidDriver);
+        this.androidDriver = androidDriver;
     }
 
     public String screenTitle(){

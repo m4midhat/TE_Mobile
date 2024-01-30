@@ -5,14 +5,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.te.app.android.androidActions.AndroidActions;
 
 import java.time.Duration;
 
-public class SignInScreen {
+public class SignInScreen extends AndroidActions {
 
 
     AndroidDriver androidDriver;
     public SignInScreen(AndroidDriver driver){
+        super(driver);
         this.androidDriver = driver;
     }
 

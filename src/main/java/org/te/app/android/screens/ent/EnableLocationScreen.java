@@ -3,12 +3,14 @@ package org.te.app.android.screens.ent;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.te.app.android.androidActions.AndroidActions;
 
 import java.util.List;
 
-public class EnableLocationScreen {
+public class EnableLocationScreen extends AndroidActions {
     AndroidDriver androidDriver;
     public EnableLocationScreen(AndroidDriver driver){
+        super(driver);
         this.androidDriver = driver;
     }
 

@@ -9,17 +9,19 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.te.app.android.androidActions.AndroidActions;
 import org.te.app.android.utils.utils;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreen {
+public class HomeScreen extends AndroidActions {
 
     AndroidDriver androidDriver;
 
     public HomeScreen(AndroidDriver androidDriver){
+        super(androidDriver);
         this.androidDriver = androidDriver;
     }
 

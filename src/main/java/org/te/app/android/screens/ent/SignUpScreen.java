@@ -6,17 +6,19 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+import org.te.app.android.androidActions.AndroidActions;
 import org.te.app.android.utils.utils;
 
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
-public class SignUpScreen {
+public class SignUpScreen extends AndroidActions {
 
     AndroidDriver androidDriver;
 
     public SignUpScreen(AndroidDriver driver){
+        super(driver);
         this.androidDriver = driver;
     }
 

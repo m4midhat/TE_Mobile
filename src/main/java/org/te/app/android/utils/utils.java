@@ -55,7 +55,6 @@ public class utils {
     public static List<String> getPreviousYears(int previousYears){
         List<String> years = new ArrayList<>();
         Calendar prevYear = getInstance();
-        //ßyears.add(String.valueOf(prevYear.get(YEAR)));
         for(int i=0;i<previousYears-1;i++) {
             prevYear.add(YEAR, -1);
             years.add(String.valueOf(prevYear.get(YEAR)));
@@ -116,6 +115,16 @@ public class utils {
         finalList.addAll(str2);
         return finalList;
     }
+
+
+    public static Properties initTestRailProperties() throws IOException {
+        Properties properties=new Properties();
+        FileInputStream inputStream = null;
+        inputStream = new FileInputStream("./src/main/resources/testRail.properties");
+        properties.load(inputStream);
+        return properties;
+    }
+
 
 
 }

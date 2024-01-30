@@ -8,11 +8,9 @@ public class introWizardTest extends SamsungBaseTest {
 
     public Logger logger=Logger.getLogger(introWizardTest.class);
 
-
     @Test(description = "Verify if the screen title is matching up")
     public void verifyScreenTitle(){
         logger.info("Current header : "+ introWizardScreen.screenTitle());
-
     }
 
     @Test(description = "Verify if the pagination controls are available")
