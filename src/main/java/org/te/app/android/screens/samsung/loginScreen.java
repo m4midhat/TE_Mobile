@@ -3,7 +3,7 @@ package org.te.app.android.screens.samsung;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.te.app.android.androidActions.AndroidActions;
+import org.te.app.android.mobileGestures.AndroidActions;
 
 public class loginScreen extends AndroidActions {
 
@@ -78,6 +78,11 @@ public class loginScreen extends AndroidActions {
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivClose"));
     }
 
+    private WebElement errorMessage(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tvHaveNotRegistered"));
+    }
+
+
 
 
 
@@ -116,11 +121,16 @@ public class loginScreen extends AndroidActions {
     public String getLicenseAgreementText(){
         return licenseAgreementText().getText().trim();
     }
+    public boolean loginButtonAvailable(){ return loginBtn().isDisplayed(); }
+    public String getLoginButtonText(){ return loginBtn().getText().trim(); }
+    public void pressLoginButton(){
+        loginBtn().click();
+    }
 
     public void loginToApplication(String username, String password){
         txtEmailAddress().sendKeys(username);
         txtPassword().sendKeys(password);
-        loginBtn().click();
+        pressLoginButton();
     }
 
     public boolean loginErrorIsDisplayed(){
@@ -135,6 +145,30 @@ public class loginScreen extends AndroidActions {
         forgotPassword().click();
     }
 
+    public boolean forgotPasswordLinkAvailable(){
+        return forgotPassword().isDisplayed();
+    }
+
+    public String getForgotPasswordLinkText(){
+        return forgotPassword().getText().trim();
+    }
+
+    public boolean isCreateLoginLinkAvailable(){
+        return doNotHaveAccountCreateOne().isDisplayed();
+    }
+
+    public String getCreateLoginLinkText(){
+        return doNotHaveAccountCreateOne().getText().trim();
+    }
+
+    public boolean isErrorMessageDisplayed(){
+        return errorMessage().isDisplayed();
+    }
+
+    public String getErrorMessage(){
+        return errorMessage().getText().trim();
+    }
+
     public createAccountScreen clickCreateAccount(){
         doNotHaveAccountCreateOne().click();
         return new createAccountScreen(androidDriver);
@@ -146,6 +180,13 @@ public class loginScreen extends AndroidActions {
 
     public String getForgotPasswordPopupTitle(){
         return forgotPasswordTitle().getText().trim();
+    }
+    public boolean isForgotPasswordPopupHasTitle(){
+        return forgotPasswordTitle().isDisplayed();
+    }
+
+    public boolean forgotPasswordPopupHasSubTitle(){
+        return forgotPasswordMessage().isDisplayed();
     }
 
     public String getForgotPasswordPopupMessage(){
@@ -162,6 +203,10 @@ public class loginScreen extends AndroidActions {
 
     public boolean isCloseButtonAvailableInForgotPasswordPopup(){
         return forgotPasswordCloseBtn().isDisplayed();
+    }
+
+    public void closeForgotPasswordPopup(){
+        forgotPasswordCloseBtn().click();
     }
 
     public void agreeToPrivacyPolicy(){

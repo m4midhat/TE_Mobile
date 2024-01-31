@@ -5,8 +5,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.te.app.android.androidActions.AndroidActions;
+import org.te.app.android.mobileGestures.AndroidActions;
 import org.te.app.android.utils.utils;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
-import org.te.app.android.androidActions.AndroidActions;
+import org.te.app.android.mobileGestures.AndroidActions;
 import org.te.app.android.utils.utils;
 
 import java.time.Duration;

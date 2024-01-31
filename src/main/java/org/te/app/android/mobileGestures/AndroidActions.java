@@ -1,4 +1,4 @@
-package org.te.app.android.androidActions;
+package org.te.app.android.mobileGestures;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="B2B Samsung App Smoke Suite">
+
+    <listeners>
+        <listener class-name="org.te.app.listener.extentReportListenerSamsung" />
+    </listeners>
+
     <test verbose="2" preserve-order="true" name="Samsung Android App">
         <classes>
             <class name="org.te.app.android.tests.samsung.appTests.introWizardTest" />

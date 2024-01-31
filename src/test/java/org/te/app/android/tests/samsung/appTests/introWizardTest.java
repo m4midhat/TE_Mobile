@@ -28,7 +28,7 @@ public class introWizardTest extends SamsungBaseTest {
         logger.info("Next Button : "+ introWizardScreen.nextButtonAvailable());
     }
 
-    @Test(description = "Verify if the text for 'Next' button")
+    @Test(description = "Verify if the text for 'Next' button is matching up")
     public void verifyNextButtonText(){
         logger.info("Next button text : "+ introWizardScreen.nextButtonText());
     }
@@ -96,12 +96,12 @@ public class introWizardTest extends SamsungBaseTest {
         logger.info("Image is being displayed : "+ introWizardScreen.imageIsBeingDisplayed());
     }
 
-    @Test(description = "Verify the step title for step 3", priority = 4)
+    @Test(description = "Verify the step title for step 4", priority = 4)
     public void verifyStepTitleForStep4(){
         logger.info("Step :"+ introWizardScreen.stepTitle());
     }
 
-    @Test(description = "Verify the step sub-title for step 3", priority = 4)
+    @Test(description = "Verify the step sub-title for step 4", priority = 4)
     public void verifyStepSubTitleForStep4(){
         logger.info("Step Details : "+ introWizardScreen.stepSubTitle());
     }

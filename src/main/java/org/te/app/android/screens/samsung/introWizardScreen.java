@@ -3,7 +3,7 @@ package org.te.app.android.screens.samsung;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.te.app.android.androidActions.AndroidActions;
+import org.te.app.android.mobileGestures.AndroidActions;
 
 public class introWizardScreen extends AndroidActions {
 

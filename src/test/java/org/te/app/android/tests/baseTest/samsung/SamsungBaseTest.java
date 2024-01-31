@@ -1,5 +1,6 @@
 package org.te.app.android.tests.baseTest.samsung;
 
+import com.github.javafaker.Faker;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.te.app.android.screens.samsung.createAccountScreen;
@@ -13,6 +14,7 @@ import org.testng.annotations.BeforeSuite;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.Locale;
 import java.util.Properties;
 
 public class SamsungBaseTest {
@@ -24,6 +26,8 @@ public class SamsungBaseTest {
     protected static loginScreen loginScreen;
     protected static createAccountScreen createAccount;
     protected static selectLocationScreen selectLocationScreen;
+    public Faker faker = new Faker(Locale.US);
+
 
     @BeforeSuite
     public void setUp() throws IOException {
