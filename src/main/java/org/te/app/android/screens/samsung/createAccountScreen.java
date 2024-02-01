@@ -236,6 +236,8 @@ public class createAccountScreen extends AndroidActions {
 
     public void selectRandomResidency(){
         int randomIndex = utils.generateRandomNumber(0, 12);
+        //int randomIndex = utils.generateRandomNumber(0, countries.size());
+
         String randomNationality = countries.get(randomIndex);
         System.out.println("Random Nationality : "+ randomNationality);
         openCountryOfResidenceDropDown();

@@ -3,21 +3,37 @@ package org.te.app.android.tests.samsung.appTests;
 import lombok.extern.slf4j.Slf4j;
 import org.te.app.android.assertionConstants.samsung.LoginScreenConstants;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
+import org.te.app.android.utils.ComparisonType;
+import org.te.app.android.utils.TestRailUtils;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 @Slf4j
 public class LoginTest extends SamsungBaseTest {
 
+
+    public String[] testCaseIDsArray = {"55204", "55205", "55206", "55208", "55209", "55210", "55211", "55212", "55213",
+            "55214", "55215", "55216", "55217", "55218", "55219", "55220", "55221", "55222", "55223", "55224", "55225",
+            "55226", "55227", "55228", "55229", "55230", "55231"};
+    @BeforeClass
+    public void addTestCasesToTestRun(){
+        TestRailUtils.createTestRun(TestRailUtils.testRailTestPlanID, "Samsung Login Screen", testCaseIDsArray);
+    }
+
     /// availability and text checks
     @Test(description = "Verify if the samsung logo is available")
     public void verifyIfSamsungLogoIsVisible(){
-        Assert.assertTrue(loginScreen.samsungIconAvailable(), "Samsung logo is not visible");
+        boolean logoAvailable = loginScreen.samsungIconAvailable();
+        TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[0]), logoAvailable, "Samsung Logo is not available");
+        Assert.assertTrue(logoAvailable, "Samsung logo is not visible");
     }
 
     @Test(description = "Verify if the Entertainer logo is available")
     public void verifyIfEntertainerLogoIsVisible(){
-        Assert.assertTrue(loginScreen.entertainerIconAvailable(), "Entertainer logo is not visible");
+        boolean logoAvailable = loginScreen.entertainerIconAvailable();
+        TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[1]), logoAvailable, "Entertainer Logo is not available");
+        Assert.assertTrue(logoAvailable, "Entertainer logo is not visible");
     }
 
     @Test(description = "Verify if the welcome text is available")

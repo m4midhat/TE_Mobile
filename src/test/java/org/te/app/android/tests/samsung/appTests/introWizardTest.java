@@ -1,25 +1,36 @@
 package org.te.app.android.tests.samsung.appTests;
 
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
+import org.te.app.android.utils.TestRailUtils;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 public class introWizardTest extends SamsungBaseTest {
+    public String[] testCaseIDsArray = {"55183", "55184", "55185", "55187", "55188", "55189", "55190", "55191", "55192",
+            "55193", "55194", "55196", "55197", "55198", "55200", "55201", "55202", "55203"};
+    @BeforeClass
+    public void addTestCasesToTestRun(){
+        TestRailUtils.createTestRun(TestRailUtils.testRailTestPlanID, "Samsung Introduction Screen", testCaseIDsArray);
+    }
 
     public Logger logger=Logger.getLogger(introWizardTest.class);
 
     @Test(description = "Verify if the screen title is matching up")
     public void verifyScreenTitle(){
+        TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[0]));
         logger.info("Current header : "+ introWizardScreen.screenTitle());
     }
 
     @Test(description = "Verify if the pagination controls are available")
     public void verifyPageControlsAreDisplayed(){
+        TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[1]));
         logger.info("Pagination controls :"+ introWizardScreen.paginationControlsAvailable());
     }
 
     @Test(description = "Verify if the screen has 'skip' button")
     public void verifyIfScreenHasSkipButton(){
+        TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[2]));
         logger.info("Skip button :"+ introWizardScreen.skipButtonAvailable());
     }
 

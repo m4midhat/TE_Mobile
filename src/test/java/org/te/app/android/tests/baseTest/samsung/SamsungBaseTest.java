@@ -2,12 +2,16 @@ package org.te.app.android.tests.baseTest.samsung;
 
 import com.github.javafaker.Faker;
 import io.appium.java_client.android.AndroidDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.te.app.android.AppConstants.AppConstants;
 import org.te.app.android.screens.samsung.createAccountScreen;
 import org.te.app.android.screens.samsung.introWizardScreen;
 import org.te.app.android.screens.samsung.loginScreen;
 import org.te.app.android.screens.samsung.selectLocationScreen;
+import org.te.app.android.utils.TestRailUtils;
 import org.te.app.android.utils.utils;
+import org.te.app.testRail.APIException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -17,6 +21,7 @@ import java.time.Duration;
 import java.util.Locale;
 import java.util.Properties;
 
+@Slf4j
 public class SamsungBaseTest {
 
     DesiredCapabilities appCapabilities;
@@ -47,13 +52,21 @@ public class SamsungBaseTest {
         androidDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), appCapabilities);
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3000));
         introWizardScreen = new introWizardScreen(androidDriver);
+        if(AppConstants.TEST_RAIL_REPORTING) {
+            TestRailUtils.testRailTestPlanID = TestRailUtils.connectTestRailAndCreateTestPlan();
+        }
     }
 
 
     @AfterSuite
-    public void tearDown(){
+    public void tearDown() throws APIException, IOException {
         if (androidDriver != null) {
             androidDriver.quit();
+        }
+        TestRailUtils.closeTestPlan(TestRailUtils.testRailTestPlanID);
+        log.info("Closing the suite .....");
+        if (AppConstants.TEST_RAIL_REPORTING) {
+            log.info("VIEW THE COMPLETE REPORT HERE : "+TestRailUtils.TestRailLink+"index.php?/plans/view/"+TestRailUtils.testRailTestPlanID);
         }
     }
 
