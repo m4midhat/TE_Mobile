@@ -39,6 +39,14 @@ public class selectLocationScreen extends AndroidActions {
         return androidDriver.findElement(By.className("android.widget.ExpandableListView"));
     }
 
+    private WebElement btnDone(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_done_location"));
+    }
+
+    private WebElement checkBoxNationality(int index){
+        List<WebElement> checkBoxes = androidDriver.findElements(By.className("android.widget.CheckBox"));
+        return checkBoxes.get(index);
+    }
 
 
 
@@ -66,6 +74,34 @@ public class selectLocationScreen extends AndroidActions {
             locations.add(location.getText().trim());
         }
         return locations;
+    }
+
+    public void clickDoneButton(){
+        btnOK().click();
+    }
+
+    public boolean isDoneButtonAvailable(){
+        return btnDone().isDisplayed();
+    }
+
+    public String getBtnDoneText(){
+        return btnDone().getText().trim();
+    }
+
+    public void selectNationalityCheckbox(int checkboxIndex){
+        checkBoxNationality(checkboxIndex).click();
+    }
+
+    public boolean isCheckboxChecked(int checkboxIndex){
+        return Boolean.parseBoolean(checkBoxNationality(checkboxIndex).getAttribute("checked"));
+    }
+
+    public int getAllLocationsCount(){
+        return androidDriver.findElements(By.className("android.widget.CheckBox")).size();
+    }
+
+    public void allowNotifications(){
+        androidDriver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button")).click();
     }
 
 

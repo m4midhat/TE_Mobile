@@ -3,6 +3,7 @@ package org.te.app.android.screens.samsung;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.te.app.android.mobileGestures.AndroidActions;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+@Slf4j
 public class createAccountScreen extends AndroidActions {
 
     public AndroidDriver androidDriver;
@@ -357,8 +359,8 @@ public class createAccountScreen extends AndroidActions {
 
 
     public selectLocationScreen registerNewUser(String firstName, String lastName, String emailAddress, String voucherCode, String password) throws InterruptedException {
-        setFirstName(firstName);
-        setLastName(lastName);
+        setFirstName(firstName.replace("'",""));
+        setLastName(lastName.replace("'",""));
         setEmailAddress(emailAddress);
         setVoucherCode(voucherCode);
         setPassword(password);
@@ -368,6 +370,9 @@ public class createAccountScreen extends AndroidActions {
         selectRandomResidency();
         agreeToPrivacyPolicy();
         agreeToLicenseAgreement();
+
+        log.info("Login in with the "+emailAddress+" : "+password);
+
         clickRegisterButton();
         Thread.sleep(7000);
         return new selectLocationScreen(androidDriver);

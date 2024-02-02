@@ -3,10 +3,9 @@ package org.te.app.android.screens.ent;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.InvalidSelectorException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.te.app.android.mobileGestures.AndroidActions;
@@ -14,6 +13,7 @@ import org.te.app.android.utils.utils;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeScreen extends AndroidActions {
@@ -217,22 +217,39 @@ public class HomeScreen extends AndroidActions {
         }while(canScrollMore);
     }
 
+    public void maximizeAllCountries(){
+
+        final PointerInput FINGER = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Point start = new Point(481, 844);
+        Point end = new Point(511, 64);
+        Sequence swipe = new Sequence(FINGER, 1)
+                .addAction(
+                        FINGER.createPointerMove(
+                                Duration.ofMillis(0),
+                                PointerInput.Origin.viewport(),
+                                start.getX(),
+                                start.getY()))
+                .addAction(FINGER.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(
+                        FINGER.createPointerMove(
+                                Duration.ofMillis(1000),
+                                PointerInput.Origin.viewport(),
+                                end.getX(),
+                                end.getY()))
+                .addAction(FINGER.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        androidDriver.perform(Arrays.asList(swipe));
+
+
+    }
+
 
 
     public void locations() throws InterruptedException {
         androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/ivArrowDown")).click();
         List<WebElement> countries = androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\"]"));
-        List<String> appCountries = new ArrayList<>();
-        List<String> countriesBeforeScroll = new ArrayList<>();
         List<String> countriesAfterScroll = new ArrayList<>();
-        for (WebElement country : countries) {
-            String countryText = country.getText();
-            System.out.println(countryText);
-            countriesBeforeScroll.add(countryText);
-        }
         try {
-            androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(10)"));
+            maximizeAllCountries();
         } catch (InvalidSelectorException e) {
             // ignore
         }
@@ -242,15 +259,9 @@ public class HomeScreen extends AndroidActions {
             System.out.println(countryText);
             countriesAfterScroll.add(countryText);
         }
-        appCountries = utils.combineLists(countriesBeforeScroll, countriesAfterScroll);
-        System.out.println("Final List after combining both list");
-        for(String country:appCountries){
-            System.out.println(country);
-        }
-        List<String> distinctCountries = utils.removeDuplicatesFromList(appCountries);
 
-        System.out.println("Final List after removing duplicates");
-        for(String country:distinctCountries){
+        System.out.println("Final List of countries .....");
+        for(String country:countriesAfterScroll){
             System.out.println(country);
         }
         Thread.sleep(5000);

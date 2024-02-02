@@ -75,6 +75,7 @@ public class utils {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
         String currentDate = dtf.format(now);
+
         int currentDD = Integer.parseInt(currentDate.substring(8,10));
         String strDD;
         if(currentDD!=1){

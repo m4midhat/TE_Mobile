@@ -4,6 +4,7 @@
 
     <listeners>
         <listener class-name="org.te.app.listener.extentReportListenerSamsung" />
+        <listener class-name="org.te.app.analyzer.AnnotationTransformer" />
     </listeners>
 
     <test verbose="2" preserve-order="true" name="Samsung Android App">

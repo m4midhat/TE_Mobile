@@ -38,7 +38,9 @@ public class TestRailUtils {
 
 
     private static void readTestRailConfigurations() throws IOException {
-        if(AppConstants.TEST_RAIL_REPORTING) {
+        if(
+                (AppConstants.TEST_RAIL_REPORTING)
+            ){
             testRailProp = utils.initTestRailProperties();
             TestRailLink = testRailProp.getProperty("TestRailLink");
             TestRailUserName = testRailProp.getProperty("TestRailUserName");
@@ -54,7 +56,8 @@ public class TestRailUtils {
     }
 
     public static int connectTestRailAndCreateTestPlan() throws IOException {
-        if(AppConstants.TEST_RAIL_REPORTING) {
+        if(AppConstants.TEST_RAIL_REPORTING)
+                {
             readTestRailConfigurations();
             testRail = new TestRailClass();
             testRailClient = testRail.connectTestRail(TestRailLink, TestRailUserName, TestRailPassword);

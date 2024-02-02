@@ -33,6 +33,7 @@ build/
 apps
 TestReport
 TestReport/**
+src/main/java/org/te/app/installationPackages
 
 ### VS Code ###
 .vscode/

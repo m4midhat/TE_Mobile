@@ -36,9 +36,10 @@ public class SamsungBaseTest {
 
     @BeforeSuite
     public void setUp() throws IOException {
+        String pathToApplication = System.getProperty("user.dir")+"/src/main/java/org/te/app/installationPackages/Samsung.apk";
         configProperties = new Properties();
         userCredentials = new Properties();
-        configProperties = utils.initProperties("androidDevice");
+        configProperties = utils.initProperties("samsung");
         userCredentials = utils.initProperties("userCredentials");
         appCapabilities = new DesiredCapabilities();
 
@@ -46,11 +47,12 @@ public class SamsungBaseTest {
         appCapabilities.setCapability("appium:automationName", configProperties.getProperty("automationName"));
         appCapabilities.setCapability("appium:platformVersion", configProperties.getProperty("platformVersion"));
         appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
-        appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("samsungAppPackage"));
-        appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("samsungAppActivity"));
-
+        appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
+        appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
+        appCapabilities.setCapability("autoDismissAlerts", true);
+        appCapabilities.setCapability("appium:app", pathToApplication);
         androidDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), appCapabilities);
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3000));
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         introWizardScreen = new introWizardScreen(androidDriver);
         if(AppConstants.TEST_RAIL_REPORTING) {
             TestRailUtils.testRailTestPlanID = TestRailUtils.connectTestRailAndCreateTestPlan();

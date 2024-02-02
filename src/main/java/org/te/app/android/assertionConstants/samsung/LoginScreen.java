@@ -1,6 +1,6 @@
 package org.te.app.android.assertionConstants.samsung;
 
-public class LoginScreenConstants {
+public class LoginScreen {
 
     public static String ERROR_BLANK_CREDENTIALS = "Please fill in all the required fields.";
     public static String ERROR_NO_PASSWORD = "Please enter your password.";

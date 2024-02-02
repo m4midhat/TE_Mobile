@@ -31,9 +31,10 @@ public class EntertainerBaseTest {
 
     @BeforeSuite
     public void setUp() throws IOException, InterruptedException {
+        String pathToApplication = System.getProperty("user.dir")+"/src/main/java/org/te/app/installationPackages/Entertainer.apk";
         configProperties = new Properties();
         userCredentials = new Properties();
-        configProperties = utils.initProperties("androidDevice");
+        configProperties = utils.initProperties("entertainer");
         userCredentials = utils.initProperties("userCredentials");
         //settingCapabilities = new DesiredCapabilities();
         appCapabilities = new DesiredCapabilities();
@@ -65,10 +66,10 @@ public class EntertainerBaseTest {
         appCapabilities.setCapability("appium:automationName", configProperties.getProperty("automationName"));
         appCapabilities.setCapability("appium:platformVersion", configProperties.getProperty("platformVersion"));
         appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
-        appCapabilities.setCapability("appium:app", System.getProperty("user.dir")+"/apps/Entertainer_8.19.08_2909_UAT.apk");
+        //appCapabilities.setCapability("appium:app", System.getProperty("user.dir")+"/apps/Entertainer_8.19.08_2909_UAT.apk");
         appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
-
+        appCapabilities.setCapability("appium:app", pathToApplication);
         androidDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), appCapabilities);
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3000));
         //androidDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(3000));

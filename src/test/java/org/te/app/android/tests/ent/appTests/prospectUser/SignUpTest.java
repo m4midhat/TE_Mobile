@@ -32,11 +32,16 @@ public class SignUpTest extends EntertainerBaseTest {
     public void signUpToApplicationTest() throws InterruptedException, IOException {
         String mm = utils.extractMonth();
         String dd = utils.extractDate();
+        if(dd.length()<=1)
+        {
+            dd=+0+dd;
+        }
         String yyyy = utils.getYearForAge(18);
         String dob = mm+dd+yyyy;
         logger.info("Selected DOB : "+dob);
         Faker faker = new Faker();
         String nationality = dbDriver.getRandomCountry();
+        //signUpScreen.selectGender();
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         String emailAddress = faker.internet().emailAddress();

@@ -1,9 +1,8 @@
 package org.te.app.android.tests.samsung.appTests;
 
 import lombok.extern.slf4j.Slf4j;
-import org.te.app.android.assertionConstants.samsung.LoginScreenConstants;
+import org.te.app.android.assertionConstants.samsung.LoginScreen;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
-import org.te.app.android.utils.ComparisonType;
 import org.te.app.android.utils.TestRailUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -113,7 +112,7 @@ public class LoginTest extends SamsungBaseTest {
         loginScreen.pressLoginButton();
         String errorText = loginScreen.getLoginErrorText();
         log.info(errorText);
-        Assert.assertEquals(errorText, LoginScreenConstants.ERROR_BLANK_CREDENTIALS, "Incorrect error message in case of blank credentials");
+        Assert.assertEquals(errorText, LoginScreen.ERROR_BLANK_CREDENTIALS, "Incorrect error message in case of blank credentials");
     }
 
     @Test(description = "Verify if the error message is being displayed if only username is provided to login screen", priority = 1)
@@ -123,7 +122,7 @@ public class LoginTest extends SamsungBaseTest {
         loginScreen.loginToApplication(emailAddress, "");
         String errorText = loginScreen.getLoginErrorText();
         log.info(errorText);
-        Assert.assertEquals(errorText, LoginScreenConstants.ERROR_NO_PASSWORD);
+        Assert.assertEquals(errorText, LoginScreen.ERROR_NO_PASSWORD);
     }
 
 
@@ -153,7 +152,7 @@ public class LoginTest extends SamsungBaseTest {
     public void verifyForgotPasswordPopupTitleText(){
         String title = loginScreen.getForgotPasswordPopupTitle();
         log.info(title);
-        Assert.assertEquals(title, LoginScreenConstants.TITLE_FORGOT_PASSWORD, "Incorrect title of forgot password pop-up");
+        Assert.assertEquals(title, LoginScreen.TITLE_FORGOT_PASSWORD, "Incorrect title of forgot password pop-up");
     }
 
     @Test(description = "Verify if the forgot password popup has a sub title", priority = 3)
@@ -165,7 +164,7 @@ public class LoginTest extends SamsungBaseTest {
     public void verifyForgotPasswordPopupSubTitleIsMatching(){
         String subTitle = loginScreen.getForgotPasswordPopupMessage();
         log.info(subTitle);
-        Assert.assertEquals(subTitle, LoginScreenConstants.FORGOT_PASSWORD_POPUP_MESSAGE, "Forgot password popup does not have a message");
+        Assert.assertEquals(subTitle, LoginScreen.FORGOT_PASSWORD_POPUP_MESSAGE, "Forgot password popup does not have a message");
     }
 
 
