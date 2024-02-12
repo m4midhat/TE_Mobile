@@ -1,6 +1,11 @@
 package org.te.app.android.assertionConstants.samsung;
 
-public class CreateAccountScreen {
+public class CreateAccountScreenConstants {
+
+    public static String ERROR_NO_FIRST_NAME = "Please enter first name";
+    public static String ERROR_NO_LAST_NAME = "Please enter last name";
+    public static String ERROR_NO_EMAIL = "Please enter email";
+    public static String ERROR_INVALID_EMAIL = "Please enter valid email";
 
     public static String[] NATIONALITIES = {"Bahrain",
             "Egypt",
@@ -251,6 +256,6 @@ public class CreateAccountScreen {
             "Western Sahara",
             "Yemen",
             "Zambia",
-            "Zimbabwe",};
+            "Zimbabwe"};
 
 }

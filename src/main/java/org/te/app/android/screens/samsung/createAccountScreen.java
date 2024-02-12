@@ -194,9 +194,17 @@ public class createAccountScreen extends AndroidActions {
         checkBoxPrivacyPolicy().click();
     }
 
-    private void agreeToLicenseAgreement() throws InterruptedException {
+    public void agreeToLicenseAgreement() throws InterruptedException {
         Thread.sleep(250);
         checkBoxLicenseAgreement().click();
+    }
+
+    public boolean isPrivacyPolicyChecked(){
+        return checkBoxPrivacyPolicy().isSelected();
+    }
+
+    public boolean isLicenseAgreementCheck(){
+        return checkBoxLicenseAgreement().isSelected();
     }
 
     public boolean isVoucherCodeOptionalInfoAvailable(){
@@ -222,7 +230,7 @@ public class createAccountScreen extends AndroidActions {
     public List<String> getAllCountries(){
         List<WebElement> countriesElement = new ArrayList<>();
 
-        for(int i=0;i<62;i++){
+        for(int i=0;i<63;i++){
             countriesElement = androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tvCountName"));
             for(WebElement element:countriesElement) {
                 if(!countries.contains(element.getText())) {
@@ -284,6 +292,7 @@ public class createAccountScreen extends AndroidActions {
     }
 
     public String getErrorTextForFirstName(){
+        scrollToTop();
         return lblFirstNameError().getText();
     }
 
@@ -293,6 +302,14 @@ public class createAccountScreen extends AndroidActions {
 
     public String getErrorTextForLastName(){
         return lblLastNameError().getText();
+    }
+
+    public boolean isErrorForEmailVisible(){
+        return lblEmailError().isDisplayed();
+    }
+
+    public String getErrorTextForEmail(){
+        return lblEmailError().getText();
     }
 
     public boolean isErrorForMinimumCharacterVisible(){
@@ -346,19 +363,19 @@ public class createAccountScreen extends AndroidActions {
         return lblConfirmPasswordError().getText();
     }
 
-    public boolean isErrorForNationalityVisible(){
-        scrollToEndAction();
+    public boolean isErrorForPasswordVisible(){
+        //scrollToEndAction();
         return lblConfirmPasswordError().isDisplayed();
     }
 
-    public String getErrorTextNationality(){
-        scrollToEndAction();
-        return lblConfirmPasswordError().getText();
+    public String getErrorTextPassword(){
+        //scrollToEndAction();
+        return lblPasswordError().getText();
     }
 
 
 
-    public selectLocationScreen registerNewUser(String firstName, String lastName, String emailAddress, String voucherCode, String password) throws InterruptedException {
+    public selectLocationScreen registerNewUser(String firstName, String lastName, String emailAddress, String voucherCode, String password, boolean privacyPolicy, boolean licenseAgreement) throws InterruptedException {
         setFirstName(firstName.replace("'",""));
         setLastName(lastName.replace("'",""));
         setEmailAddress(emailAddress);
@@ -368,13 +385,14 @@ public class createAccountScreen extends AndroidActions {
         setConfirmedPassword(password);
         hideKeyboard();
         selectRandomResidency();
-        agreeToPrivacyPolicy();
-        agreeToLicenseAgreement();
-
+        if(privacyPolicy){
+            agreeToPrivacyPolicy();
+        }
+        if(licenseAgreement) {
+            agreeToLicenseAgreement();
+        }
         log.info("Login in with the "+emailAddress+" : "+password);
-
         clickRegisterButton();
-        Thread.sleep(7000);
         return new selectLocationScreen(androidDriver);
     }
 

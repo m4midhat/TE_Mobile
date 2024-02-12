@@ -66,6 +66,7 @@ public class selectLocationScreen extends AndroidActions {
     public String getScreenMessage(){
         return searchMessage().getText().trim();
     }
+    public boolean isOKButtonAvailable(){ return btnOK().isDisplayed(); }
 
     public List<String> getLocationsList(){
         List<WebElement> listLocationsElement = locationList().findElements(By.className("android.widget.TextView"));
@@ -76,8 +77,9 @@ public class selectLocationScreen extends AndroidActions {
         return locations;
     }
 
-    public void clickDoneButton(){
-        btnOK().click();
+    public HomeScreen clickDoneButton(){
+        btnDone().click();
+        return new HomeScreen(androidDriver);
     }
 
     public boolean isDoneButtonAvailable(){

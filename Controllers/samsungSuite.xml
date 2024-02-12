@@ -9,10 +9,11 @@
 
     <test verbose="2" preserve-order="true" name="Samsung Android App">
         <classes>
-            <class name="org.te.app.android.tests.samsung.appTests.introWizardTest" />
+            <class name="org.te.app.android.tests.samsung.appTests.IntroWizardTest" />
             <class name="org.te.app.android.tests.samsung.appTests.LoginTest" />
             <class name="org.te.app.android.tests.samsung.appTests.CreateAccountTest" />
-            <class name="org.te.app.android.tests.samsung.appTests.selectLocationTest" />
+            <class name="org.te.app.android.tests.samsung.appTests.SelectLocationTest" />
+            <class name="org.te.app.android.tests.samsung.appTests.HomeTest" />
 
         </classes>
     </test>

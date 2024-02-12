@@ -3,11 +3,17 @@ package org.te.app.android.mobileGestures;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
+
+import java.time.Duration;
 
 public class AndroidActions {
 
@@ -16,6 +22,7 @@ public class AndroidActions {
     public AndroidActions(AndroidDriver androidDriver){
         this.androidDriver = androidDriver;
     }
+
 
     public void scroll(){
         try
@@ -115,6 +122,24 @@ public class AndroidActions {
                 "direction", direction,
                 "percent", 3.0
         ));
+    }
+
+    public void scrollToTop(){
+        Dimension size = androidDriver.manage().window().getSize();
+        int startX = 0;
+        int endX = 0;
+        int startY = 0;
+        int endY = 0;
+
+        endY = (int) (size.height * 0.70);
+        startY = (int) (size.height * 0.30);
+        startX = (size.width / 2);
+        new TouchAction(androidDriver)
+                .press(PointOption.point(startX, startY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+                .moveTo(PointOption.point(endX, endY))
+                .release()
+                .perform();
     }
 
 

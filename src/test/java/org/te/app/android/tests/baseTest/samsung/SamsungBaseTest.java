@@ -5,10 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.te.app.android.AppConstants.AppConstants;
-import org.te.app.android.screens.samsung.createAccountScreen;
-import org.te.app.android.screens.samsung.introWizardScreen;
-import org.te.app.android.screens.samsung.loginScreen;
-import org.te.app.android.screens.samsung.selectLocationScreen;
+import org.te.app.android.screens.samsung.*;
 import org.te.app.android.utils.TestRailUtils;
 import org.te.app.android.utils.utils;
 import org.te.app.testRail.APIException;
@@ -31,6 +28,7 @@ public class SamsungBaseTest {
     protected static loginScreen loginScreen;
     protected static createAccountScreen createAccount;
     protected static selectLocationScreen selectLocationScreen;
+    protected static HomeScreen homeScreen;
     public Faker faker = new Faker(Locale.US);
 
 
@@ -52,7 +50,7 @@ public class SamsungBaseTest {
         appCapabilities.setCapability("autoDismissAlerts", true);
         appCapabilities.setCapability("appium:app", pathToApplication);
         androidDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), appCapabilities);
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(AppConstants.TIMEOUT));
         introWizardScreen = new introWizardScreen(androidDriver);
         if(AppConstants.TEST_RAIL_REPORTING) {
             TestRailUtils.testRailTestPlanID = TestRailUtils.connectTestRailAndCreateTestPlan();
