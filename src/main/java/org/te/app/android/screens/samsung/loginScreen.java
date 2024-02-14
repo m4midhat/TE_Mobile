@@ -3,7 +3,11 @@ package org.te.app.android.screens.samsung;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.te.app.android.mobileGestures.AndroidActions;
+
+import java.time.Duration;
 
 public class loginScreen extends AndroidActions {
 
@@ -31,7 +35,7 @@ public class loginScreen extends AndroidActions {
     }
 
     private WebElement chkBoxLicenseAgreement(){
-        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/checkbox_privacy_policy"));
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/checkbox_new_user"));
     }
 
     private WebElement licenseAgreementText(){
@@ -80,6 +84,10 @@ public class loginScreen extends AndroidActions {
 
     private WebElement errorMessage(){
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tvHaveNotRegistered"));
+    }
+
+    private WebElement forceLoginYes(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_reset_pass"));
     }
 
 
@@ -131,6 +139,21 @@ public class loginScreen extends AndroidActions {
         txtEmailAddress().sendKeys(username);
         txtPassword().sendKeys(password);
         pressLoginButton();
+    }
+
+    public void agreeToMultipleLogin(){
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOf(forceLoginYes()));
+        forceLoginYes().click();
+    }
+
+    public selectLocationScreen signInToApplication(String username, String password){
+        txtEmailAddress().sendKeys(username);
+        txtPassword().sendKeys(password);
+        agreeToPrivacyPolicy();
+        agreeToLicense();
+        pressLoginButton();
+        return new selectLocationScreen(androidDriver);
     }
 
     public boolean loginErrorIsDisplayed(){

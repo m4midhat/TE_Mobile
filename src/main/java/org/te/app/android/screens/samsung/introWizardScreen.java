@@ -57,4 +57,11 @@ public class introWizardScreen extends AndroidActions {
         nextButton().click();
         return new loginScreen(androidDriver);
     }
+
+    public loginScreen navigateToLoginScreenFromIntroScreen(){
+        for(int i=0;i<4;i++) {
+            nextButton().click();
+        }
+        return new loginScreen(androidDriver);
+    }
 }

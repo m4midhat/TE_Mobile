@@ -11,7 +11,15 @@ public class HomeScreenConstants {
     public static String GRANT_LOCATION_POPUP_BTN_WHILE_USING_APP = "While using the app";
     public static String GRANT_LOCATION_POPUP_BTN_ONLY_THIS_TIME = "Only this time";
     public static String GRANT_LOCATION_POPUP_BTN_DONT_ALLOW = "Don’t allow";
-
+    public static String[] EXPECTED_CURRENCY= {"AED", "BHD", "EGP", "EUR", "GBP", "HKD", "JOD", "KWD", "LBP", "MYR",
+            "OMR", "QAR", "SAR", "SGD", "USD", "ZAR"};
+    public static String LOCATION_ABU_DHABI = "Abu Dhabi & Al Ain";
+    public static String LOCATION_BAHRAIN = "Bahrain";
+    public static String LOCATION_DUBAI = "Dubai & N. Emirates";
+    public static String LOCATION_KUWAIT = "Kuwait";
+    public static String LOCATION_OMAN = "Oman";
+    public static String LOCATION_QATAR = "Qatar";
+    public static String[] CATEGORIES = {"Food & Drinks", "Beauty & Fitness", "Attractions & Leisure", "Fashion & Retail", "Travel"};
 
 
 }

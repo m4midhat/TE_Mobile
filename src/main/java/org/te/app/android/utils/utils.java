@@ -126,6 +126,12 @@ public class utils {
         return properties;
     }
 
+    public static int returnSavings(String saving){
+        return Integer.parseInt(saving.substring(0, saving.indexOf(" ")));
+    }
 
+    public static String returnCurrency(String saving){
+        return saving.substring(saving.indexOf(" "));
+    }
 
 }

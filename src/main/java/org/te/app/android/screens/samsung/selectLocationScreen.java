@@ -3,8 +3,11 @@ package org.te.app.android.screens.samsung;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.te.app.android.mobileGestures.AndroidActions;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -90,7 +93,9 @@ public class selectLocationScreen extends AndroidActions {
         return btnDone().getText().trim();
     }
 
-    public void selectNationalityCheckbox(int checkboxIndex){
+    public void selectNationalityCheckbox(int checkboxIndex) {
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_done_location"))));
         checkBoxNationality(checkboxIndex).click();
     }
 

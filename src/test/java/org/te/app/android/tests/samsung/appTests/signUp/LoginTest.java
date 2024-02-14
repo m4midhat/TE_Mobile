@@ -1,4 +1,4 @@
-package org.te.app.android.tests.samsung.appTests;
+package org.te.app.android.tests.samsung.appTests.signUp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.te.app.android.assertionConstants.samsung.LoginScreenConstants;

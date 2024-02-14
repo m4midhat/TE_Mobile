@@ -7,14 +7,17 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.InvalidSelectorException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
+@Slf4j
 public class AndroidActions {
 
     AndroidDriver androidDriver;
@@ -115,15 +118,6 @@ public class AndroidActions {
 
 
 
-    public void scroll(String direction){
-        // Java
-        boolean canScrollMore = (Boolean) ((JavascriptExecutor) androidDriver).executeScript("mobile: scrollGesture", ImmutableMap.of(
-                "left", 100, "top", 100, "width", 200, "height", 200,
-                "direction", direction,
-                "percent", 3.0
-        ));
-    }
-
     public void scrollToTop(){
         Dimension size = androidDriver.manage().window().getSize();
         int startX = 0;
@@ -166,7 +160,21 @@ public class AndroidActions {
             canScrollMore = (Boolean) ((JavascriptExecutor) androidDriver).executeScript("mobile: scrollGesture", ImmutableMap.of(
                     "left", 100, "top", 100, "width", 200, "height", 200,
                     "direction", "down",
-                    "percent", 3.0
+                    "percent", 5.0
+
+            ));
+        }while(canScrollMore);
+    }
+
+    public void scrollToEndAction(int percent)
+    {
+        boolean canScrollMore;
+        do
+        {
+            canScrollMore = (Boolean) ((JavascriptExecutor) androidDriver).executeScript("mobile: scrollGesture", ImmutableMap.of(
+                    "left", 100, "top", 100, "width", 200, "height", 200,
+                    "direction", "down",
+                    "percent", percent
 
             ));
         }while(canScrollMore);
@@ -180,14 +188,57 @@ public class AndroidActions {
     }
 
 
-    public void swipeAction(WebElement element,String direction)
-    {
-        ((JavascriptExecutor) androidDriver).executeScript("mobile: swipeGesture", ImmutableMap.of(
-                "elementId", ((RemoteWebElement)element).getId(),
-                "direction", direction,
-                "percent", 0.75
-        ));
+    public void swipeAction(WebElement element,String direction) {
+        if (element.getAttribute("focusable").compareToIgnoreCase("true") == 0) {
+            ((JavascriptExecutor) androidDriver).executeScript("mobile: swipeGesture", ImmutableMap.of(
+                    "elementId", ((RemoteWebElement) element).getId(),
+                    "direction", direction,
+                    "percent", 0.9
+            ));
+        }
+        else
+            log.error("ERROR!\nSelected element is not swipe-able");
     }
 
+    public void swipeTwoCoordinates(List<Integer> source, List<Integer> destination){
+        int startX, startY, endX, endY;
+        startX = (source.get(0)+ source.get(2))/2;
+        startY = (source.get(1)+ source.get(3))/2;
+
+        endX = (destination.get(0)+ destination.get(2))/2;
+        endY = (destination.get(1)+ destination.get(3))/2;
+
+        log.info("Performing swiping on the following co-ordinates .....");
+        log.info(startX+":"+startY);
+        log.info(endX+":"+endY);
+
+
+        final PointerInput FINGER = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Point start = new Point(startX, startY);
+        Point end = new Point(endX, endY);
+        Sequence swipe = new Sequence(FINGER, 1)
+                .addAction(
+                        FINGER.createPointerMove(
+                                Duration.ofMillis(0),
+                                PointerInput.Origin.viewport(),
+                                start.getX(),
+                                start.getY()))
+                .addAction(FINGER.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(
+                        FINGER.createPointerMove(
+                                Duration.ofMillis(1000),
+                                PointerInput.Origin.viewport(),
+                                end.getX(),
+                                end.getY()))
+                .addAction(FINGER.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        androidDriver.perform(Arrays.asList(swipe));
+    }
+
+
+    public void performMultipleScrolls(int scrollCount){
+        for(int i=0;i<scrollCount;i++){
+            scroll();
+        }
+    }
 
 }

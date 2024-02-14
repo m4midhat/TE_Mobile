@@ -29,6 +29,8 @@ public class SamsungBaseTest {
     protected static createAccountScreen createAccount;
     protected static selectLocationScreen selectLocationScreen;
     protected static HomeScreen homeScreen;
+    protected static ProfileScreen profileScreen;
+    protected static SearchScreen searchScreen;
     public Faker faker = new Faker(Locale.US);
 
 
@@ -60,6 +62,10 @@ public class SamsungBaseTest {
 
     @AfterSuite
     public void tearDown() throws APIException, IOException {
+
+        profileScreen = homeScreen.openProfileScreen();
+        profileScreen.logoutFromApp();
+
         if (androidDriver != null) {
             androidDriver.quit();
         }

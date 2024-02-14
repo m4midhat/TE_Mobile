@@ -1,10 +1,13 @@
-package org.te.app.android.tests.samsung.appTests;
+package org.te.app.android.tests.samsung.appTests.signUp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.te.app.android.assertionConstants.samsung.HomeScreenConstants;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 @Slf4j
 public class HomeTest extends SamsungBaseTest {
@@ -102,6 +105,8 @@ public class HomeTest extends SamsungBaseTest {
         Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_DONT_ALLOW);
         homeScreen.clickGrantLocationAccessWhileUsingApp();
     }
+
+
 
 
 

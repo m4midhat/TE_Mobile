@@ -1,4 +1,4 @@
-package org.te.app.android.tests.samsung.appTests;
+package org.te.app.android.tests.samsung.appTests.signUp;
 
 import org.te.app.android.assertionConstants.samsung.IntroWizardScreenConstants;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
