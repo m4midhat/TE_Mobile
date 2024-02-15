@@ -1,10 +1,12 @@
 package org.te.app.android.screens.samsung;
 
 import io.appium.java_client.android.AndroidDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.te.app.android.mobileGestures.AndroidActions;
 
+@Slf4j
 public class introWizardScreen extends AndroidActions {
 
     public AndroidDriver androidDriver;
@@ -59,6 +61,7 @@ public class introWizardScreen extends AndroidActions {
     }
 
     public loginScreen navigateToLoginScreenFromIntroScreen(){
+        log.info("Navigating to login screen ...");
         for(int i=0;i<4;i++) {
             nextButton().click();
         }

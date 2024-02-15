@@ -31,6 +31,9 @@ public class SamsungBaseTest {
     protected static HomeScreen homeScreen;
     protected static ProfileScreen profileScreen;
     protected static SearchScreen searchScreen;
+    protected static FashionRetailScreen fashionRetailScreen;
+    protected static FoodAndDrinksScreen foodAndDrinksScreen;
+    protected static BeautyAndFitnessScreen beautyAndFitnessScreen;
     public Faker faker = new Faker(Locale.US);
 
 

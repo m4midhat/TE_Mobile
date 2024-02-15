@@ -20,6 +20,8 @@ public class HomeScreenConstants {
     public static String LOCATION_OMAN = "Oman";
     public static String LOCATION_QATAR = "Qatar";
     public static String[] CATEGORIES = {"Food & Drinks", "Beauty & Fitness", "Attractions & Leisure", "Fashion & Retail", "Travel"};
+    public static String[] SCREEN_CONTROLS = {"Home", "Delivery", "Travel", "Profile"};
+    public static String[] SCREEN_SECTIONS = {"Categories", "Featured Offers", "Samsung Offers", "Entertainer plans to save more"};
 
 
 }

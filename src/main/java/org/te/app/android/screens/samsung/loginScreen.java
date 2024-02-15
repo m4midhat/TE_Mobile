@@ -1,6 +1,7 @@
 package org.te.app.android.screens.samsung;
 
 import io.appium.java_client.android.AndroidDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +10,7 @@ import org.te.app.android.mobileGestures.AndroidActions;
 
 import java.time.Duration;
 
+@Slf4j
 public class loginScreen extends AndroidActions {
 
     public AndroidDriver androidDriver;
@@ -148,6 +150,7 @@ public class loginScreen extends AndroidActions {
     }
 
     public selectLocationScreen signInToApplication(String username, String password){
+        log.info("Login to the application via user name: "+ username);
         txtEmailAddress().sendKeys(username);
         txtPassword().sendKeys(password);
         agreeToPrivacyPolicy();
@@ -233,10 +236,12 @@ public class loginScreen extends AndroidActions {
     }
 
     public void agreeToPrivacyPolicy(){
+        log.info("Agreeing to privacy policy ...");
         chkBoxPrivacyPolicy().click();
     }
 
     public void agreeToLicense(){
+        log.info("Agreeing to license ...");
         chkBoxLicenseAgreement().click();
     }
 

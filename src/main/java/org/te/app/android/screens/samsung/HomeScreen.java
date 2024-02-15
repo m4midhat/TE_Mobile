@@ -1,6 +1,5 @@
 package org.te.app.android.screens.samsung;
 
-import com.aventstack.extentreports.gherkin.model.And;
 import io.appium.java_client.android.AndroidDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -176,6 +175,29 @@ public class HomeScreen extends AndroidActions {
         return sectionCategory().findElements(By.xpath("//android.widget.TextView"));
     }
 
+    private List<WebElement> homeSections(){
+        return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tvLiveUp"));
+    }
+
+    private WebElement fashionCategory(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tvCategory\" and @text=\"Fashion & Retail\"]"));
+    }
+
+    private WebElement travelCategory(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tvCategory\" and @text=\"Travel\"]"));
+    }
+
+    private WebElement attractionCategory(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tvCategory\" and @text=\"Attractions & Leisure\"]"));
+    }
+
+    private WebElement beautyCategory(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tvCategory\" and @text=\"Beauty & Fitness\"]"));
+    }
+
+    private WebElement foodCategory(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tvCategory\" and @text=\"Food & Drinks\"]"));
+    }
 
 
 
@@ -269,15 +291,25 @@ public class HomeScreen extends AndroidActions {
     }
 
     public void clickGrantLocationAccessWhileUsingApp(){
+        log.info("Granting the access to geolocation while using the application ...");
         grantLocationWhileUsingAppButton().click();
     }
 
     public void clickGrantLocationAccessOnlyThisTime(){
+        log.info("Granting the access to geolocation only one time ...");
         grantLocationOnlyThisTimeButton().click();
     }
 
     public void clickGrantLocationAccessDontAllow(){
+        log.info("Not granting the access to geolocation ...");
         grantLocationDontAllowButton().click();
+    }
+
+    public void resetCategories() throws InterruptedException {
+        List<Integer> travelCoordinates = utils.extractBounds(travelCategory().getAttribute("bounds"));
+        List<Integer> attractionCoordinates = utils.extractBounds(attractionCategory().getAttribute("bounds"));
+        swipeTwoCoordinates(attractionCoordinates, travelCoordinates);
+        Thread.sleep(1000);
     }
 
     public List<String> getAllCategories() throws InterruptedException {
@@ -314,8 +346,24 @@ public class HomeScreen extends AndroidActions {
         return categories;
     }
 
+    public FashionRetailScreen openFashionRetail(){
+        fashionCategory().click();
+        return new FashionRetailScreen(androidDriver);
+    }
+
+    public FoodAndDrinksScreen openFoodAndDrinks(){
+        foodCategory().click();
+        return new FoodAndDrinksScreen(androidDriver);
+    }
+
+    public BeautyAndFitnessScreen openBeautyAndFitness(){
+        beautyCategory().click();
+        return new BeautyAndFitnessScreen(androidDriver);
+    }
+
 
     public ProfileScreen openProfileScreen(){
+        log.info("Clicking on the profile ... ");
         footerProfileText().click();
         return new ProfileScreen(androidDriver);
     }
@@ -324,8 +372,41 @@ public class HomeScreen extends AndroidActions {
         return headerLocation().getText().trim();
     }
     public SearchScreen clickSearchIcon(){
+        log.info("Clicking on search ...");
         headerSearchIcon().click();
         return new SearchScreen(androidDriver);
+    }
+
+    public String getFooterControlTextForHome(){
+        return footerHomeText().getText().trim();
+    }
+
+    public String getFooterControlTextForDelivery(){
+        return footerDeliveryText().getText().trim();
+    }
+
+    public String getFooterControlTextForTravel(){
+        return footerTravelText().getText().trim();
+    }
+
+    public String getFooterControlTextForProfile(){
+        return footerProfileText().getText().trim();
+    }
+
+    public List<String> getHomeScreenSectionsTitle(){
+        List<String> titles = new ArrayList<>();
+        List<WebElement> currentTitles = homeSections();
+        for(WebElement element:currentTitles)
+            titles.add(element.getText().trim());
+
+        scroll();
+        currentTitles = homeSections();
+        for(WebElement element:currentTitles) {
+            if (!titles.contains(element.getText().trim()))
+                titles.add(element.getText().trim());
+        }
+        scrollToTop();
+        return titles;
     }
 
 }

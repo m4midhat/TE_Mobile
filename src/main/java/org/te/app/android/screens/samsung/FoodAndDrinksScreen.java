@@ -1,0 +1,116 @@
+package org.te.app.android.screens.samsung;
+
+import io.appium.java_client.android.AndroidDriver;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.te.app.android.mobileGestures.AndroidActions;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
+public class FoodAndDrinksScreen extends AndroidActions {
+
+    public AndroidDriver androidDriver;
+
+    public FoodAndDrinksScreen(AndroidDriver androidDriver){
+        super(androidDriver);
+        this.androidDriver = androidDriver;
+    }
+
+    private WebElement screenTitle(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tv_offer_cat"));
+    }
+
+    private List<WebElement> merchantName(){
+        String locator="com.theentertainerme.sckentertainer:id/textview_offername";
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        return androidDriver.findElements(By.id(locator));
+    }
+
+    private List<WebElement> merchantLocation(){
+        String locator = "com.theentertainerme.sckentertainer:id/textview_offer_location";
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        return androidDriver.findElements(By.id(locator));
+    }
+
+    private WebElement footerBar(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tabs_bottom_home"));
+    }
+
+    private WebElement footerHomeIcon(){
+        return footerBar().findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"app!\"])[5]"));
+    }
+
+    private WebElement footerHomeText(){
+        return footerBar().findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_tab_name\" and @text=\"Home\"]"));
+    }
+
+    private WebElement footerDeliveryIcon(){
+        return footerBar().findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"app!\"])[6]"));
+    }
+
+    private WebElement footerDeliveryText(){
+        return footerBar().findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_tab_name\" and @text=\"Delivery\"]"));
+    }
+
+    private WebElement footerTravelIcon(){
+        return footerBar().findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"app!\"])[7]"));
+    }
+
+    private WebElement footerTravelText(){
+        return footerBar().findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_tab_name\" and @text=\"Travel\"]"));
+    }
+
+    private WebElement footerProfileIcon(){
+        return footerBar().findElement(By.xpath("(//android.widget.ImageView[@content-desc=\"app!\"])[8]"));
+    }
+
+    private WebElement footerProfileText(){
+        return footerBar().findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_tab_name\" and @text=\"Profile\"]"));
+    }
+
+
+
+
+
+
+
+    public String getScreenTitle(){
+        return screenTitle().getText().trim();
+    }
+
+    public HomeScreen goBackToHomeScreen(){
+        footerHomeText().click();
+        return new HomeScreen(androidDriver);
+    }
+
+    public List<String> getConsolidateSearchResults(int scrollCount){
+        try {
+            Thread.sleep(7500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        List<String > searchResults = new ArrayList<>();
+        List<WebElement > names = new ArrayList<>();
+        List<WebElement> loc = new ArrayList<>();
+        for(int searchCount = 0;searchCount<scrollCount;searchCount++) {  //search & scroll 5 times
+            names = merchantName();
+            loc = merchantLocation();
+            //log.info("Names count : "+String.valueOf(names.size()));
+            for (int i = 0; i < names.size()-1; i++) {
+                if(!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim())) {
+                    searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim());
+                }
+            }
+            scroll();
+        }
+        return searchResults;
+    }
+}

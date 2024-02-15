@@ -66,10 +66,37 @@ public class HomeTest extends SamsungBaseTest {
         softAssert.assertAll();
     }
 
+    @Test(description = "Verify footer bar items")
+    public void verifyFooterControls(){
+        String homeTabText = homeScreen.getFooterControlTextForHome();
+        String deliveryTabText = homeScreen.getFooterControlTextForDelivery();
+        String travelTabText = homeScreen.getFooterControlTextForTravel();
+        String profileTabText = homeScreen.getFooterControlTextForProfile();
+        log.info("Controls/Tabs at the bottom : "+homeTabText+" , "+deliveryTabText+ " , "+travelTabText+ " , "+ profileTabText);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(homeTabText, HomeScreenConstants.SCREEN_CONTROLS[0]);
+        softAssert.assertEquals(deliveryTabText, HomeScreenConstants.SCREEN_CONTROLS[1]);
+        softAssert.assertEquals(travelTabText, HomeScreenConstants.SCREEN_CONTROLS[2]);
+        softAssert.assertEquals(profileTabText, HomeScreenConstants.SCREEN_CONTROLS[3]);
+        softAssert.assertAll();
+    }
+
+    @Test(description = "Verify section titles")
+    public void verifySectionTitles(){
+        List<String> titles = homeScreen.getHomeScreenSectionsTitle();
+        SoftAssert softAssert = new SoftAssert();
+        for(int i=0;i< titles.size();i++) {
+            softAssert.assertEquals(titles.get(i), HomeScreenConstants.SCREEN_SECTIONS[i]);
+        }
+        softAssert.assertAll();
+        log.info(titles.toString());
+    }
+
 
 
     @AfterClass
-    public void clickSearch(){
+    public void clickSearch() throws InterruptedException {
+        homeScreen.resetCategories();
         searchScreen = homeScreen.clickSearchIcon();
     }
 

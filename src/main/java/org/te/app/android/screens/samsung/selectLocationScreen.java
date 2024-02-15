@@ -96,6 +96,7 @@ public class selectLocationScreen extends AndroidActions {
     public void selectNationalityCheckbox(int checkboxIndex) {
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_done_location"))));
+        logger.info("Selecting the nationality checkbox at index : "+checkboxIndex);
         checkBoxNationality(checkboxIndex).click();
     }
 
@@ -108,6 +109,7 @@ public class selectLocationScreen extends AndroidActions {
     }
 
     public void allowNotifications(){
+        logger.info("Notifications are being allowed ...");
         androidDriver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button")).click();
     }
 

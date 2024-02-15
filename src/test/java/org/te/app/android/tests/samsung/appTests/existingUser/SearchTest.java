@@ -35,22 +35,26 @@ public class SearchTest extends SamsungBaseTest {
         searchScreen.searchForTerm(keyword);
         String searchFor = searchScreen.getSearchFor();
         log.info(searchFor);
+        List<String> results = searchScreen.getConsolidateSearchResults(3);
+        log.info(results.toString());
         Assert.assertTrue(searchFor.contains(SearchScreenConstants.RESULT_FOR));
     }
 
-    @Test(description = "Recent search", priority = 100)
-    public void verifyRecentSearch() throws InterruptedException {
+    @Test(description = "Recent search", priority = 100, dataProvider = "searchData")
+    public void verifyRecentSearch(String keyword) throws InterruptedException {
         homeScreen = searchScreen.pressBack();
         searchScreen = homeScreen.clickSearchIcon();
         Thread.sleep(2500);
         List<String > latestSearches = searchScreen.getRecentSearches();
-        log.info(latestSearches.toString());
+        log.info("Searching "+keyword + " to be available in the recent searches "+latestSearches.toString()+" ...");
+        Assert.assertTrue(latestSearches.contains(keyword));
     }
 
 
 
     @AfterClass
-    public void pressBackToGoHome(){
+    public void openFashionCategory(){
         homeScreen = searchScreen.pressBack();
+        fashionRetailScreen = homeScreen.openFashionRetail();
     }
 }
