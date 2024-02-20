@@ -14,6 +14,9 @@
             <class name="org.te.app.android.tests.samsung.appTests.existingUser.FashionRetailTest" />
             <class name="org.te.app.android.tests.samsung.appTests.existingUser.FoodAndDrinksTest" />
             <class name="org.te.app.android.tests.samsung.appTests.existingUser.BeautyAndFitnessTest" />
+            <class name="org.te.app.android.tests.samsung.appTests.existingUser.ProfileDetailsTest"/>
+            <class name="org.te.app.android.tests.samsung.appTests.existingUser.HomeUpdatedCurrencyTest" />
+            <class name="org.te.app.android.tests.samsung.appTests.existingUser.FavouritesTest" />
         </classes>
     </test>
 </suite>

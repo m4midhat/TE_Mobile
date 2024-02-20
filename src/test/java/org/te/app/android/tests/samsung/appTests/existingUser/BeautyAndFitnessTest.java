@@ -20,14 +20,16 @@ public class BeautyAndFitnessTest extends SamsungBaseTest {
 
     @Test(description = "Verify current offers")
     public void verifyOffers(){
-        List<String> results = beautyAndFitnessScreen.getConsolidateSearchResults(4);
+        List<String> results = beautyAndFitnessScreen.getConsolidateSearchResults(3);
         log.info(results.toString());
     }
 
 
 
     @AfterClass
-    public void goBackToHome(){
+    public void navigateToProfileDetails(){
         homeScreen = beautyAndFitnessScreen.goBackToHomeScreen();
+        profileScreen = homeScreen.openProfileScreen();
+        profileDetailsScreen = profileScreen.openProfileDetails();
     }
 }

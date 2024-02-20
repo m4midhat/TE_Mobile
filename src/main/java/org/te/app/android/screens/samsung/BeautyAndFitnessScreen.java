@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.te.app.android.AppConstants.AppConstants;
 import org.te.app.android.mobileGestures.AndroidActions;
 
 import java.time.Duration;
@@ -33,6 +34,13 @@ public class BeautyAndFitnessScreen extends AndroidActions {
 
     private List<WebElement> merchantLocation(){
         String locator = "com.theentertainerme.sckentertainer:id/textview_offer_location";
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        return androidDriver.findElements(By.id(locator));
+    }
+
+    private List<WebElement> merchantDistance(){
+        String locator = "com.theentertainerme.sckentertainer:id/textview_distance";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
         return androidDriver.findElements(By.id(locator));
@@ -91,23 +99,27 @@ public class BeautyAndFitnessScreen extends AndroidActions {
 
     public List<String> getConsolidateSearchResults(int scrollCount){
         try {
-            Thread.sleep(7500);
+            Thread.sleep(AppConstants.SEARCH_RESULTS_TIMEOUT);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         List<String > searchResults = new ArrayList<>();
         List<WebElement > names = new ArrayList<>();
         List<WebElement> loc = new ArrayList<>();
-        for(int searchCount = 0;searchCount<scrollCount;searchCount++) {  //search & scroll 5 times
-            names = merchantName();
-            loc = merchantLocation();
-            //log.info("Names count : "+String.valueOf(names.size()));
-            for (int i = 0; i < names.size()-1; i++) {
-                if(!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim())) {
-                    searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim());
+        List<WebElement> distance = new ArrayList<>();
+        names = merchantName();
+        if(names.size()>=4) {
+            for (int searchCount = 0; searchCount < scrollCount; searchCount++) {  //search & scroll x times
+                names = merchantName();
+                loc = merchantLocation();
+                distance = merchantDistance();
+                for (int i = 0; i < names.size() - 1; i++) {
+                    if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
+                        searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                    }
                 }
+                scroll();
             }
-            scroll();
         }
         return searchResults;
     }

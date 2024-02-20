@@ -15,6 +15,8 @@ import org.testng.annotations.BeforeSuite;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -34,6 +36,13 @@ public class SamsungBaseTest {
     protected static FashionRetailScreen fashionRetailScreen;
     protected static FoodAndDrinksScreen foodAndDrinksScreen;
     protected static BeautyAndFitnessScreen beautyAndFitnessScreen;
+    protected static ProfileDetailsScreen profileDetailsScreen;
+    protected static MerchantDetailsScreen merchantDetailsScreen;
+    protected static FavouriteScreen favouriteScreen;
+
+    public static String currency_at_home ;
+    public static List<String> favorites = new ArrayList<>();
+
     public Faker faker = new Faker(Locale.US);
 
 

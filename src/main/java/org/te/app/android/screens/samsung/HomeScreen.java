@@ -4,9 +4,12 @@ import io.appium.java_client.android.AndroidDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.te.app.android.mobileGestures.AndroidActions;
 import org.te.app.android.utils.utils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +91,10 @@ public class HomeScreen extends AndroidActions {
     }
 
     private WebElement headerSavingAmount(){
-        return headerContainer().findElement(By.id("com.theentertainerme.sckentertainer:id/tvSaving"));
+        String locator = "com.theentertainerme.sckentertainer:id/tvSaving";
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOf(headerContainer().findElement(By.id(locator))));
+        return headerContainer().findElement(By.id(locator));
     }
 
     private WebElement headerLocation(){

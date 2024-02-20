@@ -12,8 +12,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.te.app.android.utils.utils;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -232,6 +234,13 @@ public class AndroidActions {
                                 end.getY()))
                 .addAction(FINGER.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         androidDriver.perform(Arrays.asList(swipe));
+    }
+
+    public void swipeTwoObjects(WebElement sourceObject, WebElement destinationObject){
+        List<Integer> sourceCoordinates = utils.extractBounds(sourceObject.getAttribute("bounds"));
+        List<Integer> destinationCoordinates = utils.extractBounds(destinationObject.getAttribute("bounds"));
+
+        swipeTwoCoordinates(sourceCoordinates, destinationCoordinates);
     }
 
 

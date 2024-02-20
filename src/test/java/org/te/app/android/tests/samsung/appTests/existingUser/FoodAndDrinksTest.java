@@ -1,9 +1,7 @@
 package org.te.app.android.tests.samsung.appTests.existingUser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.te.app.android.assertionConstants.samsung.FashionCategoryScreenConstants;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
@@ -20,7 +18,7 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
 
     @Test(description = "Verify current offers")
     public void verifyOffers(){
-        List<String> results = foodAndDrinksScreen.getConsolidateSearchResults(15);
+        List<String> results = foodAndDrinksScreen.getConsolidateSearchResults(7);
         log.info(results.toString());
     }
 

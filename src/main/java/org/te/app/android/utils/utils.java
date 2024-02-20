@@ -126,12 +126,19 @@ public class utils {
         return properties;
     }
 
-    public static int returnSavings(String saving){
-        return Integer.parseInt(saving.substring(0, saving.indexOf(" ")));
+    public static String returnSavings(String saving){
+        return saving.substring(0, saving.indexOf(" "));
     }
 
     public static String returnCurrency(String saving){
         return saving.substring(saving.indexOf(" "));
+    }
+
+    public static String returnDistance(String searchResults){
+        int char1 = searchResults.indexOf("(");
+        int char2 = searchResults.indexOf(")");
+
+        return searchResults.substring(char1+1, char2);
     }
 
 }
