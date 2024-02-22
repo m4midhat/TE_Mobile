@@ -1,7 +1,5 @@
 package org.te.app.android.screens.ent;
 
-import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;

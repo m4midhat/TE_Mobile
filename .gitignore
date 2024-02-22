@@ -34,6 +34,8 @@ apps
 TestReport
 TestReport/**
 src/main/java/org/te/app/installationPackages
+screenshot
+screenshot/**
 
 ### VS Code ###
 .vscode/

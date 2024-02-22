@@ -7,16 +7,22 @@
         <list>
           <option value="TE_Mobile" />
           <option value="TE_Mobile" />
+          <option value="TE_Mobile" />
+          <option value="TE_Mobile" />
         </list>
       </option>
       <option name="ignoredPackages">
         <list>
           <option value="commons-collections:commons-collections:3.2.2" />
           <option value="junit:junit:4.10" />
+          <option value="org.webjars:jquery:3.6.1" />
+          <option value="org.yaml:snakeyaml:1.23" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
         </list>

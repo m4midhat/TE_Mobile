@@ -2,7 +2,6 @@ package org.te.app.android.tests.samsung.appTests.existingUser;
 
 import lombok.extern.slf4j.Slf4j;
 import org.te.app.android.assertionConstants.samsung.HomeScreenConstants;
-import org.te.app.android.screens.samsung.SearchScreen;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
 import org.te.app.android.utils.utils;
 import org.testng.Assert;
@@ -12,7 +11,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -45,7 +43,7 @@ public class HomeTest extends SamsungBaseTest {
         String savings = homeScreen.getSavingAmount();
         currency_at_home = utils.returnCurrency(savings);
         log.info(currency_at_home);
-        Assert.assertFalse(currency_at_home.isEmpty());
+        Assert.assertTrue(currency_at_home.isEmpty());
     }
 
     @Test(description = "Verify the selected location")

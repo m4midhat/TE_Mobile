@@ -2,13 +2,16 @@ package org.te.app.listener;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.OutputType;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +19,8 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+
+import static org.te.app.android.tests.baseTest.samsung.SamsungBaseTest.takeScreenshot;
 
 
 @Slf4j
@@ -27,6 +32,7 @@ public class extentReportListenerSamsung implements ITestListener {
     private static final ExtentReports extent = init();
     public static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
     private static ExtentReports extentReports;
+
 
 
     private static ExtentReports init() {
@@ -121,9 +127,17 @@ public class extentReportListenerSamsung implements ITestListener {
     public synchronized void onTestFailure(ITestResult result) {
         log.warn("********** "+(result.getMethod().getDescription() + " FAILED! **********"));
         test.get().fail("Test Failed");
-        //test.get().fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot()).build());
+        test.get().fail("Here is the screenshot for your reference.");
+
+        try {
+            test.get().fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot()).build());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         test.get().getModel().setEndTime(getTime(result.getEndMillis()));
     }
+
+
 
     public synchronized void onTestSkipped(ITestResult result) {
         log.warn("********** "+(result.getMethod().getDescription() + " SKIPPED! ********** "));
