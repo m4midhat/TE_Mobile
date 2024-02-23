@@ -93,6 +93,7 @@ public class ProfileDetailsTest extends SamsungBaseTest {
     public void goBackToHomeAfterUpdatingCurrency() throws InterruptedException {
         log.info("Currency already selected : "+currency_at_home);
         int randomNumber = utils.generateRandomNumber(0, ProfileDetailsScreenConstants.CURRENCIES.length - 1);
+        AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS = ProfileDetailsScreenConstants.CURRENCIES[randomNumber];
         while (ProfileDetailsScreenConstants.CURRENCIES[randomNumber].compareTo(currency_at_home)==0) {
             randomNumber = utils.generateRandomNumber(0, ProfileDetailsScreenConstants.CURRENCIES.length - 1);
             AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS = ProfileDetailsScreenConstants.CURRENCIES[randomNumber];
