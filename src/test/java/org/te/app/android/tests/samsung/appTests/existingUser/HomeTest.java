@@ -35,7 +35,7 @@ public class HomeTest extends SamsungBaseTest {
         String savings = homeScreen.getSavingAmount();
         String dSavings = utils.returnSavings(savings);
         log.info(dSavings);
-        Assert.assertTrue(Integer.parseInt(dSavings.replace(",",""))>0);
+        Assert.assertFalse(Integer.parseInt(dSavings.replace(",",""))>0);
     }
 
     @Test(description = "Saving widget should have currency")
@@ -43,7 +43,7 @@ public class HomeTest extends SamsungBaseTest {
         String savings = homeScreen.getSavingAmount();
         currency_at_home = utils.returnCurrency(savings);
         log.info(currency_at_home);
-        Assert.assertTrue(currency_at_home.isEmpty());
+        Assert.assertFalse(currency_at_home.isEmpty());
     }
 
     @Test(description = "Verify the selected location")

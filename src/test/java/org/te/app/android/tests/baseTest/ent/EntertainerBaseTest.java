@@ -24,7 +24,6 @@ import java.util.Properties;
 public class EntertainerBaseTest {
 
     DesiredCapabilities appCapabilities;
-    DesiredCapabilities settingCapabilities;
     public AndroidDriver androidDriver;
     public static OnboardingScreen onboardingScreen;
     public static SignInScreen signInScreen;

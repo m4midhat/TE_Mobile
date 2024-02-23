@@ -6,12 +6,9 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.OutputType;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.te.app.android.tests.baseTest.samsung.SamsungBaseTest.takeScreenshot;
+import static org.te.app.android.mobileGestures.AndroidActions.takeScreenshot;
 
 
 @Slf4j

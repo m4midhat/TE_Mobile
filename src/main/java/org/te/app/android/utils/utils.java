@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -141,4 +142,15 @@ public class utils {
         return searchResults.substring(char1+1, char2);
     }
 
+    public static String getCurrentlyDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        return dateFormat.format(new Date());
+    }
+
+    public static String getCurrentlyDateTimeInMilliSeconds(){
+        final String input = "20120823151034.567";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
+
+        return dateFormat.format(new Date());
+    }
 }

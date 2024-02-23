@@ -5,28 +5,39 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Base64;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.te.app.android.utils.utils;
 
+import java.io.File;
+import java.io.IOException;
+import io.appium.java_client.screenrecording.CanRecordScreen;
+
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.ArrayList;
+import org.apache.commons.io.FileUtils;
 import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
 public class AndroidActions {
 
-    AndroidDriver androidDriver;
+    static AndroidDriver androidDriver;
 
     public AndroidActions(AndroidDriver androidDriver){
         this.androidDriver = androidDriver;
     }
+
 
 
     public void scroll(){
@@ -249,5 +260,35 @@ public class AndroidActions {
             scroll();
         }
     }
+
+    public static String takeScreenshot() throws IOException {
+        String filename = utils.getCurrentlyDateTimeInMilliSeconds() + ".png";
+        String path = System.getProperty("user.dir") + "/screenshot/";
+        String screenshotFile = path+filename;
+
+        File file = androidDriver.getScreenshotAs(OutputType.FILE);
+        File dest = new File(screenshotFile);
+        FileUtils.copyFile(file, dest);
+        log.info(dest.getAbsolutePath());
+        return dest.getAbsolutePath();
+    }
+
+
+    public static void startRecording()  {
+        androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
+                .withTimeLimit(Duration.ofMinutes(10)));
+    }
+
+    public static void stopRecording(String fileName) throws IOException {
+        String base64String = ((CanRecordScreen)androidDriver).stopRecordingScreen();
+        String filename = fileName + utils.getCurrentlyDateTime() + ".mp4";
+        byte[] data = Base64.decodeBase64(base64String);
+        String path = System.getProperty("user.dir") + "/videos/";
+        String videoFile = path+filename;
+        Path videoPath = Paths.get(videoFile);
+        Files.write(videoPath, data);
+        log.info("*** View the complete recording : "+videoFile);
+    }
+
 
 }

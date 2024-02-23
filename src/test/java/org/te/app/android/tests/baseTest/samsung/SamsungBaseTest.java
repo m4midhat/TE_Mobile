@@ -7,7 +7,6 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.appium.java_client.service.local.flags.ServerArgument;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.te.app.android.AppConstants.AppConstants;
@@ -23,6 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.*;
+
+import static org.te.app.android.mobileGestures.AndroidActions.startRecording;
+import static org.te.app.android.mobileGestures.AndroidActions.stopRecording;
 
 @Slf4j
 public class SamsungBaseTest {
@@ -74,25 +76,17 @@ public class SamsungBaseTest {
         appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
         appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
+        appCapabilities.setCapability("appium:app", pathToApplication);
         androidDriver = new AndroidDriver(new URL("http://127.0.0.1:4723"), appCapabilities);
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(AppConstants.TIMEOUT));
         introWizardScreen = new introWizardScreen(androidDriver);
         if(AppConstants.TEST_RAIL_REPORTING) {
             TestRailUtils.testRailTestPlanID = TestRailUtils.connectTestRailAndCreateTestPlan();
         }
+        startRecording();
     }
 
-    public static String takeScreenshot() throws IOException {
-        String filename = System.currentTimeMillis() + ".png";
-        String path = System.getProperty("user.dir") + "/screenshot/";
-        String screenshotFile = path+filename;
 
-        File file = androidDriver.getScreenshotAs(OutputType.FILE);
-        File dest = new File(screenshotFile);
-        FileUtils.copyFile(file, dest);
-        log.info(dest.getAbsolutePath());
-        return dest.getAbsolutePath();
-    }
 
 
     @AfterSuite
@@ -100,6 +94,7 @@ public class SamsungBaseTest {
 
         profileScreen = homeScreen.openProfileScreen();
         profileScreen.logoutFromApp();
+        stopRecording("Samsung");
 
         if (androidDriver != null) {
             androidDriver.quit();
@@ -112,6 +107,7 @@ public class SamsungBaseTest {
         if(service.isRunning()) {
             service.stop();
         }
+
     }
 
 }
