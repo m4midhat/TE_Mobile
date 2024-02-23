@@ -135,7 +135,7 @@ public class utils {
     }
 
     public static String returnCurrency(String saving){
-        return saving.substring(saving.indexOf(" "));
+        return saving.substring(saving.indexOf(" ")).trim();
     }
 
     public static String returnDistance(String searchResults){
