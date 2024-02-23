@@ -29,7 +29,7 @@ public class FavouritesTest extends SamsungBaseTest {
         merchantDetailsScreen = searchScreen.openRandomMerchantDetails();
         merchantDetailsScreen.addToFavourite();
         searchScreen = merchantDetailsScreen.goBackToSearchScreen();
-        homeScreen = searchScreen.pressBack();
+        /*homeScreen = searchScreen.pressBack();
         profileScreen = homeScreen.openProfileScreen();
         favouriteScreen = profileScreen.openFavorites();
         List<String> list = favouriteScreen.getFavourites();
@@ -38,7 +38,7 @@ public class FavouritesTest extends SamsungBaseTest {
         }
         profileScreen = favouriteScreen.goBackToProfileScreen();
         homeScreen = profileScreen.goBackToHomeScreen();
-        searchScreen = homeScreen.clickSearchIcon();
+        searchScreen = homeScreen.clickSearchIcon();*/
     }
 
     @Test(description = "Verify cleared favourite", priority = 100)

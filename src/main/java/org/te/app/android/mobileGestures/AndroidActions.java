@@ -14,6 +14,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.te.app.android.AppConstants.AppConstants;
 import org.te.app.android.utils.utils;
 
 import java.io.File;
@@ -275,19 +276,24 @@ public class AndroidActions {
 
 
     public static void startRecording()  {
-        androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
-                .withTimeLimit(Duration.ofMinutes(10)));
+        if(AppConstants.VIDEO_REC.compareToIgnoreCase("yes")==0) {
+            androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
+                    .withTimeLimit(Duration.ofMinutes(10)));
+        }
     }
 
     public static void stopRecording(String fileName) throws IOException {
-        String base64String = ((CanRecordScreen)androidDriver).stopRecordingScreen();
-        String filename = fileName + utils.getCurrentlyDateTime() + ".mp4";
-        byte[] data = Base64.decodeBase64(base64String);
-        String path = System.getProperty("user.dir") + "/videos/";
-        String videoFile = path+filename;
-        Path videoPath = Paths.get(videoFile);
-        Files.write(videoPath, data);
-        log.info("*** View the complete recording : "+videoFile);
+        if (AppConstants.VIDEO_REC.compareToIgnoreCase("yes") == 0) {
+
+            String base64String = ((CanRecordScreen) androidDriver).stopRecordingScreen();
+            String filename = fileName + utils.getCurrentlyDateTime() + ".mp4";
+            byte[] data = Base64.decodeBase64(base64String);
+            String path = System.getProperty("user.dir") + "/videos/";
+            String videoFile = path + filename;
+            Path videoPath = Paths.get(videoFile);
+            Files.write(videoPath, data);
+            log.info("*** VIEW THE COMPLETE VIDEO : " + videoFile + " ***");
+        }
     }
 
 

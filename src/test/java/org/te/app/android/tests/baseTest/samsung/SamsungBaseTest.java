@@ -61,10 +61,7 @@ public class SamsungBaseTest {
         configProperties = utils.initProperties("samsung");
         userCredentials = utils.initProperties("userCredentials");
 
-        service = new AppiumServiceBuilder().withAppiumJS(new File(configProperties.getProperty("appiumServiceLocation")))
-                .withIPAddress("127.0.0.1").usingPort(4723)
-                .withArgument(GeneralServerFlag.LOG_LEVEL, "warn")
-                .build();
+        service = utils.initService(configProperties.getProperty("appiumServiceLocation"));
         service.start();
         log.info("Appium Service Running : "+service.isRunning());
 
@@ -73,7 +70,13 @@ public class SamsungBaseTest {
         appCapabilities.setCapability("platformName", configProperties.getProperty("platformName"));
         appCapabilities.setCapability("appium:automationName", configProperties.getProperty("automationName"));
         appCapabilities.setCapability("appium:platformVersion", configProperties.getProperty("platformVersion"));
-        appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
+        if(AppConstants.TEST_DEVICE == null) {
+            log.warn("WARNING!\nNo device name was provided, using the default device : "+configProperties.getProperty("deviceName"));
+            appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
+        }
+        else {
+            appCapabilities.setCapability("appium:deviceName", AppConstants.TEST_DEVICE);
+        }
         appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
         appCapabilities.setCapability("appium:app", pathToApplication);

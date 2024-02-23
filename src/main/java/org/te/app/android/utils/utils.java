@@ -1,8 +1,12 @@
 package org.te.app.android.utils;
 
 
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +19,6 @@ import static java.util.Calendar.YEAR;
 import static java.util.Calendar.getInstance;
 
 public class utils {
-
 
     private static final Logger logger = Logger.getLogger(utils.class);
     public static Properties initProperties(String fileName) throws IOException, FileNotFoundException {
@@ -152,5 +155,13 @@ public class utils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
 
         return dateFormat.format(new Date());
+    }
+
+    public static AppiumDriverLocalService initService(String appiumJSFile){
+
+        return ( new AppiumServiceBuilder().withAppiumJS(new File(appiumJSFile))
+                .withIPAddress("127.0.0.1").usingPort(4723)
+                .withArgument(GeneralServerFlag.LOG_LEVEL, "warn")
+                .build());
     }
 }

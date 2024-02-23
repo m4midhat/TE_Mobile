@@ -1,6 +1,7 @@
 package org.te.app.android.tests.samsung.appTests.existingUser;
 
 import lombok.extern.slf4j.Slf4j;
+import org.te.app.android.AppConstants.AppConstants;
 import org.te.app.android.assertionConstants.samsung.HomeScreenConstants;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
 import org.te.app.android.utils.utils;
@@ -35,7 +36,7 @@ public class HomeTest extends SamsungBaseTest {
         String savings = homeScreen.getSavingAmount();
         String dSavings = utils.returnSavings(savings);
         log.info(dSavings);
-        Assert.assertFalse(Integer.parseInt(dSavings.replace(",",""))>0);
+        Assert.assertTrue(Integer.parseInt(dSavings.replace(",",""))>0);
     }
 
     @Test(description = "Saving widget should have currency")
