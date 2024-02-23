@@ -50,7 +50,7 @@ public class SamsungBaseTest {
 
     public Faker faker = new Faker(Locale.US);
 
-    public AppiumDriverLocalService service;
+    public static AppiumDriverLocalService service;
 
     @BeforeSuite
     public void setUp() throws IOException {
@@ -70,17 +70,17 @@ public class SamsungBaseTest {
         appCapabilities.setCapability("platformName", configProperties.getProperty("platformName"));
         appCapabilities.setCapability("appium:automationName", configProperties.getProperty("automationName"));
         appCapabilities.setCapability("appium:platformVersion", configProperties.getProperty("platformVersion"));
-        if(AppConstants.TEST_DEVICE == null) {
-            log.warn("WARNING!\nNo device name was provided, using the default device : "+configProperties.getProperty("deviceName"));
+        //if(AppConstants.TEST_DEVICE == null) {
+        //    log.warn("WARNING!\nNo device name was provided, using the default device : "+configProperties.getProperty("deviceName"));
             appCapabilities.setCapability("appium:deviceName", configProperties.getProperty("deviceName"));
-        }
-        else {
-            appCapabilities.setCapability("appium:deviceName", AppConstants.TEST_DEVICE);
-        }
+        //}
+        //else {
+        //    appCapabilities.setCapability("appium:deviceName", AppConstants.TEST_DEVICE);
+        //}
         appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
         appCapabilities.setCapability("appium:app", pathToApplication);
-        androidDriver = new AndroidDriver(new URL("http://127.0.0.1:4723"), appCapabilities);
+        androidDriver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), appCapabilities);
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(AppConstants.TIMEOUT));
         introWizardScreen = new introWizardScreen(androidDriver);
         if(AppConstants.TEST_RAIL_REPORTING) {
@@ -107,10 +107,10 @@ public class SamsungBaseTest {
         if (AppConstants.TEST_RAIL_REPORTING) {
             log.info("VIEW THE COMPLETE REPORT HERE : "+TestRailUtils.TestRailLink+"index.php?/plans/view/"+TestRailUtils.testRailTestPlanID);
         }
+
         if(service.isRunning()) {
             service.stop();
         }
-
     }
 
 }

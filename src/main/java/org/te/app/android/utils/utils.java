@@ -151,7 +151,6 @@ public class utils {
     }
 
     public static String getCurrentlyDateTimeInMilliSeconds(){
-        final String input = "20120823151034.567";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
 
         return dateFormat.format(new Date());

@@ -276,6 +276,8 @@ public class AndroidActions {
 
 
     public static void startRecording()  {
+        if(AppConstants.VIDEO_REC==null)
+            AppConstants.VIDEO_REC = "No";
         if(AppConstants.VIDEO_REC.compareToIgnoreCase("yes")==0) {
             androidDriver.startRecordingScreen(new AndroidStartScreenRecordingOptions()
                     .withTimeLimit(Duration.ofMinutes(10)));
