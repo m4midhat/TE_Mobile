@@ -34,6 +34,10 @@ public class MerchantDetailsScreen extends AndroidActions {
         favourite().click();
     }
 
+    public boolean isMerchantFavourite(){
+        return favourite().isSelected();
+    }
+
     public SearchScreen goBackToSearchScreen(){
         backButton().click();
         return new SearchScreen(androidDriver);

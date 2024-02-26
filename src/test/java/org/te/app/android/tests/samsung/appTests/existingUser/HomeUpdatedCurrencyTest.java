@@ -16,7 +16,8 @@ public class HomeUpdatedCurrencyTest extends SamsungBaseTest {
         log.info(amount);
         log.info("Previously selected currency : "+currency_at_home.trim());
         log.info("Currently selected currency : "+AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS);
-        Assert.assertTrue(amount.contains(AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS));
+        Assert.assertTrue(amount.contains(AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS),
+                "Home section savings should contain the updated currency");
     }
 
 

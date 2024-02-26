@@ -6,6 +6,10 @@ public class CreateAccountScreenConstants {
     public static String ERROR_NO_LAST_NAME = "Please enter last name";
     public static String ERROR_NO_EMAIL = "Please enter email";
     public static String ERROR_INVALID_EMAIL = "Please enter valid email";
+    public static String ERROR_NO_PASSWORD = "Please enter password";
+    public static String ERROR_NO_CONFIRMED_PASSWORD = "Please enter confirm password";
+
+
 
     public static String[] NATIONALITIES = {"Bahrain",
             "Egypt",

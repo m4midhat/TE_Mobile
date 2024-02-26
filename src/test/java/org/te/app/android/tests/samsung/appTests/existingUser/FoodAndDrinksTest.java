@@ -1,7 +1,9 @@
 package org.te.app.android.tests.samsung.appTests.existingUser;
 
 import lombok.extern.slf4j.Slf4j;
+import org.te.app.android.assertionConstants.samsung.FoodDrinksScreenConstants;
 import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
@@ -14,6 +16,7 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
     public void verifyCategoryTitle(){
         String title = foodAndDrinksScreen.getScreenTitle();
         log.info(title);
+        Assert.assertEquals(title, FoodDrinksScreenConstants.TITLE, "Incorrect screen title");
     }
 
     @Test(description = "Verify current offers")

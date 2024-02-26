@@ -39,7 +39,9 @@ public class CreateAccountTest extends SamsungBaseTest {
         int index = 0;
        // Assert.assertEquals(countries, Arrays. CreateAccountScreen.NATIONALITIES);
         for(String nationality: CreateAccountScreenConstants.NATIONALITIES){
-            softAssert.assertEquals(nationality, countries.get(index));
+            softAssert.assertEquals(nationality, countries.get(index),
+                    "Incorrect nationality. \nExpected : "+countries.get(index)+
+                    "\nReceived : "+nationality);
             index++;
         }
         softAssert.assertAll();
@@ -60,6 +62,13 @@ public class CreateAccountTest extends SamsungBaseTest {
         log.info(errorForEmail);
         log.info(errorForPassword);
         log.info(errorForConfirmedPassword);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(errorForFirstName, CreateAccountScreenConstants.ERROR_NO_FIRST_NAME, "Incorrect error message when no first name is provided");
+        softAssert.assertEquals(errorForLastName, CreateAccountScreenConstants.ERROR_NO_LAST_NAME, "Incorrect error message when no last name is provided");
+        softAssert.assertEquals(errorForEmail, CreateAccountScreenConstants.ERROR_NO_EMAIL, "Incorrect error message when no email is provided");
+        softAssert.assertEquals(errorForPassword, CreateAccountScreenConstants.ERROR_NO_PASSWORD, "Incorrect error message when no password is provided");
+        softAssert.assertEquals(errorForConfirmedPassword, CreateAccountScreenConstants.ERROR_NO_CONFIRMED_PASSWORD, "Incorrect error message when no confirmed password is provided");
+        softAssert.assertAll();
     }
 
 

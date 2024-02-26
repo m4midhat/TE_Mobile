@@ -16,7 +16,7 @@ public class FashionRetailTest extends SamsungBaseTest {
     public void verifyCategoryTitle(){
         String title = fashionRetailScreen.getScreenTitle();
         log.info(title);
-        Assert.assertEquals(title, FashionCategoryScreenConstants.TITLE);
+        Assert.assertEquals(title, FashionCategoryScreenConstants.TITLE, "Incorrect screen title");
     }
 
     @Test(description = "Verify current offers")

@@ -31,7 +31,7 @@ public class SearchTest extends SamsungBaseTest {
     public void verifyScreenTitle(){
         String title = searchScreen.getTitle();
         log.info(title);
-        Assert.assertEquals(title, SearchScreenConstants.TITLE);
+        Assert.assertEquals(title, SearchScreenConstants.TITLE, "Incorrect screen title");
     }
 
 
@@ -43,10 +43,11 @@ public class SearchTest extends SamsungBaseTest {
         log.info(searchFor);
         results = searchScreen.getConsolidateSearchResults(3);
         log.info(results.toString());
-        Assert.assertTrue(searchFor.contains(SearchScreenConstants.RESULT_FOR));
+        Assert.assertTrue(searchFor.contains(SearchScreenConstants.RESULT_FOR),
+                "Incorrect information message text, should include '"+SearchScreenConstants.RESULT_FOR+"'");
         SoftAssert softAssert = new SoftAssert();
         for(String item:results){
-            softAssert.assertTrue(item.contains(keyword));
+            softAssert.assertTrue(item.contains(keyword), "Search results does not contain the keyword : "+keyword);
         }
         softAssert.assertAll();
     }
@@ -63,7 +64,7 @@ public class SearchTest extends SamsungBaseTest {
         Collections.sort(sortedList);
         log.info("Distance returned from the app: "+distances.toString());
         log.info("Sorted distance : "+sortedList.toString());
-        Assert.assertEquals(distances, sortedList);
+        Assert.assertEquals(distances, sortedList, "Results are not sorted as per distance");
     }
 
     @Test(description = "Recent search", priority = 100, dataProvider = "searchData")
@@ -73,7 +74,7 @@ public class SearchTest extends SamsungBaseTest {
         Thread.sleep(2500);
         List<String > latestSearches = searchScreen.getRecentSearches();
         log.info("Searching "+keyword + " to be available in the recent searches "+latestSearches.toString()+" ...");
-        Assert.assertTrue(latestSearches.contains(keyword));
+        Assert.assertTrue(latestSearches.contains(keyword), "Recent search does not contain the latest search keywords");
     }
 
 

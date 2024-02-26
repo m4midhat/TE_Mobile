@@ -9,8 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
 @Slf4j
 public class ProfileDetailsTest extends SamsungBaseTest {
 
@@ -18,65 +16,65 @@ public class ProfileDetailsTest extends SamsungBaseTest {
     public void verifyScreenTitle(){
         String title = profileDetailsScreen.getScreenTitle();
         log.info(title);
-        Assert.assertEquals(title, ProfileDetailsScreenConstants.TITLE);
+        Assert.assertEquals(title, ProfileDetailsScreenConstants.TITLE, "Incorrect screen title");
     }
 
     @Test(description = "Verify the user first name under profile details")
     public void verifyUserFirstName(){
         String fName = profileDetailsScreen.getFirstNameFromProfileDetails();
         log.info("User First Name : "+fName);
-        Assert.assertFalse(fName.isEmpty());
+        Assert.assertFalse(fName.isEmpty(), "First name should be populated");
     }
 
     @Test(description = "Verify the user last name under profile details")
     public void verifyUserLastName(){
         String lName = profileDetailsScreen.getLastNameFromProfileDetails();
         log.info("User Last Name : "+lName);
-        Assert.assertFalse(lName.isEmpty());
+        Assert.assertFalse(lName.isEmpty(), "Last name should e populated");
     }
 
     @Test(description = "Verify the user email under profile details")
     public void verifyUserEmailAddress(){
         String email = profileDetailsScreen.getEmailAddressFromProfileDetails();
         log.info("User Email Address : "+email);
-        Assert.assertFalse(email.isEmpty());
+        Assert.assertFalse(email.isEmpty(), "Email address should be populated");
     }
 
     @Test(description = "Verify the user country of residence profile details")
     public void verifyUserResidence(){
         String residence = profileDetailsScreen.getCountryOfResidenceFromProfileDetails();
         log.info("User Residence : "+residence);
-        Assert.assertFalse(residence.isEmpty());
+        Assert.assertFalse(residence.isEmpty(), "Country of residence should be populated");
     }
 
     @Test(description = "Verify if first name field is not editable")
     public void verifyFirstNameIsNotEditable(){
-        Assert.assertFalse(profileDetailsScreen.isFirstNameEditable());
+        Assert.assertFalse(profileDetailsScreen.isFirstNameEditable(), "First name field should not be editable");
     }
 
     @Test(description = "Verify if last name field is not editable")
     public void verifyLastNameIsNotEditable(){
-        Assert.assertFalse(profileDetailsScreen.isLastNameEditable());
+        Assert.assertFalse(profileDetailsScreen.isLastNameEditable(), "Last name field should not be editable");
     }
 
     @Test(description = "Verify if email address field is not editable")
     public void verifyEmailAddressIsNotEditable(){
-        Assert.assertFalse(profileDetailsScreen.isEmailEditable());
+        Assert.assertFalse(profileDetailsScreen.isEmailEditable(), "Email address field should not be editable");
     }
 
     @Test(description = "Verify if residence field is editable")
     public void verifyCODIsEditable(){
-        Assert.assertTrue(profileDetailsScreen.isCODEditable());
+        Assert.assertTrue(profileDetailsScreen.isCODEditable(), "Country of residence field should be editable");
     }
 
     @Test(description = "Verify if currency field is editable")
     public void verifyCurrencyIsNotEditable(){
-        Assert.assertTrue(profileDetailsScreen.isCurrencyEditable());
+        Assert.assertTrue(profileDetailsScreen.isCurrencyEditable(), "Currency field should be editable");
     }
 
     @Test(description = "Verify save button is displayed")
     public void verifySaveButtonAvailability() {
-        Assert.assertTrue(profileDetailsScreen.isBtnSaveDisplayed());
+        Assert.assertTrue(profileDetailsScreen.isBtnSaveDisplayed(), "Save button is not displayed");
     }
 
 
@@ -84,7 +82,7 @@ public class ProfileDetailsTest extends SamsungBaseTest {
     public void verifySaveButtonText(){
         String btnText = profileDetailsScreen.getBtnSaveText();
         log.info(btnText);
-        Assert.assertEquals(btnText, ProfileDetailsScreenConstants.BTN_SAVE);
+        Assert.assertEquals(btnText, ProfileDetailsScreenConstants.BTN_SAVE, "Incorrect button title for 'Save'");
     }
 
 

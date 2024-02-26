@@ -36,7 +36,7 @@ public class HomeTest extends SamsungBaseTest {
         String savings = homeScreen.getSavingAmount();
         String dSavings = utils.returnSavings(savings);
         log.info(dSavings);
-        Assert.assertTrue(Integer.parseInt(dSavings.replace(",",""))>0);
+        Assert.assertTrue(Integer.parseInt(dSavings.replace(",",""))>0, "User is having zero savings");
     }
 
     @Test(description = "Saving widget should have currency")
@@ -44,13 +44,13 @@ public class HomeTest extends SamsungBaseTest {
         String savings = homeScreen.getSavingAmount();
         currency_at_home = utils.returnCurrency(savings);
         log.info(currency_at_home);
-        Assert.assertFalse(currency_at_home.isEmpty());
+        Assert.assertFalse(currency_at_home.isEmpty(), "Currency is empty");
     }
 
     @Test(description = "Verify the selected location")
     public void verifyLocationSelected(){
         String location = homeScreen.getLocationText();
-        Assert.assertEquals(location, HomeScreenConstants.LOCATION_ABU_DHABI);
+        Assert.assertEquals(location, HomeScreenConstants.LOCATION_ABU_DHABI, "Selected location should be "+HomeScreenConstants.LOCATION_ABU_DHABI+" instead received "+ location);
     }
 
     @Test(description = "Verify categories title")
@@ -59,7 +59,7 @@ public class HomeTest extends SamsungBaseTest {
         log.info("Final category list : "+categories.toString());
         SoftAssert softAssert = new SoftAssert();
         for(int i=0;i< categories.size();i++) {
-            softAssert.assertEquals(categories.get(i), HomeScreenConstants.CATEGORIES[i]);
+            softAssert.assertEquals(categories.get(i), HomeScreenConstants.CATEGORIES[i], "Incorrect categories listed");
             i++;
         }
         softAssert.assertAll();
@@ -73,10 +73,10 @@ public class HomeTest extends SamsungBaseTest {
         String profileTabText = homeScreen.getFooterControlTextForProfile();
         log.info("Controls/Tabs at the bottom : "+homeTabText+" , "+deliveryTabText+ " , "+travelTabText+ " , "+ profileTabText);
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(homeTabText, HomeScreenConstants.SCREEN_CONTROLS[0]);
-        softAssert.assertEquals(deliveryTabText, HomeScreenConstants.SCREEN_CONTROLS[1]);
-        softAssert.assertEquals(travelTabText, HomeScreenConstants.SCREEN_CONTROLS[2]);
-        softAssert.assertEquals(profileTabText, HomeScreenConstants.SCREEN_CONTROLS[3]);
+        softAssert.assertEquals(homeTabText, HomeScreenConstants.SCREEN_CONTROLS[0], "Incorrect tab name for 'Home'");
+        softAssert.assertEquals(deliveryTabText, HomeScreenConstants.SCREEN_CONTROLS[1], "Incorrect tab name for 'Delivery'");
+        softAssert.assertEquals(travelTabText, HomeScreenConstants.SCREEN_CONTROLS[2], "Incorrect tab name for 'Travel'");
+        softAssert.assertEquals(profileTabText, HomeScreenConstants.SCREEN_CONTROLS[3], "Incorrect tab name for 'Profile'");
         softAssert.assertAll();
     }
 
@@ -85,7 +85,7 @@ public class HomeTest extends SamsungBaseTest {
         List<String> titles = homeScreen.getHomeScreenSectionsTitle();
         SoftAssert softAssert = new SoftAssert();
         for(int i=0;i< titles.size();i++) {
-            softAssert.assertEquals(titles.get(i), HomeScreenConstants.SCREEN_SECTIONS[i]);
+            softAssert.assertEquals(titles.get(i), HomeScreenConstants.SCREEN_SECTIONS[i], "Incorrect section(s) title for : "+titles.get(i));
         }
         softAssert.assertAll();
         log.info(titles.toString());

@@ -1,4 +1,4 @@
-package org.te.app.listener;
+package org.te.app.android.tests.samsung.listener;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;

@@ -3,7 +3,7 @@
 <suite name="B2B Samsung App Smoke Suite">
 
     <listeners>
-        <listener class-name="org.te.app.listener.extentReportListenerSamsung" />
+        <listener class-name="org.te.app.android.tests.samsung.listener.extentReportListenerSamsung" />
         <listener class-name="org.te.app.analyzer.AnnotationTransformer" />
     </listeners>
 

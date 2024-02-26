@@ -59,51 +59,52 @@ public class HomeTest extends SamsungBaseTest {
 
     @Test(description = "Verify grant access popup is being displayed", priority = 2)
     public void verifyGrantPopUpAccessIsBeingDisplayed(){
-        Assert.assertTrue(homeScreen.isGrantLocationAccessPopupDisplayed());
+        Assert.assertTrue(homeScreen.isGrantLocationAccessPopupDisplayed(), "Grant access popup is not beine displayed");
     }
 
     @Test(description = "Verify grant access popup is being displayed", priority = 2, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
     public void verifyGrantPopUpAccessHasIcon(){
-        Assert.assertTrue(homeScreen.isGrantLocationAccessPopupHasIcon());
+        Assert.assertTrue(homeScreen.isGrantLocationAccessPopupHasIcon(), "Icon is not visible on location access pop-up");
     }
 
     @Test(description = "Verify grant access popup message is correct", priority = 2, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
     public void verifyGrantPopUpAccessMessageIsCorrect(){
         String error = homeScreen.getGrantLocationAccessPopupTitle();
         log.info(error);
-        Assert.assertEquals(error, HomeScreenConstants.GRANT_LOCATION_POPUP_TITLE);
+        Assert.assertEquals(error, HomeScreenConstants.GRANT_LOCATION_POPUP_TITLE, "Incorrect pop-up title");
     }
 
     @Test(description = "Verify grant access popup has precise location option", priority = 2, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
     public void verifyGrantPopUpAccessOption1(){
-        Assert.assertTrue  (homeScreen.isGrantLocationAccessPopUpHasPreciseLocation());
+        Assert.assertTrue (homeScreen.isGrantLocationAccessPopUpHasPreciseLocation(), "Grant access popup does not have precise location option");
     }
 
     @Test(description = "Verify grant access popup has approx location option", priority = 2, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
     public void verifyGrantPopUpAccessOption2(){
-        Assert.assertTrue(homeScreen.isGrantLocationAccessPopUpHasApproxLocation());
+        Assert.assertTrue(homeScreen.isGrantLocationAccessPopUpHasApproxLocation(), "Grant access popup does not have approx location option");
     }
 
     @Test(description = "Verify grant access popup Button for while using app", priority = 2, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
     public void verifyGrantPopUpAccessWhileUsingAppBtn(){
         String btnText = homeScreen.getGrantLocationAccessButtonForWhileUsingApp();
         log.info(btnText);
-        Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_WHILE_USING_APP);
+        Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_WHILE_USING_APP, "Incorrect option text for 'While Using App'");
     }
 
     @Test(description = "Verify grant access popup Button for Only this time", priority = 2, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
     public void verifyGrantPopUpAccessOnlyThisTimeBtn(){
         String btnText = homeScreen.getGrantLocationAccessButtonForOnlYThisTime();
         log.info(btnText);
-        Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_ONLY_THIS_TIME);
+        Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_ONLY_THIS_TIME, "Incorrect option text for 'Only this time'");
     }
 
-    @Test(description = "Verify grant access popup Button for Dont allow", priority = 3, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
-    public void verifyGrantPopUpAccessDontAllowBtn(){
+    @Test(description = "Verify grant access popup Button for Do not allow", priority = 3, dependsOnMethods = "verifyGrantPopUpAccessIsBeingDisplayed")
+    public void verifyGrantPopUpAccessDoNotAllowBtn(){
         String btnText = homeScreen.getGrantLocationAccessButtonForDontAllow();
         log.info(btnText);
-        Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_DONT_ALLOW);
         homeScreen.clickGrantLocationAccessWhileUsingApp();
+        Assert.assertEquals(btnText, HomeScreenConstants.GRANT_LOCATION_POPUP_BTN_DONT_ALLOW, "Incorrect option text for 'Do not allow'");
+
     }
 
 

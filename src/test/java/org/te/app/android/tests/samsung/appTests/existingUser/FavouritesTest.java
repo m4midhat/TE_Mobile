@@ -28,7 +28,9 @@ public class FavouritesTest extends SamsungBaseTest {
         searchScreen.searchForTerm(searchItem);
         merchantDetailsScreen = searchScreen.openRandomMerchantDetails();
         merchantDetailsScreen.addToFavourite();
+        boolean favStatus = merchantDetailsScreen.isMerchantFavourite();
         searchScreen = merchantDetailsScreen.goBackToSearchScreen();
+        Assert.assertTrue(favStatus, "Merchant favourite status is not updated properly i.e. field 'selected' should be set to true");
         /*homeScreen = searchScreen.pressBack();
         profileScreen = homeScreen.openProfileScreen();
         favouriteScreen = profileScreen.openFavorites();
@@ -51,7 +53,7 @@ public class FavouritesTest extends SamsungBaseTest {
         favouriteScreen.removeRandomlyFromFavourite();
         List<String> favList2 = favouriteScreen.getFavourites();
         log.info("Total items in favourites after removal : "+favList2.size());
-        Assert.assertNotEquals(favList, favList2);
+        Assert.assertNotEquals(favList, favList2, "Favourite list is not updated correctly before and after removing a random merchant");
     }
 
 

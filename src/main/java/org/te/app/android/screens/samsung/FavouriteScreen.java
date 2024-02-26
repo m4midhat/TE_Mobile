@@ -56,9 +56,6 @@ public class FavouriteScreen extends AndroidActions {
 
     }
 
-    public boolean isFavouriteEmpty(){
-        return favCleared().isDisplayed();
-    }
 
     public ProfileScreen goBackToProfileScreen(){
         btnBack().click();

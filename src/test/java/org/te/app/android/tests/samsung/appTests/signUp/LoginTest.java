@@ -64,12 +64,14 @@ public class LoginTest extends SamsungBaseTest {
     public void verifyTermsOfUseText(){
         String text = loginScreen.getPrivacyPolicyText();
         log.info("Privacy policy text : "+text);
+        Assert.assertEquals(text, LoginScreenConstants.TERMS_OF_USE, "Incorrect text for terms of use");
     }
 
     @Test(description = "Verify if the text for the for the License agreement is matching up")
     public void verifyLicenseAgreementText(){
         String text = loginScreen.getLicenseAgreementText();
         log.info(text);
+        Assert.assertEquals(text, LoginScreenConstants.LICENSE_AGREEMENT, "Incorrect text for license agreement");
     }
 
     @Test(description = "Verify if the button for Login is available")
@@ -81,6 +83,7 @@ public class LoginTest extends SamsungBaseTest {
     public void verifyLoginButtonText(){
         String btnText = loginScreen.getLoginButtonText();
         log.info(btnText);
+        Assert.assertEquals(btnText, LoginScreenConstants.BTN_LOGIN, "Incorrect login button text");
     }
 
     @Test(description = "Verify if the Link for 'Forgot Password' is available")
@@ -92,6 +95,7 @@ public class LoginTest extends SamsungBaseTest {
     public void verifyForgotPasswordLinkText(){
         String linkText = loginScreen.getForgotPasswordLinkText();
         log.info(linkText);
+        Assert.assertEquals(linkText, LoginScreenConstants.FORGOT_PASSWORD, "Incorrect text for 'Forgot Password' link");
     }
 
     @Test(description = "Verify if the link for 'Create account' is available")
@@ -103,6 +107,7 @@ public class LoginTest extends SamsungBaseTest {
     public void verifyCreateAccountText(){
         String linkText = loginScreen.getCreateLoginLinkText();
         log.info(linkText);
+        Assert.assertEquals(linkText, LoginScreenConstants.CREATE_ACCOUNT, "Incorrect text for 'Create account' link");
     }
 
 
@@ -143,7 +148,7 @@ public class LoginTest extends SamsungBaseTest {
         loginScreen.loginToApplication("", password);
         String errorText = loginScreen.getLoginErrorText();
         log.info(errorText);
-        //Assert.assertEquals(errorText, LoginScreenConstants.ERROR_NO_PASSWORD);
+        Assert.assertEquals(errorText, LoginScreenConstants.INVALID_USERNAME);
     }
 
 
@@ -167,7 +172,7 @@ public class LoginTest extends SamsungBaseTest {
 
     @Test(description = "Verify if the forgot password popup has a sub title", priority = 3)
     public void verifyForgotPasswordPopupHasSubTitle(){
-        Assert.assertTrue(loginScreen.isForgotPasswordPopupHasTitle());
+        Assert.assertTrue(loginScreen.isForgotPasswordPopupHasTitle(), "Title is missing for 'Forgot Password' popup");
     }
 
     @Test(description = "Verify if the forgot password popup sub title is matching up", priority = 3)

@@ -24,7 +24,7 @@ public class IntroWizardTest extends SamsungBaseTest {
     public void verifyScreenTitle(){
         String title = introWizardScreen.screenTitle();
         logger.info("Current header : "+ title);
-        Assert.assertEquals(title, IntroWizardScreenConstants.SCREEN_TITLE);
+        Assert.assertEquals(title, IntroWizardScreenConstants.SCREEN_TITLE, "Incorrect screen title");
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[0]), ComparisonType.STRING_HARD_EQUAL, title, IntroWizardScreenConstants.SCREEN_TITLE, "Incorrect screen title");
     }
 
@@ -36,7 +36,7 @@ public class IntroWizardTest extends SamsungBaseTest {
             TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[1]));
         else
             TestRailUtils.setTestCaseAsFailed(Integer.parseInt(testCaseIDsArray[1]),"Pagination controls are not available");
-        Assert.assertTrue(controls);
+        Assert.assertTrue(controls, "Navigation/Paging controls are not available");
     }
 
     @Test(description = "Verify if the screen has 'skip' button")
@@ -47,7 +47,7 @@ public class IntroWizardTest extends SamsungBaseTest {
             TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[2]));
         else
             TestRailUtils.setTestCaseAsFailed(Integer.parseInt(testCaseIDsArray[2]),"Skip button is not available");
-        Assert.assertTrue(skip);
+        Assert.assertTrue(skip, "'Skip' button is not available");
     }
 
     @Test(description = "Verify if the screen has 'Next' button")
@@ -58,7 +58,7 @@ public class IntroWizardTest extends SamsungBaseTest {
             TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[3]));
         else
             TestRailUtils.setTestCaseAsFailed(Integer.parseInt(testCaseIDsArray[3]),"Next button is not available");
-        Assert.assertTrue(next);
+        Assert.assertTrue(next, "'Next' button is not available");
     }
 
     @Test(description = "Verify if the text for 'Next' button is matching up")
@@ -69,7 +69,7 @@ public class IntroWizardTest extends SamsungBaseTest {
             TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[4]));
         else
             TestRailUtils.setTestCaseAsFailed(Integer.parseInt(testCaseIDsArray[4]), "Incorrect button text for 'Next'");
-        Assert.assertEquals(btn, IntroWizardScreenConstants.NEXT_BTN);
+        Assert.assertEquals(btn, IntroWizardScreenConstants.NEXT_BTN, "Incorrect button text for 'Next'");
     }
 
 
@@ -84,7 +84,7 @@ public class IntroWizardTest extends SamsungBaseTest {
             TestRailUtils.setTestCaseAsPassed(Integer.parseInt(testCaseIDsArray[5]));
         else
             TestRailUtils.setTestCaseAsFailed(Integer.parseInt(testCaseIDsArray[5]), "Image is not being displayed");
-        Assert.assertTrue(img);
+        Assert.assertTrue(img, "Image is not being displayed");
     }
 
     @Test(description = "Verify the step title for step 1", priority = 1)
@@ -92,7 +92,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String step1 = introWizardScreen.stepTitle();
         logger.info("Step :"+ step1);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[6]), ComparisonType.STRING_HARD_EQUAL, step1, IntroWizardScreenConstants.STEP1_TITLE, "Incorrect Step title");
-        Assert.assertEquals(step1, IntroWizardScreenConstants.STEP1_TITLE);
+        Assert.assertEquals(step1, IntroWizardScreenConstants.STEP1_TITLE, "Incorrect step title");
     }
 
     @Test(description = "Verify the step sub-title for step 1", priority = 1)
@@ -100,7 +100,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String subtitle = introWizardScreen.stepSubTitle();
         logger.info("Step Details : "+ subtitle);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[7]), ComparisonType.STRING_HARD_EQUAL, subtitle, IntroWizardScreenConstants.STEP1_SUB_TITLE, "Incorrect Step sub title");
-        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP1_SUB_TITLE);
+        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP1_SUB_TITLE, "Incorrect step sub-title");
     }
 
     // Step 2
@@ -111,7 +111,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         boolean img = introWizardScreen.imageIsBeingDisplayed();
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[8]), img, "Image is not being displayed");
         logger.info("Image is being displayed : "+ img);
-        Assert.assertTrue(img);
+        Assert.assertTrue(img, "Image is not being displayed");
     }
 
     @Test(description = "Verify the step title for step 2", priority = 3)
@@ -119,7 +119,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String title = introWizardScreen.stepTitle();
         logger.info("Step :"+ title);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[9]), ComparisonType.STRING_HARD_EQUAL, title, IntroWizardScreenConstants.STEP2_TITLE, "Incorrect Step title");
-        Assert.assertEquals(title, IntroWizardScreenConstants.STEP2_TITLE);
+        Assert.assertEquals(title, IntroWizardScreenConstants.STEP2_TITLE, "Incorrect step title");
     }
 
     @Test(description = "Verify the step sub-title for step 2", priority = 3)
@@ -127,7 +127,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String subtitle = introWizardScreen.stepSubTitle();
         logger.info("Step Details : "+ subtitle);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[10]), ComparisonType.STRING_HARD_EQUAL, subtitle, IntroWizardScreenConstants.STEP2_SUB_TITLE, "Incorrect Step sub title");
-        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP2_SUB_TITLE);
+        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP2_SUB_TITLE, "Incorrect step sub-title");
     }
 
     // Step 3
@@ -138,7 +138,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         boolean img = introWizardScreen.imageIsBeingDisplayed();
         logger.info("Image is being displayed : "+ img);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[11]), img, "image is not being displayed");
-        Assert.assertTrue(img);
+        Assert.assertTrue(img, "Image is not being displayed");
     }
 
     @Test(description = "Verify the step title for step 3", priority = 5)
@@ -146,7 +146,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String title = introWizardScreen.stepTitle();
         logger.info("Step :"+ title);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[12]), ComparisonType.STRING_HARD_EQUAL, title,IntroWizardScreenConstants.STEP3_TITLE,"Incorrect title");
-        Assert.assertEquals(title, IntroWizardScreenConstants.STEP3_TITLE);
+        Assert.assertEquals(title, IntroWizardScreenConstants.STEP3_TITLE, "Incorrect step title");
     }
 
     @Test(description = "Verify the step sub-title for step 3", priority = 5)
@@ -154,7 +154,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String subtitle = introWizardScreen.stepSubTitle();
         logger.info("Step Details : "+ subtitle);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[13]), ComparisonType.STRING_HARD_EQUAL, subtitle,IntroWizardScreenConstants.STEP3_SUB_TITLE,"Incorrect sub title");
-        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP3_SUB_TITLE);
+        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP3_SUB_TITLE, "Incorrect step sub-title");
     }
 
     // Step 4
@@ -165,7 +165,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         boolean img = introWizardScreen.imageIsBeingDisplayed();
         logger.info("Image is being displayed : "+ img);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[14]), img, "Image is not being displayed");
-        Assert.assertTrue(img);
+        Assert.assertTrue(img, "Image is not being displayed");
     }
 
     @Test(description = "Verify the step title for step 4", priority = 7)
@@ -173,7 +173,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String title = introWizardScreen.stepTitle();
         logger.info("Step :"+ title);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[15]), ComparisonType.STRING_HARD_EQUAL, title, IntroWizardScreenConstants.STEP4_TITLE, "Incorrect title");
-        Assert.assertEquals(title, IntroWizardScreenConstants.STEP4_TITLE);
+        Assert.assertEquals(title, IntroWizardScreenConstants.STEP4_TITLE, "Incorrect step title");
     }
 
     @Test(description = "Verify the step sub-title for step 4", priority = 7)
@@ -181,7 +181,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String subtitle = introWizardScreen.stepSubTitle();
         logger.info("Step Details : "+ subtitle);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[16]), ComparisonType.STRING_HARD_EQUAL, subtitle, IntroWizardScreenConstants.STEP4_SUB_TITLE, "Incorrect sub title");
-        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP4_SUB_TITLE);
+        Assert.assertEquals(subtitle, IntroWizardScreenConstants.STEP4_SUB_TITLE, "Incorrect step sub-title");
     }
 
     @Test(description = "Verify the button 'Done' is now available", priority = 7)
@@ -189,7 +189,7 @@ public class IntroWizardTest extends SamsungBaseTest {
         String btn = introWizardScreen.nextButtonText();
         logger.info("Button text : "+ btn);
         TestRailUtils.updateTestCase(Integer.parseInt(testCaseIDsArray[17]), ComparisonType.STRING_HARD_EQUAL, btn, IntroWizardScreenConstants.DONE_BTN, "Incorrect button text for next");
-        Assert.assertEquals(btn, IntroWizardScreenConstants.DONE_BTN);
+        Assert.assertEquals(btn, IntroWizardScreenConstants.DONE_BTN, "Button text should be '"+btn+"'");
     }
 
     @AfterClass

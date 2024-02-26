@@ -28,7 +28,7 @@ public class SelectLocationTest extends SamsungBaseTest {
     public void verifyScreenTitle(){
         String title = selectLocationScreen.getTopMessage();
         logger.info(title);
-        Assert.assertEquals(title, SelectLocationScreenConstants.SCREEN_TITLE);
+        Assert.assertEquals(title, SelectLocationScreenConstants.SCREEN_TITLE, "Incorrect screen title");
     }
 
 
@@ -37,19 +37,22 @@ public class SelectLocationTest extends SamsungBaseTest {
         String subtitle = selectLocationScreen.getScreenMessage();
         //selectLocationScreen.clickOKButton();
         logger.info(subtitle);
-        Assert.assertEquals(subtitle, SelectLocationScreenConstants.SCREEN_MSG);
+        Assert.assertEquals(subtitle, SelectLocationScreenConstants.SCREEN_MSG, "Incorrect screen message");
     }
 
     @Test(description = "Verify if button 'OK, i have got it' is available", priority = 2)
     public void verifyBtnIGotItIsAvailable(){
-        Assert.assertTrue( selectLocationScreen.isOKButtonAvailable());
+        boolean btnOKAvailable = selectLocationScreen.isOKButtonAvailable();
         selectLocationScreen.clickOKButton();
+        Assert.assertTrue(btnOKAvailable, "OK button is not available");
+
     }
 
 
     @Test(description = "Verify if DONE button is available", priority = 3)
     public void verifyIfDoneButtonIsAvailable(){
-        Assert.assertTrue(selectLocationScreen.isDoneButtonAvailable());
+        boolean doneBtn = selectLocationScreen.isDoneButtonAvailable();
+        Assert.assertTrue(doneBtn, "Done button is not available");
     }
 
 
@@ -63,7 +66,8 @@ public class SelectLocationTest extends SamsungBaseTest {
         }
         SoftAssert softAssert = new SoftAssert();
         for(int i=0;i<locationsList.size();i++){
-            softAssert.assertEquals(locationsList.get(i), SelectLocationScreenConstants.LOCATIONS[i]);
+            softAssert.assertEquals(locationsList.get(i), SelectLocationScreenConstants.LOCATIONS[i],
+                    "Incorrect location. Expected Location : "+SelectLocationScreenConstants.LOCATIONS[i]+" Received : "+locationsList.get(i));
         }
         softAssert.assertAll();
     }
@@ -74,7 +78,7 @@ public class SelectLocationTest extends SamsungBaseTest {
         logger.info("Total checkboxes : "+ totalCheckboxes);
         SoftAssert softAssert = new SoftAssert();
         for(int i=0;i<totalCheckboxes;i++){
-            softAssert.assertFalse(selectLocationScreen.isCheckboxChecked(i));
+            softAssert.assertFalse(selectLocationScreen.isCheckboxChecked(i), "Checkbox is not un-checked by-default");
         }
         softAssert.assertAll();
     }
@@ -85,8 +89,9 @@ public class SelectLocationTest extends SamsungBaseTest {
         int randomSelection = utils.generateRandomNumber(0, totalCheckboxes-1);
         logger.info("Random selection made : "+ randomSelection);
         selectLocationScreen.selectNationalityCheckbox(randomSelection-1);
-        Assert.assertTrue(selectLocationScreen.isCheckboxChecked(randomSelection-1));
+        boolean randomStatusCheck = selectLocationScreen.isCheckboxChecked(randomSelection-1);
         selectLocationScreen.selectNationalityCheckbox(randomSelection-1);
+        Assert.assertTrue(randomStatusCheck, "Checkbox is not updated correctly");
     }
 
     @AfterClass

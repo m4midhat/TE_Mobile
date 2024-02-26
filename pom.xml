@@ -172,7 +172,7 @@
                             </property>
                             <property>
                                 <name>listener</name>
-                                <value>org.te.app.listener.extentReportListenerSamsung</value>
+                                <value>org.te.app.android.tests.samsung.listener.extentReportListenerSamsung</value>
                             </property>
                             <property>
                                 <name>reporter</name>
