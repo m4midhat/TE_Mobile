@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="B2C Android App Smoke Suite">
+
+    <listeners>
+        <listener class-name="org.te.app.android.tests.ent.appTests.listener.extentReportListenerEntertainer" />
+        <listener class-name="org.te.app.analyzer.AnnotationTransformer" />
+    </listeners>
+
+
     <test verbose="2" preserve-order="true" name="TE Mobile B2C Android App">
         <classes>
             <class name="org.te.app.android.tests.ent.appTests.prospectUser.OnboardingTest" />

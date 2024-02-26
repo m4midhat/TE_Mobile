@@ -1,4 +1,4 @@
-package org.te.app.android.tests.samsung.listener;
+package org.te.app.android.tests.ent.appTests.listener;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,7 +22,7 @@ import static org.te.app.android.mobileGestures.AndroidActions.takeScreenshot;
 
 
 @Slf4j
-public class extentReportListenerSamsung implements ITestListener {
+public class extentReportListenerEntertainer implements ITestListener {
 
     private static final String OUTPUT_FOLDER = "./TestReport/";
     private static String FILE_NAME = "TestExecutionReport";
@@ -62,16 +63,16 @@ public class extentReportListenerSamsung implements ITestListener {
 
         extentReports = new ExtentReports();
         ExtentSparkReporter reporter = new ExtentSparkReporter(OUTPUT_FOLDER + FILE_NAME+ ".html");
-        reporter.config().setDocumentTitle("Samsung Android Suite");
+        reporter.config().setDocumentTitle("the Entertainer Android Suite");
 
-        reporter.config().setReportName("Samsung Automation Test Results");
+        reporter.config().setReportName("Entertainer Android Automation Test Results");
         reporter.config().setTheme(Theme.DARK);
         extentReports.attachReporter(reporter);
         extentReports.setSystemInfo("System", "Windows / Mac");
         extentReports.setSystemInfo("Architect", "Midhat Rosull Chughtai");
         extentReports.setSystemInfo("Build#", "1.0");
         extentReports.setSystemInfo("Team", "theEntertainer QA");
-        extentReports.setSystemInfo("Project", "Samsung Entertainer");
+        extentReports.setSystemInfo("Project", "the Entertainer");
 
         return extentReports;
     }

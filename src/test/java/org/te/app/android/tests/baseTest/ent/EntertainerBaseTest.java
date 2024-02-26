@@ -20,6 +20,9 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 
+import static org.te.app.android.mobileGestures.AndroidActions.startRecording;
+import static org.te.app.android.mobileGestures.AndroidActions.stopRecording;
+
 @Slf4j
 public class EntertainerBaseTest {
 
@@ -90,11 +93,14 @@ public class EntertainerBaseTest {
         //androidDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(3000));
         //androidDriver.manage().timeouts().scriptTimeout(Duration.ofSeconds(3000));
         onboardingScreen = new OnboardingScreen(androidDriver);
+        startRecording();
+
     }
 
 
     @AfterSuite
-    public void tearDown(){
+    public void tearDown() throws IOException {
+        stopRecording("Entertainer");
         if (androidDriver != null) {
             androidDriver.quit();
         }
