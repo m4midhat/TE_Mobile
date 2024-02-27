@@ -51,6 +51,9 @@ public class selectLocationScreen extends AndroidActions {
         return checkBoxes.get(index);
     }
 
+    private WebElement permissionsAllowBtn(){
+        return androidDriver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button"));
+    }
 
 
 
@@ -116,7 +119,7 @@ public class selectLocationScreen extends AndroidActions {
 
     public void allowNotifications(){
         logger.info("Notifications are being allowed ...");
-        androidDriver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button")).click();
+        permissionsAllowBtn().click();
     }
 
 

@@ -4,7 +4,7 @@ public class onboardingScreenConstants {
     public static String[] languages = {"English", "عربي", "Cyrillic"};
     public static String popUpTextEnglish = "Select your preferred language";
     public static String continueBtnEnglish = "Continue";
-    public static int onBoardingSlidersCount = 4;
+    public static int onBoardingSlidersCount = 5;
     public static String[] onBoardingTVCardEnglishTitle = {
             "Enjoy loads of deals & discounts, in 1 app",
             "We’re here to help you save",

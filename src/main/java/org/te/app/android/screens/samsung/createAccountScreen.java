@@ -134,17 +134,28 @@ public class createAccountScreen extends AndroidActions {
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tvSepecialCharacter"));
     }
 
+    private WebElement samsungIcon(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivSamsung"));
+    }
+
+    private WebElement entertainerIcon(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivEntertainer"));
+    }
+
+    private List<WebElement> getCountries(){
+        return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tvCountName"));
+    }
 
 
 
 
 
     public boolean samsungIconAvailable(){
-        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivSamsung")).isDisplayed();
+        return samsungIcon().isDisplayed();
     }
 
     public boolean entertainerIconAvailable(){
-        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivEntertainer")).isDisplayed();
+        return entertainerIcon().isDisplayed();
     }
 
     public String getScreenTitle(){
@@ -230,8 +241,8 @@ public class createAccountScreen extends AndroidActions {
     public List<String> getAllCountries(){
         List<WebElement> countriesElement = new ArrayList<>();
 
-        for(int i=0;i<63;i++){
-            countriesElement = androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tvCountName"));
+        for(int i=0;i<65;i++){
+            countriesElement = getCountries();
             for(WebElement element:countriesElement) {
                 if(!countries.contains(element.getText())) {
                     countries.add(element.getText());
@@ -239,7 +250,7 @@ public class createAccountScreen extends AndroidActions {
                 }
             }
             scroll();
-            countriesElement = androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tvCountName"));
+            countriesElement = getCountries();
         }
         return countries;
     }
@@ -255,7 +266,7 @@ public class createAccountScreen extends AndroidActions {
         boolean selectionDone = false;
         for(int i=0;i<62;i++){
             if(!selectionDone) {
-                countriesElement = androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tvCountName"));
+                countriesElement = getCountries();
                 for (WebElement element : countriesElement) {
                     if (element.getText().compareTo(randomNationality) == 0) {
                         element.click();

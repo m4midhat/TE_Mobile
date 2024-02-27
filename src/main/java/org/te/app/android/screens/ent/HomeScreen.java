@@ -7,8 +7,6 @@ import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.te.app.android.mobileGestures.AndroidActions;
-import org.te.app.android.utils.utils;
-
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,10 +73,18 @@ public class HomeScreen extends AndroidActions {
         return androidDriver.findElements(By.id("com.theentertainerme.entertainer:id/cardView"));
     }
 
+    private WebElement categoryContainer(){
+        return androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/rvChild"));
+    }
+
+    private List<WebElement> categoryCards(){
+        WebElement container = categoryContainer();
+        return container.findElements(By.className("android.view.ViewGroup"));
+    }
+
     private void categoriesText(){
         String text;
-        WebElement categoriesContainer = androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/rvChild"));
-        List<WebElement> categoryCard = categoriesContainer.findElements(By.className("android.view.ViewGroup"));
+        List<WebElement> categoryCard = categoryCards();
         System.out.println(categoryCard.size());
         text = categoryCard.get(0).findElement(By.className("android.widget.TextView")).getText();
         System.out.println(text);
@@ -88,6 +94,21 @@ public class HomeScreen extends AndroidActions {
         return androidDriver.findElements(By.id("com.theentertainerme.entertainer:id/dot"));
     }
 
+    private WebElement heroBannerTitle(){
+        return androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/tvMarketingTitle"));
+    }
+
+    private WebElement heroBannerSubTitle(){
+        return androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/btnMarketingAction"));
+    }
+
+    private WebElement dropDownIcon(){
+        return androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/ivArrowDown"));
+    }
+
+    private List<WebElement> countries(){
+        return androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\"]"));
+    }
 
 
 
@@ -177,7 +198,7 @@ public class HomeScreen extends AndroidActions {
         List<String> title = new ArrayList<>();
         for(int i=0;i<heroBannerCount();i++){
             heroBannerDots().get(i).click();
-            title.add(androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/tvMarketingTitle")).getText().trim());
+            title.add(heroBannerTitle().getText().trim());
         }
         return title;
     }
@@ -186,7 +207,7 @@ public class HomeScreen extends AndroidActions {
         List<String> subtitle = new ArrayList<>();
         for(int i=0;i<heroBannerCount();i++){
             heroBannerDots().get(i).click();
-            subtitle.add(androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/btnMarketingAction")).getText().trim());
+            subtitle.add(heroBannerSubTitle().getText().trim());
         }
         return subtitle;
     }
@@ -194,8 +215,8 @@ public class HomeScreen extends AndroidActions {
     public List<String> getCategoriesText(){
         List<String> categoriesText = new ArrayList<>();
         List<WebElement> categories = androidDriver.findElements(By.id("com.theentertainerme.entertainer:id/tvTitle"));
-        for(int i=0;i<categories.size();i++){
-            categoriesText.add(categories.get(i).getText().replace("\n"," ").trim());
+        for (WebElement category : categories) {
+            categoriesText.add(category.getText().replace("\n", " ").trim());
         }
         return categoriesText;
     }
@@ -229,15 +250,15 @@ public class HomeScreen extends AndroidActions {
 
 
     public void locations() throws InterruptedException {
-        androidDriver.findElement(By.id("com.theentertainerme.entertainer:id/ivArrowDown")).click();
-        List<WebElement> countries = androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\"]"));
+        dropDownIcon().click();
+        List<WebElement> countries = countries();
         List<String> countriesAfterScroll = new ArrayList<>();
         try {
             maximizeAllCountries();
         } catch (InvalidSelectorException e) {
             // ignore
         }
-        countries = androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.entertainer:id/tvCountryName\"]"));
+        countries = countries;
         for (WebElement country : countries) {
             String countryText = country.getText();
             System.out.println(countryText);

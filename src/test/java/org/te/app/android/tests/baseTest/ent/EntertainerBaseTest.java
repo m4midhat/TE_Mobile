@@ -49,8 +49,7 @@ public class EntertainerBaseTest {
         userCredentials = utils.initProperties("userCredentials");
 
 
-        service = new AppiumServiceBuilder().withAppiumJS(new File(configProperties.getProperty("appiumServiceLocation")))
-                .withIPAddress("127.0.0.1").usingPort(4723).build();
+        service = utils.initService(configProperties.getProperty("appiumServiceLocation"));
         service.start();
         log.info("Appium Service Running : "+service.isRunning());
 

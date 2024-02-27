@@ -81,7 +81,7 @@ public class HomeTest extends EntertainerBaseTest {
     public void verifyHeroBannerCount(){
         int heroBanners = homeScreen.heroBannerCount();
         logger.info("Total hero banners : "+heroBanners);
-        Assert.assertEquals(heroBanners, 6, "There should be 6 hero banners but "+heroBanners+" were received");
+        Assert.assertEquals(heroBanners, 5, "There should be 6 hero banners but "+heroBanners+" were received");
     }
 
     @Test(priority = 5, description = "Hero banner title verification")

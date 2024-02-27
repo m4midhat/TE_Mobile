@@ -2,7 +2,6 @@ package org.te.app.android.mobileGestures;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidStartScreenRecordingOptions;
@@ -43,7 +42,7 @@ public class AndroidActions {
 
     public void scroll(){
         try
-        {     androidDriver.findElement(MobileBy.AndroidUIAutomator(
+        {     androidDriver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(1)"
         )); }
         catch

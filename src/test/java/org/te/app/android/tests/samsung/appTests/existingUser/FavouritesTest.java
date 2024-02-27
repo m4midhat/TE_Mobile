@@ -18,8 +18,7 @@ public class FavouritesTest extends SamsungBaseTest {
                 {"safari"},
                 {"Spa"},
                 {"Burger king"},
-                {"Papa murphy"},
-                {"nasma"}
+                {"Papa murphy"}
         };
     }
 

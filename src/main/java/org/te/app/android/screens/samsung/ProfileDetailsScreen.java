@@ -58,6 +58,9 @@ public class ProfileDetailsScreen extends AndroidActions {
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_cancal"));
     }
 
+    private List<WebElement> currencies(){
+        return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/textview_countryname"));
+    }
 
 
 
@@ -94,7 +97,7 @@ public class ProfileDetailsScreen extends AndroidActions {
 
     public ProfileScreen updatePreferredCurrency(String currencyToBeUpdated) throws InterruptedException {
         profileDetailCurrencyPref().click();
-        List<WebElement> currencies = androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/textview_countryname"));
+        List<WebElement> currencies = currencies();
         for(WebElement currency:currencies){
             log.info(currency.getText());
             if(currency.getText().compareTo(currencyToBeUpdated)==0){
@@ -102,7 +105,7 @@ public class ProfileDetailsScreen extends AndroidActions {
             }
             else {
                 scroll();
-                currencies = androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/textview_countryname"));
+                currencies = currencies();
             }
         }
         profileDetailUpdateCurrencyDoneButton().click();

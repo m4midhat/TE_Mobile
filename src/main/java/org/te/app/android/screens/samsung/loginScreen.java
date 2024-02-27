@@ -92,20 +92,31 @@ public class loginScreen extends AndroidActions {
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_reset_pass"));
     }
 
+    private WebElement samsungIcon(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivSamsung"));
+    }
+
+    private WebElement entertainerIcon(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivEntertainer"));
+    }
+
+    private WebElement welcomeText(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@text=\"Welcome\" and @class=\"android.widget.TextView\"]"));
+    }
 
 
 
 
     public boolean samsungIconAvailable(){
-        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivSamsung")).isDisplayed();
+        return samsungIcon().isDisplayed();
     }
 
     public boolean entertainerIconAvailable(){
-        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/ivEntertainer")).isDisplayed();
+        return entertainerIcon().isDisplayed();
     }
 
     public boolean welcomeTextAvailable(){
-        return androidDriver.findElement(By.xpath("//android.widget.TextView[@text=\"Welcome\" and @class=\"android.widget.TextView\"]")).isDisplayed();
+        return welcomeText().isDisplayed();
     }
 
     public boolean emailAddressTextBoxAvailable(){
