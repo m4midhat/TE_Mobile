@@ -47,7 +47,7 @@ public class SearchTest extends SamsungBaseTest {
                 "Incorrect information message text, should include '"+SearchScreenConstants.RESULT_FOR+"'");
         SoftAssert softAssert = new SoftAssert();
         for(String item:results){
-            softAssert.assertTrue(item.contains(keyword), "Search results does not contain the keyword : "+keyword);
+            softAssert.assertTrue(item.contains(keyword), "Search results ("+item+") does not contain the keyword : "+keyword);
         }
         softAssert.assertAll();
     }

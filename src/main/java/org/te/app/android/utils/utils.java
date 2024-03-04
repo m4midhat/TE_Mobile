@@ -159,8 +159,9 @@ public class utils {
     public static AppiumDriverLocalService initService(String appiumJSFile){
 
         return ( new AppiumServiceBuilder().withAppiumJS(new File(appiumJSFile))
-                .withIPAddress("127.0.0.1").usingPort(4723)
+                .withIPAddress("127.0.0.1").usingPort(4725)
                 .withArgument(GeneralServerFlag.LOG_LEVEL, "warn")
                 .build());
     }
+
 }

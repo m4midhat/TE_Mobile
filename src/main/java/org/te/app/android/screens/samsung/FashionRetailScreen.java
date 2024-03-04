@@ -1,6 +1,7 @@
 package org.te.app.android.screens.samsung;
 
 import io.appium.java_client.android.AndroidDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +13,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class FashionRetailScreen extends AndroidActions {
 
     public AndroidDriver androidDriver;
@@ -112,27 +114,36 @@ public class FashionRetailScreen extends AndroidActions {
     }
 
     public List<String> getConsolidateSearchResults(int scrollCount){
-        try {
-            Thread.sleep(AppConstants.SEARCH_RESULTS_TIMEOUT);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         List<String > searchResults = new ArrayList<>();
         List<WebElement > names = new ArrayList<>();
         List<WebElement> loc = new ArrayList<>();
         List<WebElement> distance = new ArrayList<>();
         names = merchantName();
-        if(names.size()>=5) {
+        log.info("Merchant count : "+names.size());
+        if(names.size()>=4) {
             for (int searchCount = 0; searchCount < scrollCount; searchCount++) {  //search & scroll x times
                 names = merchantName();
                 loc = merchantLocation();
                 distance = merchantDistance();
-                for (int i = 0; i < names.size() - 1; i++) {
+                for (int i = 0; i < names.size()-1; i++) {
                     if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
+                        log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
                         searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
                     }
                 }
                 scroll();
+            }
+        }
+        else
+        {
+            for (int i = 0; i < names.size() ; i++) {
+                names = merchantName();
+                loc = merchantLocation();
+                distance = merchantDistance();
+                //if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
+                searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                //}
             }
         }
         return searchResults;

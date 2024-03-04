@@ -8,15 +8,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.te.app.android.AppConstants.AppConstants;
 import org.te.app.android.mobileGestures.AndroidActions;
+import org.te.app.android.utils.utils;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 public class FoodAndDrinksScreen extends AndroidActions {
 
     public AndroidDriver androidDriver;
+    int totalFilters;
 
     public FoodAndDrinksScreen(AndroidDriver androidDriver){
         super(androidDriver);
@@ -25,6 +28,41 @@ public class FoodAndDrinksScreen extends AndroidActions {
 
     private WebElement screenTitle(){
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tv_offer_cat"));
+    }
+
+    private WebElement filters(){
+        String locator="com.theentertainerme.sckentertainer:id/iv_filter_alloffers";
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        return androidDriver.findElement(By.id(locator));
+    }
+
+    private WebElement filterView(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/dragView_bottom_filters"));
+    }
+
+    private WebElement filterClearBtn(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_clear_filter"));
+    }
+
+    private WebElement filterDoneBtn(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/btn_done_filter"));
+    }
+
+    private WebElement filterTitle(){
+        return androidDriver.findElement(By.xpath("//android.widget.LinearLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/dragView_bottom_filters\"]/android.widget.RelativeLayout/android.widget.TextView"));
+    }
+
+    private List<WebElement> filterSections(){
+        return androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_sperater\"]"));
+    }
+
+    private List<WebElement> filtersText(){
+        return androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_filter_name\"]"));
+    }
+
+    private WebElement newOffersCheckBox(){
+        return androidDriver.findElement(By.xpath("com.theentertainerme.sckentertainer:id/cb_filter_selector"));
     }
 
     private List<WebElement> merchantName(){
@@ -46,6 +84,10 @@ public class FoodAndDrinksScreen extends AndroidActions {
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
         return androidDriver.findElements(By.id(locator));
+    }
+
+    private WebElement resultContainer(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/recycler_outlets"));
     }
 
     private WebElement footerBar(){
@@ -84,6 +126,68 @@ public class FoodAndDrinksScreen extends AndroidActions {
         return footerBar().findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_tab_name\" and @text=\"Profile\"]"));
     }
 
+    private WebElement filterType(){
+        return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/rl_more_con")).get(0);
+    }
+
+    private WebElement filterCuisine(){
+        return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/rl_more_con")).get(1);
+    }
+
+    private List<WebElement> filterTypeNames(){
+        return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/tv_filter_name"));
+    }
+
+    private WebElement filterTypeAll(){
+        return androidDriver.findElement(By.xpath("(//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_selector\"])[1]"));
+    }
+
+    private WebElement filterTypeCafe(){
+        return androidDriver.findElement(By.xpath("(//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_selector\"])[2]"));
+    }
+
+    private WebElement filterTypeCasualDining(){
+        return androidDriver.findElement(By.xpath("(//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_selector\"])[3]"));
+    }
+
+    private WebElement filterTypeFineDining(){
+        return androidDriver.findElement(By.xpath("(//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_selector\"])[4]"));
+    }
+
+    private WebElement filterTypeInformalDiningAndTakeAway(){
+        return androidDriver.findElement(By.xpath("(//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_selector\"])[5]"));
+    }
+
+    private WebElement filterTypePubsBarAndClubs(){
+        return androidDriver.findElement(By.xpath("(//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_selector\"])[6]"));
+    }
+
+    private WebElement cuisineFiltersDoneButton(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tv_done_subfilter"));
+    }
+
+    private List<WebElement> filtersName(){
+        String locator = "com.theentertainerme.sckentertainer:id/tv_filter_name";
+        WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        return androidDriver.findElements(By.id(locator));
+    }
+
+    private WebElement checkBoxForTheFilter(String filterText){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_filter_name\" and @text=\""+filterText+"\"]/parent::android.widget.RelativeLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/aditional_cotainer\"]//android.widget.LinearLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/ll_checks_contaienr\"]"));
+    }
+/*
+androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_filter_name\" and @text=\""+filterText+"\"]/parent::android.widget.RelativeLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/aditional_cotainer\"]//android.widget.LinearLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/ll_checks_contaienr\"]"))
+*/
+
+    private List<WebElement> clearFiltersX(){
+        return androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_filter_remove\"]"));
+    }
+
+    private WebElement filterCount(){
+        return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tv_filter_counts"));
+    }
+
 
 
 
@@ -100,29 +204,305 @@ public class FoodAndDrinksScreen extends AndroidActions {
     }
 
     public List<String> getConsolidateSearchResults(int scrollCount){
-        try {
-            Thread.sleep(AppConstants.SEARCH_RESULTS_TIMEOUT);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         List<String > searchResults = new ArrayList<>();
         List<WebElement > names = new ArrayList<>();
         List<WebElement> loc = new ArrayList<>();
         List<WebElement> distance = new ArrayList<>();
         names = merchantName();
-        if(names.size()>=4) {
+        log.info("Merchant count : "+names.size());
+        boolean scrollable = isThereMoreDataInResult();
+        log.info("Scroll is enabled : "+ scrollable);
+        if(names.size()>=4 && scrollable) {
             for (int searchCount = 0; searchCount < scrollCount; searchCount++) {  //search & scroll x times
                 names = merchantName();
                 loc = merchantLocation();
                 distance = merchantDistance();
-                for (int i = 0; i < names.size() - 1; i++) {
+                for (int i = 0; i < names.size()-1; i++) {
                     if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
+                        log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
                         searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
                     }
                 }
                 scroll();
             }
         }
+        else
+        {
+            for (int i = 0; i < names.size() ; i++) {
+                names = merchantName();
+                loc = merchantLocation();
+                distance = merchantDistance();
+                //if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
+                    searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                    log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                //}
+            }
+        }
         return searchResults;
     }
+
+    public void openFilters(){
+        log.info("Opening filter ...");
+        filters().click();
+    }
+
+    public boolean isFilterViewOpened(){
+        return filterView().isDisplayed();
+    }
+
+    public void applyFilters(){
+        log.info("Applying filter ...");
+        filterDoneBtn().click();
+        try {
+            Thread.sleep(AppConstants.SEARCH_RESULTS_TIMEOUT);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getFiltersPopupTitle(){
+        return filterTitle().getText().trim();
+    }
+
+    public List<String > getFiltersSections(){
+        List<WebElement> sections = filterSections();
+        List<String> sectionTitles = new ArrayList<>();
+        for(WebElement section:sections){
+            sectionTitles.add(section.getText().trim());
+        }
+        return sectionTitles;
+    }
+
+    public List<String> getAllFilterOptions(){
+        List<WebElement> filters = filtersText();
+        List<String> filterOptions = new ArrayList<>();
+        for(WebElement filter:filters){
+            filterOptions.add(filter.getText().trim());
+        }
+
+        scrollToEndAction();
+
+        filters = filtersText();
+        filterOptions = new ArrayList<>();
+        for(WebElement filter:filters){
+            filterOptions.add(filter.getText().trim());
+        }
+
+        return filterOptions;
+    }
+
+    public void selectNewOffers(){
+        String checked = newOffersCheckBox().getAttribute("checked");
+        if(checked.compareToIgnoreCase("true")==0)
+            newOffersCheckBox().click();
+    }
+
+    public void unselectNewOffers(){
+        String checked = newOffersCheckBox().getAttribute("checked");
+        if(checked.compareToIgnoreCase("false")==0)
+            newOffersCheckBox().click();
+    }
+
+    public void openFiltersType() throws InterruptedException {
+        log.info("Opening filter type ...");
+        filterType().click();
+        Thread.sleep(1000);
+    }
+
+    public void openFiltersCuisine() throws InterruptedException {
+        log.info("Opening filter cuisine ...");
+        filterCuisine().click();
+        Thread.sleep(1000);
+    }
+
+    public List<String> getAllFilterTypes(){
+        List<WebElement> filterTypes = filterTypeNames();
+        List<String > filterNames = new ArrayList<>();
+        for(WebElement element:filterTypes){
+            filterNames.add(element.getText().trim());
+        }
+        return filterNames;
+    }
+
+    public void selectTypeAll(){
+        filterTypeAll().click();
+    }
+
+    public void selectTypeCafe(){
+        filterTypeCafe().click();
+    }
+
+    public void selectTypeCasualDining(){
+        filterTypeCasualDining().click();
+    }
+
+    public void selectTypeFineDining(){
+        filterTypeFineDining().click();
+    }
+
+    public void selectTypeInformalDiningAndTakeAway(){
+        filterTypeInformalDiningAndTakeAway().click();
+    }
+
+    public void selectTypePubsBarsAndClubs(){
+        filterTypePubsBarAndClubs().click();
+    }
+
+    public void selectFilterTypeAllAndClose() throws InterruptedException {
+        log.info("Selecting filter type 'All' to close the popup ...");
+        selectTypeAll();
+        Thread.sleep(500);
+    }
+
+    public void applyCuisineFilters(){
+        cuisineFiltersDoneButton().click();
+    }
+    public List<String> getAllCuisinesFromFilters() {
+        List<WebElement> cuisineElements = filtersName();
+        List<String> cuisines = new ArrayList<>();
+        //log.info("Total cuisine count : " + cuisineElements.size());
+        for(int i=0;i<5;i++) {
+
+            for (WebElement cuisine : cuisineElements) {
+                if(!cuisines.contains(cuisine.getText().trim())) {
+                    cuisines.add(cuisine.getText().trim());
+                    log.info(cuisine.getText().trim());
+                }
+            }
+            scroll();
+            cuisineElements = filtersName();
+        }
+
+        return cuisines;
+    }
+
+    public void selectSingleCheckBoxFromFilters(String filter) throws InterruptedException {
+        boolean filterApplied = false;
+
+        List<WebElement> cuisineElements = filtersName();
+        for (WebElement cuisine : cuisineElements) {
+            if (cuisine.getText().trim().compareTo(filter) == 0) {
+                log.info(cuisine.getText());
+                checkBoxForTheFilter(filter).click();
+                filterApplied = true;
+                Thread.sleep(1000);
+                break;
+            }
+        }
+    }
+
+    public void selectSingleCheckBoxFromFiltersWithScroll(String cuisineFilter) throws InterruptedException {
+        List<WebElement> cuisineElements = filtersName();
+        boolean filterApplied = false;
+        for (int i = 0; i < 5; i++) {
+            for (WebElement cuisine : cuisineElements) {
+                if (cuisine.getText().trim().compareTo(cuisineFilter) == 0) {
+                    log.info(cuisine.getText());
+                    checkBoxForTheFilter(cuisineFilter).click();
+                    filterApplied = true;
+                    Thread.sleep(1000);
+                    break;
+                }
+                if(filterApplied) {
+                    break;
+                }
+            }
+            if(!filterApplied) {
+                scroll();
+                cuisineElements = filtersName();
+            }
+        }
+    }
+
+    public void selectMultipleCuisineFilter(List<String> cuisineFilter) throws InterruptedException {
+        totalFilters = cuisineFilter.size();
+        Collections.sort(cuisineFilter);
+        List<WebElement> cuisineElements = new ArrayList<>(); // new  filtersName();
+        int filterApplied = 0;
+            for (String string : cuisineFilter) {
+                cuisineElements = filtersName();
+                boolean applied = false;
+                for(int scroll=0;scroll<5;scroll++) {
+                    for (WebElement cuisine : cuisineElements) {
+                        if (cuisine.getText().trim().compareTo(string) == 0) {
+                            log.info(cuisine.getText());
+                            checkBoxForTheFilter(string).click();
+                            applyCuisineFilters();
+                            applied = true;
+                            //Thread.sleep(1000);
+                            break;
+                        }
+                    }
+                    if(!applied) {
+                        scroll();
+                        cuisineElements = filtersName();
+                    }
+                    if (filterApplied == cuisineFilter.size() || applied) {
+                        cuisineElements = filtersName();
+                        break;
+                    }
+                }
+                openFiltersCuisine();
+            }
+            applyCuisineFilters();
+    }
+
+
+    public List<String> getAllTypesUnderFilter() {
+        List<WebElement> filters = filtersName();
+        List<String> filterValues = new ArrayList<>();
+        //log.info("Total cuisine count : " + cuisineElements.size());
+
+            for (WebElement filter : filters) {
+                filterValues.add(filter.getText().trim());
+                log.info(filter.getText().trim());
+            }
+        return filterValues;
+    }
+
+    public List<String> getAllAmenitiesOffered(){
+        List<WebElement> amenities = filtersName();
+        List<String> amenitiesOffer = new ArrayList<>();
+        for(int count=0;count<3;count++) {
+            for (int i = 1; i < amenities.size() - 1; i++) {     // first element is for "New Offers"
+                if (!amenitiesOffer.contains(amenities.get(i).getText().trim())) {
+                    log.info(amenities.get(i).getText().trim());
+                    amenitiesOffer.add(amenities.get(i).getText().trim());
+                }
+            }
+            scroll();
+            amenities = filtersName();
+        }
+        return amenitiesOffer;
+    }
+
+    public MerchantDetailsScreen openRandomMerchantDetails(){
+        log.info("Opening random merchant ...");
+        List<WebElement > names = new ArrayList<>();
+        names = merchantName();
+        int randomMerchant = utils.generateRandomNumber(0, names.size()-1);
+        names.get(randomMerchant).click();
+        return new MerchantDetailsScreen(androidDriver);
+    }
+
+    public void clearFilter() throws InterruptedException {
+        List<WebElement> xButtons = clearFiltersX();
+        xButtons.get(0).click();
+        Thread.sleep(AppConstants.SEARCH_RESULTS_TIMEOUT);
+    }
+
+    public void clearAllFilters()  {
+        log.info("Clearing all filter ...");
+        filterClearBtn().click();
+    }
+
+    public boolean isThereMoreDataInResult(){
+        return Boolean.parseBoolean(resultContainer().getAttribute("scrollable"));
+    }
+
+
+    public String getCurrentlySelectedFiltersCountFromTopBar(){
+        return filterCount().getText().trim();
+    }
+
 }
