@@ -84,7 +84,7 @@ public class ProfileScreen extends AndroidActions {
     }
 
     public void logoutFromApp(){
-        performMultipleScrolls(2);
+        goToEndOfPage();
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.elementToBeClickable(logoutBtn()));
         logoutBtn().click();

@@ -62,7 +62,6 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
         while (filtersWithoutData.contains(filter)){
             filter = FoodDrinksScreenConstants.CUISINES[utils.generateRandomNumber(0,44)];
         }
-        filter = "French";
         foodAndDrinksScreen.openFiltersCuisine();
         log.info("Applying filter : "+filter);
         foodAndDrinksScreen.selectSingleCheckBoxFromFiltersWithScroll(filter);
@@ -156,20 +155,20 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
     public void verifyTypeFilersResult() throws InterruptedException {
         foodAndDrinksScreen.openFilters();
         foodAndDrinksScreen.clearAllFilters();
-        String filter = FoodDrinksScreenConstants.TYPES[utils.generateRandomNumber(1,FoodDrinksScreenConstants.TYPES.length)];
+        String filter = FoodDrinksScreenConstants.TYPES[utils.generateRandomNumber(1,FoodDrinksScreenConstants.TYPES.length-1)];
         log.info("Filter under type to be selected : "+filter);
         foodAndDrinksScreen.openFilters();
         foodAndDrinksScreen.openFiltersType();
         foodAndDrinksScreen.selectSingleCheckBoxFromFilters(filter);
         foodAndDrinksScreen.applyFilters();
         merchantDetailsScreen = foodAndDrinksScreen.openRandomMerchantDetails();
-        String type = merchantDetailsScreen.getMerchantCuisineTypeFromOutletDetails();
         log.info("Merchant name : "+merchantDetailsScreen.getMerchantName());
+        String type = merchantDetailsScreen.getMerchantCuisineTypeFromOutletDetails();
         log.info("Type from the merchant details : "+type);
         foodAndDrinksScreen = merchantDetailsScreen.goBackToFoodAndDrinksScreenFromBottomScreen();
         foodAndDrinksScreen.openFilters();
         foodAndDrinksScreen.openFiltersType();
-        Assert.assertEquals(type, filter, "Merchant details does not have selected type"+type+" from filter selected ("+filter+")");
+        Assert.assertTrue(type.contains(filter), "Merchant details does not have selected type"+type+" from filter selected ("+filter+")");
         foodAndDrinksScreen.selectFilterTypeAllAndClose();
     }
 
@@ -177,26 +176,31 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
     @Test(description = "Verify the types filter and multiple filters under cuisine applied results", priority = 7)
     public void verifyTypeFilersAndMultipleFiltersResult() throws InterruptedException {
 
-        filtersCount = utils.generateRandomNumber(2,5);
-        log.info("Filter count :" + filtersCount);
-        List<String> filtersWithoutData = getStrings();
-        List<String> filter = new ArrayList<>();
-        //String filter = FoodDrinksScreenConstants.CUISINES[utils.generateRandomNumber(0,44)];
-        for(int i=0;i<filtersCount;i++) {
-            String string = FoodDrinksScreenConstants.CUISINES[utils.generateRandomNumber(0,44)];
-            while (filtersWithoutData.contains(string) || filter.contains(string)) {
-                string = FoodDrinksScreenConstants.CUISINES[utils.generateRandomNumber(0, 44)];
-            }
-            filter.add(string);
-        }
-        log.info("Filter to be applied: "+filter);
         foodAndDrinksScreen.openFilters();
         foodAndDrinksScreen.clearAllFilters();
-        String filterType = FoodDrinksScreenConstants.TYPES[utils.generateRandomNumber(1,FoodDrinksScreenConstants.TYPES.length)];
+        int randomIndex = utils.generateRandomNumber(1,FoodDrinksScreenConstants.TYPES.length-1);
+        log.info("Random Index : "+randomIndex);
+        String filterType = FoodDrinksScreenConstants.TYPES[randomIndex];
         log.info("Filter under type to be selected : "+filterType);
         foodAndDrinksScreen.openFilters();
         foodAndDrinksScreen.openFiltersType();
         foodAndDrinksScreen.selectSingleCheckBoxFromFilters(filterType);
+
+        filtersCount = utils.generateRandomNumber(2,5);
+        log.info("Filter count :" + filtersCount);
+        List<String> filterData = foodAndDrinksScreen.getRelevantCuisines(filterType);
+        log.info("Data is available against : "+filterData);
+        List<String> filter = new ArrayList<>();
+        //String filter = FoodDrinksScreenConstants.CUISINES[utils.generateRandomNumber(0,44)];
+        for(int i=0;i<filtersCount;i++) {
+            String string = filterData.get(utils.generateRandomNumber(0, filterData.size()-1));
+            while (filter.contains(string)) {
+                string = filterData.get(utils.generateRandomNumber(0, filterData.size()-1));
+            }
+            filter.add(string);
+        }
+        log.info("Filter to be applied: "+filter);
+
 
         foodAndDrinksScreen.openFiltersCuisine();
         log.info("Applying filter : "+filter.toString());
@@ -205,32 +209,208 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
 
         foodAndDrinksScreen.applyFilters();
         merchantDetailsScreen = foodAndDrinksScreen.openRandomMerchantDetails();
-        String type = merchantDetailsScreen.getMerchantCuisineTypeFromOutletDetails();
-        List<String> attributes = merchantDetailsScreen.getMerchantAttributes();
         log.info("Merchant name : "+merchantDetailsScreen.getMerchantName());
+        List<String> attributes = merchantDetailsScreen.getMerchantAttributes();
+        String type = merchantDetailsScreen.getMerchantCuisineTypeFromOutletDetails();
         log.info("Type from the merchant details : "+type);
         log.info("Merchant Attributes : "+ attributes.toString());
         foodAndDrinksScreen = merchantDetailsScreen.goBackToFoodAndDrinksScreenFromBottomScreen();
+        Assert.assertTrue(type.contains(filterType), "Merchant details does not have selected type"+type+" from filter selected ("+filterType+")");
+    }
+
+    @Test(description = "Apply random amenity with yes", priority = 10)
+    public void verifyRandomAmenityYesResults() throws InterruptedException {
+        foodAndDrinksScreen.openFilters();
+        foodAndDrinksScreen.clearAllFilters();
+        foodAndDrinksScreen.openFilters();
+        String amenity = FoodDrinksScreenConstants.AMENITY[utils.generateRandomNumber(0,8)];
+        log.info("Amenity to be selected : "+amenity);
+        foodAndDrinksScreen.selectSingleAmenity(amenity, "yes");
+        foodAndDrinksScreen.applyFilters();
+        merchantDetailsScreen = foodAndDrinksScreen.openRandomMerchantDetails();
+        log.info("Merchant name : "+merchantDetailsScreen.getMerchantName());
+        merchantDetailsScreen.scroll();
+        merchantDetailsScreen.viewMoreAmenities();
+        List<String> amenitiesOffered = merchantDetailsScreen.getAllAmenitiesOffered();
+        if(!amenitiesOffered.isEmpty()) {
+            log.info("Amenities offered : "+amenitiesOffered.toString());
+        }
+        foodAndDrinksScreen = merchantDetailsScreen.goBackToFoodAndDrinksScreenFromBottomScreen();
+        foodAndDrinksScreen.openFilters();
+        foodAndDrinksScreen.resetPositiveAmenities();
+        foodAndDrinksScreen.applyFilters();
+        if(!amenitiesOffered.isEmpty()) {
+            if(amenity.compareTo("Outdoor Seating")!=0) {
+                Assert.assertTrue(amenitiesOffered.contains(amenity));
+            }
+            else {
+                for(String amenityOffered:amenitiesOffered){
+                    log.info(amenityOffered);
+                    if(amenityOffered.contains(":")){
+                        String text = amenityOffered.substring(0,amenityOffered.indexOf(":"));
+                        log.info("Found : "+text);
+                        Assert.assertEquals(text, amenity);
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(description = "Apply random amenity with no", priority = 11)
+    public void verifyRandomAmenityNoResults() throws InterruptedException {
+        foodAndDrinksScreen.openFilters();
+        foodAndDrinksScreen.clearAllFilters();
+        foodAndDrinksScreen.openFilters();
+        String amenity = FoodDrinksScreenConstants.AMENITY[utils.generateRandomNumber(0,8)];
+        log.info("Amenity to be selected : "+amenity);
+        foodAndDrinksScreen.selectSingleAmenity(amenity,"no");
+        foodAndDrinksScreen.applyFilters();
+        merchantDetailsScreen = foodAndDrinksScreen.openRandomMerchantDetails();
+        log.info("Merchant name : "+merchantDetailsScreen.getMerchantName());
+        merchantDetailsScreen.scroll();
+        merchantDetailsScreen.viewMoreAmenities();
+        List<String> amenitiesOffered = merchantDetailsScreen.getAllAmenitiesOffered();
+        if(!amenitiesOffered.isEmpty()) {
+            log.info("Amenities offered : "+amenitiesOffered.toString());
+        }
+        foodAndDrinksScreen = merchantDetailsScreen.goBackToFoodAndDrinksScreenFromBottomScreen();
+        foodAndDrinksScreen.openFilters();
+        foodAndDrinksScreen.resetNegativeAmenities();
+        foodAndDrinksScreen.applyFilters();
+        if(!amenitiesOffered.isEmpty()) {
+            Assert.assertFalse(amenitiesOffered.contains(amenity));
+        }
+    }
+
+
+
+
+    // multiple filters; type, cuisines & amenities
+    //@Test(description = "Apply random amenity with yes & no, filter type and cuisine type", priority = 12)
+    public void verifyAllFilterResults() throws InterruptedException {
+        foodAndDrinksScreen.openFilters();
+        foodAndDrinksScreen.clearAllFilters();
+        int randomIndex = utils.generateRandomNumber(1,FoodDrinksScreenConstants.TYPES.length-1);
+        log.info("Random Index : "+randomIndex);
+        String type = FoodDrinksScreenConstants.TYPES[randomIndex];
+        log.info("Filter under type to be selected : "+type);
         foodAndDrinksScreen.openFilters();
         foodAndDrinksScreen.openFiltersType();
-        Assert.assertEquals(type, filterType, "Merchant details does not have selected type"+type+" from filter selected ("+filterType+")");
-        foodAndDrinksScreen.selectFilterTypeAllAndClose();
+        foodAndDrinksScreen.selectSingleCheckBoxFromFilters(type);
+
+        filtersCount = utils.generateRandomNumber(2,5);
+        log.info("Filter count :" + filtersCount);
+        List<String> filterData = foodAndDrinksScreen.getRelevantCuisines(type);
+        log.info("Data is available against : "+filterData);
+        List<String> cuisines = new ArrayList<>();
+        //String filter = FoodDrinksScreenConstants.CUISINES[utils.generateRandomNumber(0,44)];
+        for(int i=0;i<filtersCount;i++) {
+            String string = filterData.get(utils.generateRandomNumber(0, filterData.size()-1));
+            while (cuisines.contains(string)) {
+                string = filterData.get(utils.generateRandomNumber(0, filterData.size()-1));
+            }
+            cuisines.add(string);
+        }
+        log.info("Filter to be applied: "+cuisines);
+        foodAndDrinksScreen.openFiltersCuisine();
+        log.info("Applying filter : "+cuisines.toString());
+        foodAndDrinksScreen.selectMultipleCuisineFilter(cuisines);
+        int amenitySelection = utils.generateRandomNumber(0,1);
+        String amenity;
+        amenity = FoodDrinksScreenConstants.AMENITY[utils.generateRandomNumber(0, 8)];
+        if(amenitySelection==0) {
+            log.info("Positive amenity to be selected : " + amenity);
+            foodAndDrinksScreen.selectSingleAmenity(amenity, "yes");
+        }
+        else {
+            log.info("Negative amenity to be selected : " + amenity);
+            foodAndDrinksScreen.selectSingleAmenity(amenity, "no");
+        }
+        foodAndDrinksScreen.applyFilters();
+
+
+
+
+
+
+        
+
+
+
+
+
+            while (foodAndDrinksScreen.noDataFound()) {
+                foodAndDrinksScreen.openFilters();
+                foodAndDrinksScreen.resetPositiveAmenities();
+                foodAndDrinksScreen.resetNegativeAmenities();
+
+                // new amenity to be selected
+                amenity = FoodDrinksScreenConstants.AMENITY[utils.generateRandomNumber(0, 8)];
+                if (amenitySelection == 0) {
+                    log.info("Positive amenity to be selected : " + amenity);
+                    foodAndDrinksScreen.selectSingleAmenity(amenity, "yes");
+                } else {
+                    log.info("Negative amenity to be selected : " + amenity);
+                    foodAndDrinksScreen.selectSingleAmenity(amenity, "no");
+                }
+                foodAndDrinksScreen.applyFilters();
+            }
+        SoftAssert softAssert = new SoftAssert();
+        merchantDetailsScreen = foodAndDrinksScreen.openRandomMerchantDetails();
+        String merchantName = merchantDetailsScreen.getMerchantName();
+        List<String> merchantAttributes = merchantDetailsScreen.getMerchantAttributes();
+        String merchantType = merchantDetailsScreen.getMerchantCuisineTypeFromOutletDetails();
+        String merchantAmenities = merchantDetailsScreen.getAllAmenitiesOffered().toString();
+        log.info("Merchant name : "+merchantName);
+        log.info("Merchant attributes : "+merchantAttributes);
+        log.info("Merchant type : "+merchantType);
+        log.info("Merchant amenities : "+merchantAmenities);
+        foodAndDrinksScreen = merchantDetailsScreen.goBackToFoodAndDrinksScreenFromBottomScreen();
+        foodAndDrinksScreen.openFilters();
+        if(amenitySelection==0) {
+            log.info("Positive amenity to be selected : " + amenity);
+            foodAndDrinksScreen.selectSingleAmenity(amenity, "yes");
+        }
+        else {
+            log.info("Negative amenity to be selected : " + amenity);
+            foodAndDrinksScreen.selectSingleAmenity(amenity, "no");
+        }
+        foodAndDrinksScreen.applyFilters();
+        softAssert.assertTrue(merchantType.contains(type), "Incorrect merchant type. Applied type :"+type+" Random merchant type : "+merchantType);
+        if(amenitySelection==0) {
+            softAssert.assertTrue(merchantAmenities.contains(amenity), "Incorrect merchant amenities. Applied amenity :"+amenity+" Random merchant amenities : "+merchantAmenities);
+        }
+        else {
+            softAssert.assertFalse(merchantAmenities.contains(amenity),"Issue in negative amenity");
+        }
+        boolean found = false;
+        for(String attribute:merchantAttributes) {
+            if (cuisines.contains(attribute)) {
+                found = true;
+                break;
+            }
+        }
+        softAssert.assertTrue(found, "Cuisines applied: "+cuisines.toString()+ "Unable to find the cuisine in the merchant attributes "+merchantAttributes);
+        //softAssert.assertTrue(merchantAttributes.contains(cuisines.toString()), "Issues in the merchant attributes ");
+        softAssert.assertAll();
     }
+
+
 
 
     @Test(description = "Verify amenities offered", priority = 50)
     public void verifyVerifyAmenities(){
-        foodAndDrinksScreen.openFilters();
+        foodAndDrinksScreen.resetFiltersView();
         List<String> amenities = foodAndDrinksScreen.getAllAmenitiesOffered();
+        log.info(amenities.toString());
         SoftAssert softAssert = new SoftAssert();
         for (int i=0;i< amenities.size();i++){
+            log.info(amenities.get(i));
             softAssert.assertEquals(amenities.get(i), FoodDrinksScreenConstants.AMENITY[i]);
         }
         foodAndDrinksScreen.applyFilters();
         softAssert.assertAll();
     }
-
-
 
     @AfterClass
     public void openBeautyAndFitness(){

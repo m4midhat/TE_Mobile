@@ -98,13 +98,13 @@ public class selectLocationScreen extends AndroidActions {
 
     public void selectNationalityCheckbox(int checkboxIndex) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(androidDriver.findElement(By.className("android.widget.CheckBox"))));
+        wait.until(ExpectedConditions.elementToBeClickable(androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/checkbox_location_row"))));
         logger.info("Selecting the nationality checkbox at index : "+checkboxIndex);
         checkBoxNationality(checkboxIndex).click();
     }

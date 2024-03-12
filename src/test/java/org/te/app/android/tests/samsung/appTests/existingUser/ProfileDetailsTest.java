@@ -85,10 +85,8 @@ public class ProfileDetailsTest extends SamsungBaseTest {
         Assert.assertEquals(btnText, ProfileDetailsScreenConstants.BTN_SAVE, "Incorrect button title for 'Save'");
     }
 
-
-
-    @AfterClass
-    public void goBackToHomeAfterUpdatingCurrency() throws InterruptedException {
+    @Test(description = "Verify if the currency is updated", priority = 100)
+    public void verifyIfCurrencyIsUpdated() throws InterruptedException {
         log.info("Currency already selected : "+currency_at_home);
         int randomNumber = utils.generateRandomNumber(0, ProfileDetailsScreenConstants.CURRENCIES.length - 1);
         AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS = ProfileDetailsScreenConstants.CURRENCIES[randomNumber];
@@ -99,6 +97,17 @@ public class ProfileDetailsTest extends SamsungBaseTest {
             log.info("Updating the currency to : "+ProfileDetailsScreenConstants.CURRENCIES[randomNumber]);
         }
         profileScreen = profileDetailsScreen.updatePreferredCurrency(ProfileDetailsScreenConstants.CURRENCIES[randomNumber]);
+        profileDetailsScreen = profileScreen.openProfileDetails();
+        profileDetailsScreen.openCurrencyPreferences();
+        boolean status = profileDetailsScreen.currencySelectedIconVisible(AppConstants.SELECTED_CURRENCY_FROM_PROFILE_DETAILS);
+        profileDetailsScreen.closeUpdateCurrencyPreferencePopup();
+        profileScreen = profileDetailsScreen.goBackFromProfileDetails();
+        Assert.assertTrue(status);
+    }
+
+
+    @AfterClass
+    public void goBackToHomeAfterUpdatingCurrency() {
         homeScreen = profileScreen.goBackToHomeScreen();
     }
 }

@@ -119,6 +119,18 @@ public class MerchantDetailsScreen extends AndroidActions {
         return new FoodAndDrinksScreen(androidDriver);
     }
 
+    public BeautyAndFitnessScreen goBackToBeautyAndFitnessScreenFromBottomScreen(){
+        log.info("Going back to food and drinks screen ...");
+        androidDriver.pressKey(new KeyEvent(AndroidKey.BACK));
+        return new BeautyAndFitnessScreen(androidDriver);
+    }
+
+    public FashionRetailScreen goBackToFashionAndRetailScreenFromBottomScreen(){
+        log.info("Going back to food and drinks screen ...");
+        androidDriver.pressKey(new KeyEvent(AndroidKey.BACK));
+        return new FashionRetailScreen(androidDriver);
+    }
+
     public FoodAndDrinksScreen goBackToFoodAndDrinksScreen(){
         backButton().click();
         return new FoodAndDrinksScreen(androidDriver);
@@ -160,20 +172,27 @@ public class MerchantDetailsScreen extends AndroidActions {
 
     public String getMerchantCuisineTypeFromOutletDetails(){
         scroll();
+        scroll();
         return outletDetailsCuisineType().getText().trim();
     }
 
     public void viewMoreAmenities(){
-        viewMoreAmenitiesBtn().click();
+        if(viewMoreAmenitiesBtn().isEnabled()) {
+            viewMoreAmenitiesBtn().click();
+        }
     }
 
     public List<String> getAllAmenitiesOffered(){
-        scroll();
-        viewMoreAmenities();
-        List<WebElement> amenitiesElements = amenitiesText();
         List<String> amenities = new ArrayList<>();
-        for(WebElement element:amenitiesElements){
-            amenities.add(element.getText().trim());
+        scroll();
+        if(viewMoreAmenitiesBtn().isDisplayed()) {
+            viewMoreAmenities();
+            scroll();
+            List<WebElement> amenitiesElements = amenitiesText();
+            amenities = new ArrayList<>();
+            for (WebElement element : amenitiesElements) {
+                amenities.add(element.getText().trim());
+            }
         }
         return amenities;
     }

@@ -188,6 +188,10 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
         return androidDriver.findElement(By.id("com.theentertainerme.sckentertainer:id/tv_filter_counts"));
     }
 
+    private WebElement noResultsFound(){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@text=\"Sorry no results found.\"]"));
+    }
+
 
 
 
@@ -306,13 +310,13 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
     public void openFiltersType() throws InterruptedException {
         log.info("Opening filter type ...");
         filterType().click();
-        Thread.sleep(1000);
+        Thread.sleep(500);
     }
 
     public void openFiltersCuisine() throws InterruptedException {
         log.info("Opening filter cuisine ...");
         filterCuisine().click();
-        Thread.sleep(1000);
+        Thread.sleep(500);
     }
 
     public List<String> getAllFilterTypes(){
@@ -379,13 +383,13 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
     public void selectSingleCheckBoxFromFilters(String filter) throws InterruptedException {
         boolean filterApplied = false;
 
-        List<WebElement> cuisineElements = filtersName();
-        for (WebElement cuisine : cuisineElements) {
-            if (cuisine.getText().trim().compareTo(filter) == 0) {
-                log.info(cuisine.getText());
+        List<WebElement> filterElements = filtersName();
+        for (WebElement element : filterElements) {
+            if (element.getText().trim().compareTo(filter) == 0) {
+                log.info(element.getText());
                 checkBoxForTheFilter(filter).click();
                 filterApplied = true;
-                Thread.sleep(1000);
+                Thread.sleep(750);
                 break;
             }
         }
@@ -400,7 +404,7 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
                     log.info(cuisine.getText());
                     checkBoxForTheFilter(cuisineFilter).click();
                     filterApplied = true;
-                    Thread.sleep(1000);
+                    Thread.sleep(750);
                     break;
                 }
                 if(filterApplied) {
@@ -463,8 +467,8 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
     public List<String> getAllAmenitiesOffered(){
         List<WebElement> amenities = filtersName();
         List<String> amenitiesOffer = new ArrayList<>();
-        for(int count=0;count<3;count++) {
-            for (int i = 1; i < amenities.size() - 1; i++) {     // first element is for "New Offers"
+        for(int count=0;count<4;count++) {
+            for (int i = 1; i < amenities.size(); i++) {     // first element is for "New Offers"
                 if (!amenitiesOffer.contains(amenities.get(i).getText().trim())) {
                     log.info(amenities.get(i).getText().trim());
                     amenitiesOffer.add(amenities.get(i).getText().trim());
@@ -474,6 +478,21 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
             amenities = filtersName();
         }
         return amenitiesOffer;
+    }
+
+    public void resetSelectedAmenities(){
+        resetFiltersView();
+        for(int i =0;i<4;i++){
+            List<WebElement> noElements = androidDriver.findElements(By.xpath("//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_no\" and @checked=\"true\"]"));;
+            List<WebElement> yesElements = androidDriver.findElements(By.xpath("//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_yes\" and @checked=\"true\"]"));
+            for(WebElement element:yesElements){
+                element.click();
+            }
+            for(WebElement element:noElements){
+                element.click();
+            }
+        }
+
     }
 
     public MerchantDetailsScreen openRandomMerchantDetails(){
@@ -491,18 +510,142 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
         Thread.sleep(AppConstants.SEARCH_RESULTS_TIMEOUT);
     }
 
-    public void clearAllFilters()  {
+    public void clearAllFilters() throws InterruptedException {
         log.info("Clearing all filter ...");
         filterClearBtn().click();
+        openFilters();
+        openFiltersCuisine();
+        applyCuisineFilters();
+        openFiltersType();
+        selectFilterTypeAllAndClose();
+        applyFilters();
     }
 
     public boolean isThereMoreDataInResult(){
         return Boolean.parseBoolean(resultContainer().getAttribute("scrollable"));
     }
 
+    public void selectSingleAmenity(String amenity, String type) throws InterruptedException {
+        boolean applied = false;
+        List<WebElement> amenities = filtersName();
+        for(int count=0;count<3;count++) {
+            for (WebElement element:amenities) {     // first element is for "New Offers"
+                if (element.getText().trim().compareTo(amenity)==0) {
+                    androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/tv_filter_name\" and @text=\""+amenity+"\"]//parent::android.widget.RelativeLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/aditional_cotainer\"]//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_"+type.toLowerCase()+"\"]")).click();
+                    applied = true;
+                    Thread.sleep(700);
+                }
+            }
+            if(!applied) {
+                scroll();
+                amenities = filtersName();
+            }
+            if(applied){
+                break;
+            }
+        }
+
+    }
+
+    public void resetFiltersView(){
+        openFilters();
+        for(int i=0;i<3;i++) {
+            scrollToTop();
+        }
+        openFilters();
+    }
 
     public String getCurrentlySelectedFiltersCountFromTopBar(){
         return filterCount().getText().trim();
+    }
+
+    public List<String> getRelevantCuisines(String filterType){
+        List<String> cuisines = new ArrayList<>();
+        if(filterType.compareTo("Cafés")==0){
+            cuisines.add("French");
+            cuisines.add("American");
+            cuisines.add("International");
+            cuisines.add("Belgian");
+            cuisines.add("Desserts");
+            cuisines.add("Beverages");
+            cuisines.add("Arabic");
+        }
+        else
+            if(filterType.compareTo("Casual Dining")==0){
+                cuisines.add("Italian");
+                cuisines.add("American");
+                cuisines.add("African");
+                cuisines.add("Japanese");
+                cuisines.add("Mediterranean");
+                cuisines.add("Asian");
+                cuisines.add("Korean");
+                cuisines.add("Italian");
+                cuisines.add("Chinese");
+                cuisines.add("Filipino");
+                cuisines.add("Thai");
+                cuisines.add("International");
+                cuisines.add("Burger Joint");
+                cuisines.add("Baked Goods");
+                cuisines.add("Indian");
+                cuisines.add("Lebanese");
+                cuisines.add("Persian");
+            }
+            else
+            if(filterType.compareTo("Fine Dining")==0){
+                cuisines.add("Korean");
+                cuisines.add("International");
+                cuisines.add("Chinese");
+                cuisines.add("Asian");
+                cuisines.add("Brazilian");
+                cuisines.add("American");
+            }
+            else
+            if(filterType.compareTo("Informal Dining & Takeaway")==0){
+                cuisines.add("American");
+                cuisines.add("Indian");
+                cuisines.add("Chinese");
+                cuisines.add("Burger Joint");
+                cuisines.add("Fast Food");
+                cuisines.add("Healthy");
+                cuisines.add("Italian");
+                cuisines.add("Pizza");
+                cuisines.add("Lebanese");
+            }
+            else
+            if(filterType.compareTo("Pubs, Bars & Clubs")==0){
+                cuisines.add("British");
+                cuisines.add("International");
+                cuisines.add("American");
+                cuisines.add("Mexican");
+                cuisines.add("Irish");
+                cuisines.add("Arabic");
+                cuisines.add("Belgian");
+                cuisines.add("Baked Goods");
+                cuisines.add("Beverages");
+            }
+
+        return cuisines;
+    }
+
+    public boolean noDataFound(){
+        return noResultsFound().isDisplayed();
+    }
+
+    public void resetPositiveAmenities() throws InterruptedException {
+        List<WebElement> positive = androidDriver.findElements(By.xpath("//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_yes\" and @checked=\"true\"]"));
+        for(WebElement element:positive){
+            element.click();
+            Thread.sleep(250);
+        }
+    }
+
+
+    public void resetNegativeAmenities() throws InterruptedException {
+        List<WebElement> negative = androidDriver.findElements(By.xpath("//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_no\" and @checked=\"true\"]"));
+        for(WebElement element:negative){
+            element.click();
+            Thread.sleep(250);
+        }
     }
 
 }

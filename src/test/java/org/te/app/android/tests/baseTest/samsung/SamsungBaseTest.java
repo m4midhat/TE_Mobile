@@ -48,7 +48,7 @@ public class SamsungBaseTest {
 
     public static AppiumDriverLocalService service;
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setUp() throws IOException {
         String pathToApplication = System.getProperty("user.dir")+"/src/main/java/org/te/app/installationPackages/Samsung.apk";
         configProperties = new Properties();

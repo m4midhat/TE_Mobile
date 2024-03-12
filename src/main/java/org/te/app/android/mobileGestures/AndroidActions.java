@@ -297,5 +297,26 @@ public class AndroidActions {
         }
     }
 
+    public void goToEndOfPage(){
+        boolean endOfPage = false;
+        String previousPageSource = androidDriver.getPageSource();
+        while (!endOfPage){
+            scroll();
+            endOfPage = previousPageSource.equals(androidDriver.getPageSource());
+            previousPageSource = androidDriver.getPageSource();
+        }
+    }
+
+
+    public void goToTopOfPage(){
+        boolean topOfPage = false;
+        String previousPageSource = androidDriver.getPageSource();
+        while (!topOfPage){
+            scrollToTop();
+            topOfPage = previousPageSource.equals(androidDriver.getPageSource());
+            previousPageSource = androidDriver.getPageSource();
+        }
+    }
+
 
 }

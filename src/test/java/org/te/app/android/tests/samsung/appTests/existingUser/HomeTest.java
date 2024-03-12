@@ -18,7 +18,7 @@ import java.util.Properties;
 @Slf4j
 public class HomeTest extends SamsungBaseTest {
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void navigateToLoginScreen() throws IOException {
         loginScreen = introWizardScreen.navigateToLoginScreenFromIntroScreen();
         Properties credentials = utils.initProperties("userCredentials");
@@ -34,6 +34,7 @@ public class HomeTest extends SamsungBaseTest {
     @Test(description = "Saving widget should not have zero savings")
     public void verifySavings()  {
         String savings = homeScreen.getSavingAmount();
+        log.info(savings);
         String dSavings = utils.returnSavings(savings);
         log.info(dSavings);
         Assert.assertTrue(Integer.parseInt(dSavings.replace(",",""))>0, "User is having zero savings");

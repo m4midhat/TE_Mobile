@@ -99,7 +99,8 @@ public class FoodDrinksScreenConstants {
             "Valet Parking" ,
             "Wheelchair Accessible" ,
             "Wi-Fi" ,
-            "Wineries"
+            "Wineries",
+            "Rooftop Bars"
     };
 
 }

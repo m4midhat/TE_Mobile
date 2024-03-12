@@ -6,6 +6,7 @@ import org.te.app.android.tests.baseTest.samsung.SamsungBaseTest;
 import org.te.app.android.utils.utils;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -18,6 +19,7 @@ import java.util.List;
 public class SearchTest extends SamsungBaseTest {
 
     List<String> results = new ArrayList<>();
+
 
     @DataProvider(name = "searchData")
     public Object[][] dpMethod(){
@@ -67,7 +69,12 @@ public class SearchTest extends SamsungBaseTest {
         Assert.assertEquals(distances, sortedList, "Results are not sorted as per distance");
     }
 
-    @Test(description = "Recent search", priority = 100, dataProvider = "searchData")
+    //@Test(priority = 99)
+    public void verifyEOP(){
+        searchScreen.goToEndOfPage();
+    }
+
+    @Test(description = "Recent search", priority = 100, dependsOnMethods = "verifySearch", dataProvider = "searchData")
     public void verifyRecentSearch(String keyword) throws InterruptedException {
         homeScreen = searchScreen.pressBack();
         searchScreen = homeScreen.clickSearchIcon();

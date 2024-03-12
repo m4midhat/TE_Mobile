@@ -62,6 +62,10 @@ public class ProfileDetailsScreen extends AndroidActions {
         return androidDriver.findElements(By.id("com.theentertainerme.sckentertainer:id/textview_countryname"));
     }
 
+    private WebElement currencyTickIcon(String currency){
+        return androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/textview_countryname\" and @text=\""+currency+"\"]//following-sibling::android.widget.ImageView"));
+    }
+
 
 
 
@@ -86,15 +90,19 @@ public class ProfileDetailsScreen extends AndroidActions {
         return profileDetailCurrencyPref().getText();
     }
 
-    public void goBackFromProfileDetails(){
+    public ProfileScreen goBackFromProfileDetails(){
         profileDetailBackButton().click();
+        return new ProfileScreen(androidDriver);
     }
 
-    public void closeUpdateCurrencyPreferencePopup(){
+    public ProfileScreen closeUpdateCurrencyPreferencePopup(){
         currencyPopupCancelBtn().click();
+        return new ProfileScreen(androidDriver);
     }
 
-
+public void openCurrencyPreferences(){
+    profileDetailCurrencyPref().click();
+}
     public ProfileScreen updatePreferredCurrency(String currencyToBeUpdated) throws InterruptedException {
         profileDetailCurrencyPref().click();
         List<WebElement> currencies = currencies();
@@ -143,6 +151,9 @@ public class ProfileDetailsScreen extends AndroidActions {
 
     public String getScreenTitle(){
         return screenTitle().getText().trim();
+    }
+    public boolean currencySelectedIconVisible(String currency){
+        return currencyTickIcon(currency).isDisplayed();
     }
 
 }
