@@ -32,6 +32,11 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator="com.theentertainerme.sckentertainer:id/iv_filter_alloffers";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        try {
+            wait.wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return androidDriver.findElement(By.id(locator));
     }
 
@@ -67,6 +72,11 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator="com.theentertainerme.sckentertainer:id/textview_offername";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        try {
+            wait.wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -74,6 +84,11 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/textview_offer_location";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        try {
+            wait.wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -81,6 +96,11 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/textview_distance";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        try {
+            wait.wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -164,6 +184,11 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/tv_filter_name";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
+        try {
+            wait.wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return androidDriver.findElements(By.id(locator));
     }
 
