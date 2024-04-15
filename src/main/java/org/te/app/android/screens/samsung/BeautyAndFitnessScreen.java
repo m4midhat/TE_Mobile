@@ -1,6 +1,8 @@
 package org.te.app.android.screens.samsung;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -32,11 +34,6 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator="com.theentertainerme.sckentertainer:id/iv_filter_alloffers";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElement(By.id(locator));
     }
 
@@ -72,11 +69,6 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator="com.theentertainerme.sckentertainer:id/textview_offername";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -84,11 +76,6 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/textview_offer_location";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -96,11 +83,6 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/textview_distance";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -184,11 +166,6 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/tv_filter_name";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -259,8 +236,9 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         return searchResults;
     }
 
-    public void openFilters(){
+    public void openFilters() throws InterruptedException {
         log.info("Opening filter ...");
+        Thread.sleep(1000);
         filters().click();
     }
 
@@ -324,7 +302,7 @@ public class BeautyAndFitnessScreen extends AndroidActions {
     public void openFiltersType() throws InterruptedException {
         log.info("Opening filter type ...");
         filterType().click();
-        Thread.sleep(500);
+        Thread.sleep(1000);
     }
 
     public List<String> getAllFilterTypes(){
@@ -334,6 +312,19 @@ public class BeautyAndFitnessScreen extends AndroidActions {
             filterNames.add(element.getText().trim());
         }
         return filterNames;
+    }
+
+    public void openBrowser(){
+        androidDriver.get("https://www.gooogle.com");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void goBack(){
+        androidDriver.pressKey(new KeyEvent(AndroidKey.BACK));
     }
 
     public void selectTypeAll(){
@@ -408,7 +399,7 @@ public class BeautyAndFitnessScreen extends AndroidActions {
         return amenitiesOffer;
     }
 
-    public void resetSelectedAmenities(){
+    public void resetSelectedAmenities() throws InterruptedException {
         resetFiltersView();
         for(int i =0;i<4;i++){
             List<WebElement> noElements = androidDriver.findElements(By.xpath("//android.widget.CheckBox[@resource-id=\"com.theentertainerme.sckentertainer:id/cb_filter_no\" and @checked=\"true\"]"));;
@@ -473,7 +464,7 @@ public class BeautyAndFitnessScreen extends AndroidActions {
 
     }
 
-    public void resetFiltersView(){
+    public void resetFiltersView() throws InterruptedException {
         openFilters();
         for(int i=0;i<3;i++) {
             scrollToTop();

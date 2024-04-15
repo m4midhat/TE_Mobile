@@ -34,11 +34,6 @@ public class FoodAndDrinksScreen extends AndroidActions {
         String locator="com.theentertainerme.sckentertainer:id/iv_filter_alloffers";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElement(By.id(locator));
     }
 
@@ -70,39 +65,32 @@ public class FoodAndDrinksScreen extends AndroidActions {
         return androidDriver.findElement(By.xpath("com.theentertainerme.sckentertainer:id/cb_filter_selector"));
     }
 
-    private List<WebElement> merchantName(){
+    private List<WebElement> getMerchantStatus(){
+        return androidDriver.findElements(By.xpath("//android.widget.FrameLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/rl_main_container\"]//android.widget.LinearLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/layout_container_types\"]"));
+    }
+
+    private List<WebElement> merchantNamesWithDeliveryImages(){
+        return androidDriver.findElements(By.xpath("//android.widget.FrameLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/rl_main_container\"]//android.widget.LinearLayout[@resource-id=\"com.theentertainerme.sckentertainer:id/layout_container_types\"]/android.widget.ImageView/parent::android.widget.LinearLayout/parent::android.view.ViewGroup/parent::android.view.ViewGroup//android.widget.TextView[@resource-id=\"com.theentertainerme.sckentertainer:id/textview_offername\" ]"));
+    }
+
+    private List<WebElement> getMerchantName(){
         String locator="com.theentertainerme.sckentertainer:id/textview_offername";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
-    private List<WebElement> merchantLocation(){
+    private List<WebElement> getMerchantLocation(){
         String locator = "com.theentertainerme.sckentertainer:id/textview_offer_location";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
-    private List<WebElement> merchantDistance(){
+    private List<WebElement> getMerchantDistance(){
         String locator = "com.theentertainerme.sckentertainer:id/textview_distance";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -190,11 +178,6 @@ public class FoodAndDrinksScreen extends AndroidActions {
         String locator = "com.theentertainerme.sckentertainer:id/tv_filter_name";
         WebDriverWait wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(androidDriver.findElement(By.id(locator))));
-        try {
-            wait.wait(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return androidDriver.findElements(By.id(locator));
     }
 
@@ -237,19 +220,19 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
         List<WebElement > names = new ArrayList<>();
         List<WebElement> loc = new ArrayList<>();
         List<WebElement> distance = new ArrayList<>();
-        names = merchantName();
+        names = getMerchantName();
         log.info("Merchant count : "+names.size());
         boolean scrollable = isThereMoreDataInResult();
         log.info("Scroll is enabled : "+ scrollable);
         if(names.size()>=4 && scrollable) {
             for (int searchCount = 0; searchCount < scrollCount; searchCount++) {  //search & scroll x times
-                names = merchantName();
-                loc = merchantLocation();
-                distance = merchantDistance();
+                names = getMerchantName();
+                loc = getMerchantLocation();
+                distance = getMerchantDistance();
                 for (int i = 0; i < names.size()-1; i++) {
                     if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
-                        log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
-                        searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                        log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ getMerchantDistance().get(i).getText().trim() +")");
+                        searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ getMerchantDistance().get(i).getText().trim() +")");
                     }
                 }
                 scroll();
@@ -258,12 +241,12 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
         else
         {
             for (int i = 0; i < names.size() ; i++) {
-                names = merchantName();
-                loc = merchantLocation();
-                distance = merchantDistance();
+                names = getMerchantName();
+                loc = getMerchantLocation();
+                distance = getMerchantDistance();
                 //if (!searchResults.contains(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ distance.get(i).getText().trim() +")")) {
-                    searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
-                    log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ merchantDistance().get(i).getText().trim() +")");
+                    searchResults.add(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ getMerchantDistance().get(i).getText().trim() +")");
+                    log.info(names.get(i).getText().trim() + ":" + loc.get(i).getText().trim()+"("+ getMerchantDistance().get(i).getText().trim() +")");
                 //}
             }
         }
@@ -520,10 +503,42 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
 
     }
 
+    public List<String> getAllMerchantInformation(){
+        List<WebElement> merchants = new ArrayList<>();
+        List<WebElement> merchantLocations = new ArrayList<>();
+        List<WebElement> merchantWithImagesUnder = new ArrayList<>();
+        List<String> completeInformation = new ArrayList<>();
+        boolean endOfPage = false;
+        String previousPageSource = androidDriver.getPageSource();
+        while (!endOfPage){
+            merchants = getMerchantName();
+            merchantLocations = getMerchantLocation();
+            merchantWithImagesUnder = merchantNamesWithDeliveryImages();
+            for(int i=0;i<merchants.size()-1;i++){
+                log.info(merchants.get(i).getText().trim()+ ":"+merchantLocations.get(i).getText().trim());
+                if(!merchantWithImagesUnder.isEmpty()) {
+                    for (WebElement elementWithImage : merchantWithImagesUnder) {
+                        if (elementWithImage.getText().compareTo(merchants.get(i).getText()) != 0) {
+                            completeInformation.add(merchants.get(i).getText().trim() + ":" + merchantLocations.get(i).getText().trim());
+                        }
+                    }
+                }
+                else {
+                    completeInformation.add(merchants.get(i).getText().trim() + ":" + merchantLocations.get(i).getText().trim());
+                }
+            }
+            scroll();
+
+            endOfPage = previousPageSource.equals(androidDriver.getPageSource());
+            previousPageSource = androidDriver.getPageSource();
+        }
+        return completeInformation;
+    }
+
     public MerchantDetailsScreen openRandomMerchantDetails(){
         log.info("Opening random merchant ...");
         List<WebElement > names = new ArrayList<>();
-        names = merchantName();
+        names = getMerchantName();
         int randomMerchant = utils.generateRandomNumber(0, names.size()-1);
         names.get(randomMerchant).click();
         return new MerchantDetailsScreen(androidDriver);
@@ -671,6 +686,27 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
             element.click();
             Thread.sleep(250);
         }
+    }
+
+    public List<String > getMerchantNamesWithoutDeliveryImages() {
+        List<WebElement> merchants = new ArrayList<>();
+        List<WebElement> merchantLocations = new ArrayList<>();
+        List<String> merchantWithoutDelivery = new ArrayList<>();
+        boolean endOfPage = false;
+        String previousPageSource = androidDriver.getPageSource();
+        while (!endOfPage) {
+            merchants = merchantNamesWithDeliveryImages();
+            merchantLocations = getMerchantLocation();
+            int i =0;
+            for(WebElement merchant:merchants){
+                merchantWithoutDelivery.add(merchant.getText().trim()+"@"+merchantLocations.get(i).getText().trim());
+                i++;
+            }
+            scroll();
+            endOfPage = previousPageSource.equals(androidDriver.getPageSource());
+            previousPageSource = androidDriver.getPageSource();
+        }
+        return merchantWithoutDelivery;
     }
 
 }

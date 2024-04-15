@@ -24,7 +24,7 @@ public class BeautyAndFitnessTest extends SamsungBaseTest {
     }
 
     @Test(description = "Verify types under filter", priority = 1)
-    public void verifyFilterSections(){
+    public void verifyFilterSections() throws InterruptedException {
         beautyAndFitnessScreen.openFilters();
         List<String> sections = beautyAndFitnessScreen.getFiltersSections();
         log.info(sections.toString());
@@ -46,7 +46,7 @@ public class BeautyAndFitnessTest extends SamsungBaseTest {
         List<String> filtersWithoutData = noData();
         String filter = BeautyAndFitnessScreenConstants.TYPES[utils.generateRandomNumber(1,BeautyAndFitnessScreenConstants.TYPES.length-1)];
         while (filtersWithoutData.contains(filter)){
-            filter = BeautyAndFitnessScreenConstants.TYPES[utils.generateRandomNumber(0,44)];
+            filter = BeautyAndFitnessScreenConstants.TYPES[utils.generateRandomNumber(1,BeautyAndFitnessScreenConstants.TYPES.length-1)];
         }
         log.info("Filter under type to be selected : "+filter);
         beautyAndFitnessScreen.openFilters();

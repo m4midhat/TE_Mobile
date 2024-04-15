@@ -21,7 +21,7 @@ public class BeautyAndFitnessScreenConstants {
             "Certified",
             "Female only",
             "Parking",
-            "Vallet Parking"
+            "Valet Parking"
     };
 
 }

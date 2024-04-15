@@ -61,6 +61,6 @@ public class FavouritesTest extends SamsungBaseTest {
     @AfterClass
     public void goBackToHome(){
         profileScreen = favouriteScreen.goBackToProfileScreen();
-        profileScreen.goBackToHomeScreen();
+        homeScreen = profileScreen.goBackToHomeScreen();
     }
 }

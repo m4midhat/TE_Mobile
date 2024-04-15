@@ -24,6 +24,7 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
         Assert.assertEquals(title, FoodDrinksScreenConstants.TITLE, "Incorrect screen title");
     }
 
+    
     @Test(description = "Verify types under filter", priority = 1)
     public void verifyFilterSections(){
         foodAndDrinksScreen.openFilters();
@@ -394,8 +395,6 @@ public class FoodAndDrinksTest extends SamsungBaseTest {
         //softAssert.assertTrue(merchantAttributes.contains(cuisines.toString()), "Issues in the merchant attributes ");
         softAssert.assertAll();
     }
-
-
 
 
     @Test(description = "Verify amenities offered", priority = 50)

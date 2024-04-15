@@ -5,6 +5,7 @@ import io.appium.java_client.Location;
 import io.appium.java_client.Setting;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.geolocation.AndroidGeoLocation;
+import io.appium.java_client.remote.MobileBrowserType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -76,11 +77,9 @@ public class SamsungBaseTest {
         appCapabilities.setCapability("appium:appPackage", configProperties.getProperty("appPackage"));
         appCapabilities.setCapability("appium:appActivity", configProperties.getProperty("appActivity"));
         appCapabilities.setCapability("appium:app", pathToApplication);
+        //appCapabilities.setCapability("browserName", MobileBrowserType.BROWSER);
         androidDriver = new AndroidDriver(new URL("http://127.0.0.1:4725/"), appCapabilities);
 
-        AndroidGeoLocation androidGeoLocation = new AndroidGeoLocation();
-        androidGeoLocation.withLatitude(25.1972).withLongitude(55.2797).build();
-        androidDriver.setLocation(androidGeoLocation);
 
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(AppConstants.TIMEOUT));
         introWizardScreen = new introWizardScreen(androidDriver);

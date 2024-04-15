@@ -237,7 +237,7 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
     public void openFilters() throws InterruptedException {
         log.info("Opening filter ...");
         filters().click();
-        Thread.sleep(500);
+        Thread.sleep(1000);
 
     }
 
@@ -300,7 +300,7 @@ androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com
 
     public void openFiltersType() throws InterruptedException {
         log.info("Opening filter type ...");
-        Thread.sleep(500);
+        Thread.sleep(1000);
         filterType().click();
     }
 
